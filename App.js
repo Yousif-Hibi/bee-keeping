@@ -88,7 +88,7 @@ function ColonySearch() {
   return (
     <ImageBackground source={require('./assets/beesbackground.jpg')} style={styles.background}>
       <View style={styles.container}>
-        <Text style={styles.title}>colonysearch</Text>
+        <Text style={styles.title}>Colony Search</Text>
         <StatusBar style="auto" />
       </View>
     </ImageBackground>
