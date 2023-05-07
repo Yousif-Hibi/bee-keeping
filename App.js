@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import connectDB from './db';
+
 const logo = require('./assets/logo.jpg');
 const Stack = createStackNavigator();
 //hg
@@ -56,7 +58,7 @@ function AdminInfoScreen({ navigation }) {
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Add Participent')}>
           <Text style={styles.buttonText}>Add Participent</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('finance')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Finance')}>
           <Text style={styles.buttonText}>Finance</Text>
         </TouchableOpacity>
         <StatusBar style="auto" />
@@ -103,6 +105,11 @@ function CheckMessages() {
         <StatusBar style="auto" />
       </View>
     </ImageBackground>
+
+
+
+
+
   );
 }
 
@@ -116,11 +123,11 @@ function AddParticipent() {
     </ImageBackground>
   );
 }
-function finance() {
+function Finance() {
   return (
     <ImageBackground source={require('./assets/beesbackground.jpg')} style={styles.background}>
       <View style={styles.container}>
-        <Text style={styles.title}>finance</Text>
+        <Text style={styles.title}>Finance</Text>
         <StatusBar style="auto" />
       </View>
     </ImageBackground>
@@ -137,7 +144,7 @@ export default function App() {
         <Stack.Screen name="Colony Search" component={ColonySearch} />
         <Stack.Screen name="Check Messages" component={CheckMessages} />
         <Stack.Screen name="Add Participent" component={AddParticipent} />
-        <Stack.Screen name="finance" component={finance} />
+        <Stack.Screen name="Finance" component={Finance} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -183,3 +190,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 });
+
+
+
+
+// connect to db 
+// const App = () => {
+//   useEffect(() => {
+//     connectDB();
+//   }, []);
+
+//   // rest of your code
+// };
+
+// export default App;
