@@ -28,16 +28,18 @@ const styles = StyleSheet.create({
     },
     button: {
       backgroundColor: '#FFD700',
-      borderRadius: 5,
+      borderRadius: 10,
       padding: 10,
       width: '100%',
       alignItems: 'center',
-      marginTop: 10
+      marginTop: 10,
+      color: '#000'
     },
     buttonText: {
-      color: '#fff',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      fontSize: 16
     }
+
   });
 
   export default styles;

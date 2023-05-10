@@ -28,7 +28,7 @@ export default function CheckerInfoScreen({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Add Participent")}
+          onPress={() => navigation.navigate("Add Participant")}
         >
           <Text style={styles.buttonText}>Add Participent</Text>
         </TouchableOpacity>

@@ -1,12 +1,34 @@
-import React, { useState } from 'react';
-// import React, { useLayoutEffect } from "react";
-import { FlatList, Text, View, TouchableHighlight, Image } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
 import styles from "./styles";
-import { ImageBackground } from 'react-native';
-import { StatusBar } from 'react-native';
+import { TouchableOpacity } from "react-native-gesture-handler";
+//import ColAccinfo from "../ColonyAccountInfo/ColAccinfo";
 
+export default function AddParticipant({ navigation }) {
+  const [fullName, setFullName] = useState("");
+  const [idNumber, setIdNumber] = useState("");
+  const [city, setCity] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-export default function AddParticipant() {
+  const handleCreateAccount = () => {
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+    } else if (password === confirmPassword) {
+      // setErrorMessage("Passwords match");
+      navigation.navigate("ColonyAccountInfo");
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../../../assets/beesbackground.jpg")}
@@ -14,7 +36,48 @@ export default function AddParticipant() {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Add Participant</Text>
-        <StatusBar style="auto" />
+        <TextInput
+          style={styles.input}
+          placeholder="Full Name"
+          value={fullName}
+          onChangeText={setFullName}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="ID Number"
+          value={idNumber}
+          onChangeText={setIdNumber}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="City"
+          value={city}
+          onChangeText={setCity}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry={true}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm Password"
+          secureTextEntry={true}
+          value={confirmPassword}
+          onChangeText={(text) => setConfirmPassword(text)}
+        />
+        <Text style={styles.errorMessage}>{errorMessage}</Text>
+        <TouchableOpacity style={styles.button} onPress={handleCreateAccount}>
+          <Text style={styles.buttonText}>Create Account</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );

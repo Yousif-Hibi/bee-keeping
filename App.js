@@ -1,13 +1,4 @@
 import React, { useState } from "react";
-// import { StatusBar } from "expo-status-bar";
-// import {
-//   StyleSheet,
-//   Text,
-//   View,
-//   ImageBackground,
-//   TextInput,
-//   TouchableOpacity,
-// } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/Home/HomeScreen";
@@ -17,6 +8,8 @@ import CheckMessages from "./src/screens/Check Messages/CheckMessages";
 import CheckerInfoScreen from "./src/screens/CheckerInfo/CheckerInfoScreen";
 import ColonySearch from "./src/screens/Colony Search/ColonySearch";
 import Finance from "./src/screens/Finance/Finance";
+import ColAccinfo from "./src/screens/ColonyAccountInfo/ColAccinfo";
+
 
 const Stack = createStackNavigator();
 
@@ -31,6 +24,7 @@ export default function App() {
         <Stack.Screen name="Check Messages" component={CheckMessages} />
         <Stack.Screen name="Add Participant" component={AddParticipant} />
         <Stack.Screen name="Finance" component={Finance} />
+        <Stack.Screen name="ColonyAccountInfo" component={ColAccinfo} />
       </Stack.Navigator>
     </NavigationContainer>
   );
