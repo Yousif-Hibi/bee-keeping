@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import React, { useLayoutEffect } from "react";
-import { FlatList, Text, View, TouchableHighlight, Image } from "react-native";
+import { FlatList, Text, View, TouchableHighlight,TouchableOpacity, Image } from "react-native";
 import styles from "./styles";
 import { ImageBackground } from 'react-native';
 import { StatusBar } from 'react-native';
@@ -16,19 +16,19 @@ export default function CheckerInfoScreen({ navigation }) {
         <Text style={styles.title}>Welcome, checker!</Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Colony Search")}
+          onPress={() => navigation.navigate("ColonySearchScreen")}
         >
           <Text style={styles.buttonText}>Coliny Search</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Check Messages")}
+          onPress={() => navigation.navigate("CheckMessagesScreen")}
         >
           <Text style={styles.buttonText}>Check Messages</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Add Participent")}
+          onPress={() => navigation.navigate("AddParticipantScreen")}
         >
           <Text style={styles.buttonText}>Add Participent</Text>
         </TouchableOpacity>

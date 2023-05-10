@@ -15,11 +15,15 @@ export default function HomeScreen({ navigation }) {
     // Authenticate the user with custom username and password
     if (username === "amir" && password === "amir123") {
       // Navigate to another screen on successful authentication
-      navigation.navigate("AdminInfo");
-    } else if (username === "checker1" && password === "checker1123") {
+      navigation.navigate("AdminInfoScreen");
+    } else if (username === "checker" && password === "checker123") {
       // Navigate to another screen on successful authentication
-      navigation.navigate("CheckerInfo");
-    } else {
+      navigation.navigate("CheckerInfoScreen");
+    }
+    else if(username === "chat" && password === "chat123"){
+      navigation.navigate("ChatScreen");
+    } 
+    else {
       alert("Invalid username or password");
     }
   };
