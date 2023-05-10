@@ -12,7 +12,7 @@ export default function AdminInfoScreen({ navigation }) {
         <View style={styles.container}>
           <Text style={styles.title}>Welcome, Admin!</Text>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Colony Search')}>
-            <Text style={styles.buttonText}>Coliny Search</Text>
+            <Text style={styles.buttonText}>Colony Search</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Check Messages')}>
             <Text style={styles.buttonText}>Check Messages</Text>
