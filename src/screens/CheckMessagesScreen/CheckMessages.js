@@ -39,7 +39,7 @@ export default function CheckMessages() {
           <Image source={require('../../../assets/image.png')} style={styles.image} />
         </TouchableOpacity>
         <TouchableOpacity onPress={textPress}>
-          <Text style={styles.text}>Hello World</Text>
+          <Text style={styles.text}>New msg here</Text>
         </TouchableOpacity>
         <Modal animationType='fade' transparent={true} visible={isModalVisible}>
           <TouchableOpacity style={styles.modalBackground} onPress={closeModal}>
