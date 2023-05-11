@@ -25,7 +25,7 @@ export default function AddParticipant({ navigation }) {
       setErrorMessage("Passwords do not match");
     } else if (password === confirmPassword) {
       // setErrorMessage("Passwords match");
-      navigation.navigate("ColonyAccountInfo");
+      navigation.navigate("ColAccInfoScreen");
     }
   };
 

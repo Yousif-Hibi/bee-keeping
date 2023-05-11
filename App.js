@@ -18,6 +18,7 @@ import CheckerInfo from "./src/screens/CheckerInfoScreen/CheckerInfo";
 import ColonySearch from "./src/screens/ColonySearchScreen/ColonySearch";
 import Finance from "./src/screens/FinanceScreen/Finance";
 import ColAccIInfo from "./src/screens/ColAccInfoScreen/ColAccIInfo";
+import Chat from "./src/screens/ChatScreen/Chat";
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ export default function App() {
         <Stack.Screen name="AddParticipantScreen" component={AddParticipant} />
         <Stack.Screen name="FinanceScreen" component={Finance} />
         <Stack.Screen name="ColAccInfoScreen" component={ColAccIInfo} />
+        <Stack.Screen name="ChatScreen" component={Chat} />
       
       </Stack.Navigator>
     </NavigationContainer>

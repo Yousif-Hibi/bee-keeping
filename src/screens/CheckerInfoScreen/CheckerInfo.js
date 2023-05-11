@@ -18,7 +18,7 @@ export default function CheckerInfoScreen({ navigation }) {
           style={styles.button}
           onPress={() => navigation.navigate("ColonySearchScreen")}
         >
-          <Text style={styles.buttonText}>Coliny Search</Text>
+          <Text style={styles.buttonText}>Colony Search</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
