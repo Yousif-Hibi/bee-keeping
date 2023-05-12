@@ -18,6 +18,13 @@ export default function HomeScreen({ navigation }) {
       navigation.navigate("AdminInfoScreen");
     } else if (username === "checker1" && password === "checker1123") {
       // Navigate to another screen on successful authentication
+<<<<<<< HEAD:src/screens/Home/HomeScreen.js
+      navigation.navigate("CheckerInfo");
+    } else if (username === "user1" && password === "user123") {
+      // Navigate to another screen on successful authentication
+      navigation.navigate("userInfo");
+    } else {
+=======
       navigation.navigate("CheckerInfoScreen");
     }
     else if (username === "chat" && password === "chat") {
@@ -25,6 +32,7 @@ export default function HomeScreen({ navigation }) {
       navigation.navigate("ChatScreen");
     }
     else {
+>>>>>>> 3a4b91f0d91ba7019844c370b49a329826f5d920:src/screens/HomeScreen/Home.js
       alert("Invalid username or password");
     }
   };
