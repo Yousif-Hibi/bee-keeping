@@ -19,6 +19,9 @@ export default function HomeScreen({ navigation }) {
     } else if (username === "checker1" && password === "checker1123") {
       // Navigate to another screen on successful authentication
       navigation.navigate("CheckerInfo");
+    } else if (username === "user1" && password === "user123") {
+      // Navigate to another screen on successful authentication
+      navigation.navigate("userInfo");
     } else {
       alert("Invalid username or password");
     }

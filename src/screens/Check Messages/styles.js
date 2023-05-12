@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
       borderColor: '#ccc',
       borderRadius: 5,
       padding: 10,
-      marginBottom: 10,
+      marginBottom: 20,
       width: '100%'
     },
     button: {
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   imagePop: {
     width: '100%', 
-    height: '75%',
+    height: '90%',
     textAlign: 'left'
   },
   modalBackground: {
@@ -78,15 +78,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    width: '75%',
-    height:'75%',
+    width: '100%',
+    height:'100%',
     backgroundColor: '#fff',
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
   },
   modalText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 20,
   },
@@ -108,8 +108,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
   },
-
-
+  inputContainer:{
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#CCCCCC',
+    backgroundColor: '#ffffff',
+  },
   
   });
 
