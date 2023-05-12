@@ -39,11 +39,9 @@ export default function CheckMessages() {
           <Image source={require('../../../assets/image.png')} style={styles.image} />
         </TouchableOpacity>
         <TouchableOpacity onPress={textPress}>
-<<<<<<< HEAD:src/screens/Check Messages/CheckMessages.js
+
           <Text style={styles.text}>عزيزة بدران</Text>
-=======
-          <Text style={styles.text}>New msg here</Text>
->>>>>>> 3a4b91f0d91ba7019844c370b49a329826f5d920:src/screens/CheckMessagesScreen/CheckMessages.js
+
         </TouchableOpacity>
         <Modal animationType='fade' transparent={true} visible={isModalVisible}>
           <TouchableOpacity style={styles.modalBackground} onPress={closeModal}>
