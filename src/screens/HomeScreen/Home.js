@@ -15,14 +15,24 @@ export default function HomeScreen({ navigation }) {
     // Authenticate the user with custom username and password
     if (username === "amir" && password === "amir123") {
       // Navigate to another screen on successful authentication
-      navigation.navigate("AdminInfo");
+      navigation.navigate("AdminInfoScreen");
     } else if (username === "checker1" && password === "checker1123") {
       // Navigate to another screen on successful authentication
+<<<<<<< HEAD:src/screens/Home/HomeScreen.js
       navigation.navigate("CheckerInfo");
     } else if (username === "user1" && password === "user123") {
       // Navigate to another screen on successful authentication
       navigation.navigate("userInfo");
     } else {
+=======
+      navigation.navigate("CheckerInfoScreen");
+    }
+    else if (username === "chat" && password === "chat") {
+      // Navigate to another screen on successful authentication
+      navigation.navigate("ChatScreen");
+    }
+    else {
+>>>>>>> 3a4b91f0d91ba7019844c370b49a329826f5d920:src/screens/HomeScreen/Home.js
       alert("Invalid username or password");
     }
   };

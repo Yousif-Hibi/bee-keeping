@@ -11,7 +11,6 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/Home/HomeScreen";
-import UserInfoScreen from "./src/screens/userInfo/UserInfoScreen";
 import AdminInfoScreen from "./src/screens/AdminInfo/AdminInfoScreen";
 import AddParticipant from "./src/screens/Add Participant/AddParticipant";
 import CheckMessages from "./src/screens/Check Messages/CheckMessages";
@@ -32,7 +31,6 @@ export default function App() {
         <Stack.Screen name="Check Messages" component={CheckMessages} />
         <Stack.Screen name="Add Participant" component={AddParticipant} />
         <Stack.Screen name="Finance" component={Finance} />
-        <Stack.Screen name="userInfo" component={UserInfoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
