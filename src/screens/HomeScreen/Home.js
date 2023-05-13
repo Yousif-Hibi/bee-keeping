@@ -18,17 +18,13 @@ export default function HomeScreen({ navigation }) {
       navigation.navigate("AdminInfoScreen");
     } else if (username === "checker1" && password === "checker1123") {
       // Navigate to another screen on successful authentication
-
       navigation.navigate("CheckerInfoScreen");
     }
-    else if (username === "chat" && password === "chat") {
+    else if (username === "user" && password === "user") {
       // Navigate to another screen on successful authentication
-      navigation.navigate("ChatScreen");
-    }else if (username === "user1" && password === "user123") {
-      // Navigate to another screen on successful authentication
-      navigation.navigate("userInfo");
-    } else {
-
+      navigation.navigate("UserInfoScreen");
+    }
+    else {
       alert("Invalid username or password");
     }
   };

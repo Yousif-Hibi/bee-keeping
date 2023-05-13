@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity ,Image} from 'react-native';
-import styles from "./style";
+import styles from "./styles";
 import { ImageBackground } from 'react-native';
 import { StatusBar } from 'react-native';
 
@@ -24,20 +24,11 @@ export default function UserInfoScreen({ navigation }) {
                         </View>
                     </View>
                          
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ChatScreen')}>
                     <View style={styles.row}>
                     <Text style={styles.titleSend}>send a massege </Text>
                         <Image source={require('../../../assets/sendMassege.png')} style={styles.sendimage} /></View>
                 </TouchableOpacity>
-
-
-
-
-
-
-
-
-
                 <View style={styles.row}>
                     <Text style={styles.txt}>500</Text>
                     <Text style={styles.label} > الرسوم  :</Text>
@@ -61,17 +52,6 @@ export default function UserInfoScreen({ navigation }) {
                     <Text style={styles.label}>ستلام المناحل -امراة:</Text>
                     
                 </View>
-
-
-
-
-
-
-
-
-
-
-
                 <StatusBar style="auto" />
             </View>
         </ImageBackground>
