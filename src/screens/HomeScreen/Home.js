@@ -20,9 +20,9 @@ export default function HomeScreen({ navigation }) {
       // Navigate to another screen on successful authentication
       navigation.navigate("CheckerInfoScreen");
     }
-    else if (username === "chat" && password === "chat") {
+    else if (username === "user" && password === "user") {
       // Navigate to another screen on successful authentication
-      navigation.navigate("ChatScreen");
+      navigation.navigate("UserInfoScreen");
     }
     else {
       alert("Invalid username or password");
