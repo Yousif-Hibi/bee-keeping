@@ -44,7 +44,7 @@ export default function ColonySearch() {
     <Text style={styles.columnHeader}>Msgs</Text>
   </View>
   <View style={styles.tableRow}>
-    <Text style={styles.column}>samantha</Text>
+    <Text style={styles.column}>aziza</Text>
     <Text style={styles.column}>0525454174</Text>
     <Text style={styles.column}>315456756</Text>
     <Text style={styles.column}>beitsafafa</Text>
@@ -53,7 +53,7 @@ export default function ColonySearch() {
     <Text style={styles.column}>Nomsg</Text>
   </View>
   <View style={styles.tableRow}>
-    <Text style={styles.column}>Jane</Text>
+    <Text style={styles.column}>dima</Text>
     <Text style={styles.column}>0526454867</Text>
     <Text style={styles.column}>3164857566</Text>
     <Text style={styles.column}>oldcity</Text>
