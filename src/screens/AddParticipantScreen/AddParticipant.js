@@ -50,7 +50,7 @@ export default function AddParticipant({ navigation }) {
         />
         <TextInput
           style={styles.input}
-          placeholder="City"
+          placeholder="Location"
           value={city}
           onChangeText={setCity}
         />
