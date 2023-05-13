@@ -19,8 +19,12 @@ import ColonySearch from "./src/screens/ColonySearchScreen/ColonySearch";
 import Finance from "./src/screens/FinanceScreen/Finance";
 import ColAccIInfo from "./src/screens/ColAccInfoScreen/ColAccIInfo";
 import Chat from "./src/screens/ChatScreen/Chat";
+<<<<<<< HEAD
 import UserInfo from "./src/screens/UserInfoScreen/UserInfo";
 
+=======
+import user from "./src/screens/userInfo/UserInfoScreen";
+>>>>>>> origin/main
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -36,8 +40,13 @@ export default function App() {
         <Stack.Screen name="FinanceScreen" component={Finance} />
         <Stack.Screen name="ColAccInfoScreen" component={ColAccIInfo} />
         <Stack.Screen name="ChatScreen" component={Chat} />
+<<<<<<< HEAD
         <Stack.Screen name="UserInfoScreen" component={UserInfo} />
       
+=======
+        <Stack.Screen name="userInfo" component={user} />
+
+>>>>>>> origin/main
       </Stack.Navigator>
     </NavigationContainer>
   );
