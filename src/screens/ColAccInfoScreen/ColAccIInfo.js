@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ImageBackground,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
 import styles from "./styles";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { StatusBar } from "react-native";
+
 export default function ColAccInfo({ navigation }) {
   const [count, setCount] = useState(0);
+  const [tableData, setTableData] = useState([]);
 
   const handleIncrement = () => {
     setCount((prevCount) => prevCount + 1);
@@ -22,11 +18,29 @@ export default function ColAccInfo({ navigation }) {
     }
   };
 
+  const handleSubmit = () => {
+    console.log("Submit button pressed");
+    console.log("Count:", count);
+    // Additional logic or navigation can be performed here
+    // Build the table based on the count
+    const data = [];
+    for (let i = 0; i < count; i++) {
+      data.push(
+        <View style={styles.row} key={i}>
+          <View style={styles.column}>
+            <Text style={styles.columnText}>Column 1</Text>
+          </View>
+          <View style={styles.column}>
+            <Text style={styles.columnText}>Column 2</Text>
+          </View>
+        </View>
+      );
+    }
+    setTableData(data);
+  };
+
   return (
-    <ImageBackground
-      source={require("../../../assets/beesbackground.jpg")}
-      style={styles.background}
-    >
+    <ImageBackground source={require("../../../assets/beesbackground.jpg")} style={styles.background}>
       <View style={styles.container}>
         <View style={styles.header}>
           <MaterialCommunityIcons
@@ -46,9 +60,26 @@ export default function ColAccInfo({ navigation }) {
         <TouchableOpacity style={styles.button} onPress={handleDecrement}>
           <Text style={styles.buttonText}>-</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.submitButton}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
+
+        {/* Table */}
+        <View style={styles.table}>
+          {count > 0 && (
+            <>
+              <View style={styles.row}>
+                <View style={styles.column}>
+                  <Text style={styles.columnText}>Column 1</Text>
+                </View>
+                <View style={styles.column}>
+                  <Text style={styles.columnText}>Column 2</Text>
+                </View>
+              </View>
+              {tableData}
+            </>
+          )}
+        </View>
       </View>
     </ImageBackground>
   );
