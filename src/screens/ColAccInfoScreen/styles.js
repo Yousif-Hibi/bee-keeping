@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   submitButton: {
-    width: 150,
+    width: '100%',
     height: 80,
     margin: 40,
     backgroundColor: "#FFD700",

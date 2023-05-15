@@ -13,10 +13,10 @@ export default function HomeScreen({ navigation }) {
 
   const handleLogin = () => {
     // Authenticate the user with custom username and password
-    if (username === "amir" && password === "amir123") {
+    if (username === "admin" && password === "admin") {
       // Navigate to another screen on successful authentication
       navigation.navigate("AdminInfoScreen");
-    } else if (username === "checker1" && password === "checker1123") {
+    } else if (username === "checker" && password === "checker") {
       // Navigate to another screen on successful authentication
       navigation.navigate("CheckerInfoScreen");
     }

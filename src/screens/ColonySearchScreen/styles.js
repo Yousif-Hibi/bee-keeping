@@ -4,20 +4,22 @@ import { Dimensions } from 'react-native';
 const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
+  container: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 20
   },
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#fff',
+    color: 'black',
     marginBottom: 20,
   },
   searchContainer: {
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   searchButtonText: {
-    color: '#fff',
+    color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
   },
   columnHeader: {
     flex: 1,
-    color: '#fff',
+    color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
+  
   });
 
   export default styles;
