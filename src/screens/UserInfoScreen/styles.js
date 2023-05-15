@@ -107,6 +107,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginRight: 20,
   },
+  tableHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#FFD700",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+  tableHeaderText: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  tableRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  tableCell: {
+    fontSize: 16,
+  },
 });
 
 export default styles;
