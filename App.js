@@ -10,6 +10,7 @@ import React, { useState } from "react";
 // } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import firebase from '@react-native-firebase/app';
 import Home from "./src/screens/HomeScreen/Home";
 import AdminInfo from "./src/screens/AdminInfoScreen/AdminInfo";
 import AddParticipant from "./src/screens/AddParticipantScreen/AddParticipant";
@@ -20,6 +21,7 @@ import Finance from "./src/screens/FinanceScreen/Finance";
 import ColAccIInfo from "./src/screens/ColAccInfoScreen/ColAccIInfo";
 import Chat from "./src/screens/ChatScreen/Chat";
 import UserInfo from "./src/screens/UserInfoScreen/UserInfo";
+import Test from "./src/screens/TestScreen/Test";
 const Stack = createStackNavigator();
 export default function App() {
   return (
@@ -35,6 +37,7 @@ export default function App() {
         <Stack.Screen name="ColAccInfoScreen" component={ColAccIInfo} />
         <Stack.Screen name="ChatScreen" component={Chat} />
         <Stack.Screen name="UserInfoScreen" component={UserInfo} />
+        <Stack.Screen name="TestScreen" component={Test} />
       </Stack.Navigator>
     </NavigationContainer>
   );
