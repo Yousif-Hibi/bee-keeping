@@ -71,6 +71,27 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "center",
   },
+  table: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: "white",
+  },
+  row: {
+    flexDirection: "row",
+    width: '100%',
+    marginBottom: 10,
+  },
+  column: {
+    flex: 1,
+    alignItems: "center",
+  },
+  columnText: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });
 
 export default styles;
