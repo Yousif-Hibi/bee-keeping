@@ -162,7 +162,7 @@ export default function AddParticipant({ navigation }) {
   //   setFullName("");
   // };
   const addData = async () => {
-    await addDoc(userCollectionRef, { FullName: fullName,IDNumber: idNumber,PhoneNumber: PhoneNumber,City: city,UserName: username,Password: password });
+    await addDoc(userCollectionRef, { name: fullName,idNumber: idNumber,phoneNumber: PhoneNumber,location: city,UserName: username,Password: password });
     
     setFullName("");
     setIdNumber("");
