@@ -10,9 +10,12 @@ import {
 } from "react-native";
 import styles from "./styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import { database } from "../../../config/firebase";
 //import ColAccinfo from "../ColonyAccountInfo/ColAccinfo";
 
 export default function AddParticipant({ navigation }) {
+  const userCollectionRef = collection(database, "keepers");
   const [fullName, setFullName] = useState("");
   const [idNumber, setIdNumber] = useState("");
   const [PhoneNumber, setPhoneNumber] = useState("");
@@ -142,9 +145,35 @@ export default function AddParticipant({ navigation }) {
       confirmPassword !== "" &&
       password === confirmPassword
     ) {
+      addData();
       navigation.navigate("ColAccInfoScreen");
     }
   };
+
+  // const addData = async () => {
+  //   // Step 1: Add a new document to the collection
+  //   const newDocRef = await db.collection('keepers').add({ IDNumber: idNumber });
+  
+  //   // Step 2: Update the added document with additional data
+  //   await newDocRef.update({ FullName: fullName });
+  
+  //   // Clear the input after adding data
+  //   setIdNumber("");
+  //   setFullName("");
+  // };
+  const addData = async () => {
+    await addDoc(userCollectionRef, { FullName: fullName,IDNumber: idNumber,PhoneNumber: PhoneNumber,City: city,UserName: username,Password: password });
+    
+    setFullName("");
+    setIdNumber("");
+    setPhoneNumber("");
+    setCity("");
+    setUsername("");
+    setPassword("");
+  };
+
+  
+  
 
   return (
     <ImageBackground
