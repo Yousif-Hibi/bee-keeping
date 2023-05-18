@@ -160,20 +160,16 @@ export default function AddParticipant({ navigation }) {
     }
   };
 
-  // const addData = async () => {
-  //   // Step 1: Add a new document to the collection
-  //   const newDocRef = await db.collection('keepers').add({ IDNumber: idNumber });
-  
-  //   // Step 2: Update the added document with additional data
-  //   await newDocRef.update({ FullName: fullName });
-  
-  //   // Clear the input after adding data
-  //   setIdNumber("");
-  //   setFullName("");
-  // };
-  const addData = async () => {
-    await addDoc(userCollectionRef, { FullName: fullName,IDNumber: idNumber,PhoneNumber: PhoneNumber,City: city,UserName: username,Password: password });
-    
+  const addData = async (currentUser) => {
+    const docRef = doc(userCollectionRef, currentUser.uid);
+
+    await setDoc(docRef, {
+      name: fullName,
+      idNumber: idNumber,
+      phoneNumber: PhoneNumber,
+      location: city,
+    });
+
     setFullName("");
     setIdNumber("");
     setPhoneNumber("");
