@@ -14,17 +14,23 @@ export default function HomeScreen({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(
+      const { user } = await signInWithEmailAndPassword(
         auth,
         `${username}@example.com`,
         password
       );
-      Alert.alert("Success", "User logged in successfully!");
-      navigation.navigate("UserInfoScreen");
+
+      if (user) {
+        const uid = user.uid;
+        Alert.alert("Success", "User logged in successfully!");
+          console.log(uid)
+        navigation.navigate("UserInfoScreen", { uid });
+      } else {
+        Alert.alert("Error", "User not found or login failed!");
+      }
     } catch (error) {
-      Alert.alert("Error", error.message);
-      alert("Invalid username or password");
-    }
+      console.error("Error:", error);
+    } 
     // Authenticate the user with custom username and password
     if (username === "admin" && password === "admin") {
       // Navigate to another screen on successful authentication
