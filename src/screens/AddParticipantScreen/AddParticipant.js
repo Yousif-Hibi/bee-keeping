@@ -7,10 +7,20 @@ import {
   StyleSheet,
   Picker,
   ImageBackground,
+  Alert,
 } from "react-native";
 import styles from "./styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  setDoc,
+  getDocs,
+  addDoc,
+  doc,
+} from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../../../config/firebase";
 import { database } from "../../../config/firebase";
 //import ColAccinfo from "../ColonyAccountInfo/ColAccinfo";
 
@@ -39,25 +49,25 @@ export default function AddParticipant({ navigation }) {
   const [confirmPasswordErrorMessage, setConfirmPasswordErrorMessage] =
     useState("");
 
-    const cities = [
-      "Old City / البلدة القديمة",
-      "ras al amood / رأس العامود",
-      "Beit Hanina / بيت حنينا",
-      "Shuafat / شعفاط",
-      "Silwan / سلوان",
-      "Issawiya / العيسوية",
-      "Jabal Mukaber / جبل المكبر",
-      "Beit Safafa / بيت صفافا",
-      "Abu Tor / ثوري",
-      "Al Toor / الطور",
-      "Em toba / ام طوبة",
-      "Wadi el joz / وادي الجوز",
-      "Abu des / أبو ديس",
-      "Al Eizareya / العيزرية",
-      "Anata / مخيم أناتا",
-      "Zeayem / زعيم",
-      "Kofor Akab / كفر عقب",
-    ];
+  const cities = [
+    "Old City / البلدة القديمة",
+    "ras al amood / رأس العامود",
+    "Beit Hanina / بيت حنينا",
+    "Shuafat / شعفاط",
+    "Silwan / سلوان",
+    "Issawiya / العيسوية",
+    "Jabal Mukaber / جبل المكبر",
+    "Beit Safafa / بيت صفافا",
+    "Abu Tor / ثوري",
+    "Al Toor / الطور",
+    "Em toba / ام طوبة",
+    "Wadi el joz / وادي الجوز",
+    "Abu des / أبو ديس",
+    "Al Eizareya / العيزرية",
+    "Anata / مخيم أناتا",
+    "Zeayem / زعيم",
+    "Kofor Akab / كفر عقب",
+  ];
 
   const handleCreateAccount = () => {
     if (fullName === "") {
@@ -127,7 +137,7 @@ export default function AddParticipant({ navigation }) {
       setConfirmPasswordError(true);
       setConfirmPasswordErrorMessage("*Confirm Password is required");
     } else {
-      if (confirmPassword !== password ) {
+      if (confirmPassword !== password) {
         setConfirmPasswordError(true);
         setConfirmPasswordErrorMessage("*Passwords not matched");
       }
@@ -145,7 +155,7 @@ export default function AddParticipant({ navigation }) {
       confirmPassword !== "" &&
       password === confirmPassword
     ) {
-      addData();
+      handleCreateUser();
       navigation.navigate("ColAccInfoScreen");
     }
   };
@@ -162,18 +172,29 @@ export default function AddParticipant({ navigation }) {
   //   setFullName("");
   // };
   const addData = async () => {
-    await addDoc(userCollectionRef, { name: fullName,idNumber: idNumber,phoneNumber: PhoneNumber,location: city,UserName: username,Password: password });
+    await addDoc(userCollectionRef, { FullName: fullName,IDNumber: idNumber,PhoneNumber: PhoneNumber,City: city,UserName: username,Password: password });
     
     setFullName("");
     setIdNumber("");
     setPhoneNumber("");
     setCity("");
-    setUsername("");
-    setPassword("");
   };
 
-  
-  
+  const handleCreateUser = async () => {
+    try {
+      // Update the createUserWithEmailAndPassword call to use the username as the email
+      await createUserWithEmailAndPassword(
+        auth,
+        `${username}@example.com`,
+        password
+      );
+      const currentUser = auth.currentUser;
+      addData(currentUser);
+      Alert.alert("Success", "User created successfully!");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+    }
+  };
 
   return (
     <ImageBackground
@@ -225,7 +246,7 @@ export default function AddParticipant({ navigation }) {
           style={[styles.input, usernameError && styles.errorInput]}
           placeholder="Username"
           value={username}
-          onChangeText={setUsername}
+          onChangeText={(text) => setUsername(text)}
         />
         {usernameError && (
           <Text style={styles.errorText}>{usernameErrorMessage}</Text>

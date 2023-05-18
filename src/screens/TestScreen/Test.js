@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from "react-native";
 import styles from "./styles";
 import { StatusBar } from "react-native";
 import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
@@ -34,7 +41,11 @@ export default function TestScreen({ navigation }) {
       <View style={styles.container}>
         {/* Your UI components and logic */}
         {users.map((user, index) => (
-          <Text key={index}>Name: {user.name}</Text>
+          <Text key={index}>
+            Name: {user.name}
+            location:
+            {user.location}
+          </Text>
         ))}
       </View>
       <TextInput
