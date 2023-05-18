@@ -1,31 +1,30 @@
-import { StyleSheet } from 'react-native';
-import { Dimensions } from 'react-native';
+import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 
-const screenWidth = Dimensions.get('window').width;
+const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center"
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    padding: 20
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
-    color: 'black',
+    fontWeight: "bold",
+    color: "black",
     marginBottom: 20,
   },
   searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fff",
     borderRadius: 5,
     padding: 5,
     margin: 20,
@@ -37,50 +36,48 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   searchButton: {
-    backgroundColor: '#ffd500',
+    backgroundColor: "#ffd500",
     borderRadius: 5,
     padding: 10,
     marginLeft: 10,
   },
   searchButtonText: {
-    color: 'black',
+    color: "black",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   table: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 5,
     marginTop: 20,
-    width: '100%',
-
+    width: "100%",
   },
   tableHeader: {
-    flexDirection: 'row',
-    backgroundColor: '#ffd500',
+    flexDirection: "row",
+    backgroundColor: "#ffd500",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     padding: 10,
-    textAlign: 'center',
+    textAlign: "center",
   },
   columnHeader: {
     flex: 1,
-    color: 'black',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "black",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   tableRow: {
-    flexDirection: 'row',
-    backgroundColor: '#fff',
+    flexDirection: "row",
+    backgroundColor: "#fff",
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: "#ccc",
     padding: 10,
   },
   column: {
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
-  
-  });
+});
 
-  export default styles;
+export default styles;

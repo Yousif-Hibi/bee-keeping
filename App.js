@@ -10,7 +10,7 @@ import React, { useState } from "react";
 // } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import firebase from '@react-native-firebase/app';
+import firebase from "@react-native-firebase/app";
 import Home from "./src/screens/HomeScreen/Home";
 import AdminInfo from "./src/screens/AdminInfoScreen/AdminInfo";
 import AddParticipant from "./src/screens/AddParticipantScreen/AddParticipant";

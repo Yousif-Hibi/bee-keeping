@@ -1,36 +1,39 @@
 // import React, { useLayoutEffect } from "react";
 // import { FlatList, Text, View, TouchableHighlight, Image } from "react-native";
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import styles from "./styles";
-import React, { useState } from 'react';
-import { ImageBackground } from 'react-native';
-import { StatusBar } from 'react-native';
-
-
+import React, { useState } from "react";
+import { ImageBackground } from "react-native";
+import { StatusBar } from "react-native";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../../../config/firebase";
+import { Alert } from "react-native";
 export default function HomeScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        `${username}@example.com`,
+        password
+      );
+      Alert.alert("Success", "User logged in successfully!");
+      navigation.navigate("UserInfoScreen");
+    } catch (error) {
+      Alert.alert("Error", error.message);
+      alert("Invalid username or password");
+    }
     // Authenticate the user with custom username and password
     if (username === "admin" && password === "admin") {
       // Navigate to another screen on successful authentication
       navigation.navigate("AdminInfoScreen");
-    } else if (username === "checker" && password === "checker") {
-      // Navigate to another screen on successful authentication
-      navigation.navigate("CheckerInfoScreen");
-    }
-    else if (username === "user" && password === "user") {
-      // Navigate to another screen on successful authentication
-      navigation.navigate("UserInfoScreen");
-    }
-    else {
-      alert("Invalid username or password");
     }
   };
   return (
     <ImageBackground
-      source={require('../../../assets/beesbackground.jpg')}
+      source={require("../../../assets/beesbackground.jpg")}
       style={styles.background}
     >
       <View style={styles.container}>
