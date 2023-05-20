@@ -24,21 +24,17 @@ export default function HomeScreen({ navigation }) {
         const uid = user.uid;
         Alert.alert("Success", "User logged in successfully!");
         console.log(uid);
-        navigation.navigate("UserInfoScreen", { uid });
+
+        if (uid === "vSASeJ65mCgLlwCOGSRDnt6Mpuv1") {
+          navigation.navigate("AdminInfoScreen");
+        } else {
+          navigation.navigate("UserInfoScreen", { uid });
+        }
       } else {
         Alert.alert("Error", "User not found or login failed!");
       }
     } catch (error) {
       console.error("Error:", error);
-    }
-    // Authenticate the user with custom username and password
-    if (username === "admin" && password === "admin") {
-      // Navigate to another screen on successful authentication
-      navigation.navigate("AdminInfoScreen");
-    }
-    if (username === "ad" && password === "ad") {
-      // Navigate to another screen on successful authentication
-      navigation.navigate("ColAccInfoScreen");
     }
   };
   return (
