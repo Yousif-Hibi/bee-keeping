@@ -228,7 +228,7 @@ export default function AddParticipant({ navigation }) {
         )}
         <Picker
           selectedValue={city}
-          style={[styles.input, cityError && styles.errorInput]}
+          style={[styles.selectInput, cityError && styles.errorInput]}
           onValueChange={(itemValue) => setCity(itemValue)}
         >
           <Picker.Item label="Select City" value="" />
