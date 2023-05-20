@@ -5,21 +5,21 @@ const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column",
+    width: "100",
+
     backgroundColor: "rgba(255, 255, 255, 0.8)",
   },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center",
-    alignItems: "center",
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
     color: "black",
     marginBottom: 20,
+    justifyContent: "center",
+    alignContent: "center",
   },
   searchContainer: {
     flexDirection: "row",
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   },
   column: {
     flex: 1,
+    width: "30%",
     textAlign: "center",
   },
 });
