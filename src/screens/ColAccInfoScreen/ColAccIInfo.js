@@ -100,7 +100,7 @@ export default function ColAccInfo({ navigation, route }) {
     const fullFrameArr = Array(count).fill("");
     for (let i = 0; i < count; i++) {
       data.push({
-        hiveNum: "",
+        hiveNum: i,
         hiveID: ""
       });
     }
