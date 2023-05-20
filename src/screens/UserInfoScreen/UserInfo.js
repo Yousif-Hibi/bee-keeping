@@ -15,6 +15,8 @@ import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default function UserInfoScreen({ navigation, route }) {
+  const [isChecked1, setIsChecked1] = useState(null);
+  const [isChecked2, setIsChecked2] = useState(null);
   const colnum = 5;
   const [user, setUser] = useState(null);
 
@@ -75,7 +77,7 @@ export default function UserInfoScreen({ navigation, route }) {
             {user && <Text style={styles.texts}>{user.idNumber}</Text>}
           </View>
         </View>
-        {/*
+       
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("ChatScreen")}
@@ -86,18 +88,18 @@ export default function UserInfoScreen({ navigation, route }) {
           </View>
         </TouchableOpacity>
 
-        <View style={styles.row}>
+        {/* <View style={styles.row}>
           {user && <Text style={styles.texts}>{user.payment}</Text>}
           <Text style={styles.label}>الرسوم:</Text>
-        </View>
-
+        </View> */}
+{/* 
         <View style={styles.row}>
           {user && <Text style={styles.texts}>{user.placeOfHive}</Text>}
           <Text style={styles.label}>مكان تربية النحل:</Text>
-        </View>
+        </View> */}
 
         <View style={styles.row}>
-          {user && <Text style={styles.texts}>{user.NumberOfHives.length}</Text>}
+          {user && <Text style={styles.texts}>{user.hiveIDs.length}</Text>}
           <Text style={styles.label}>عدد المناحل:</Text>
         </View>
 
@@ -119,14 +121,14 @@ export default function UserInfoScreen({ navigation, route }) {
         </View>
 
         {user &&
-          user.NumberOfHives.map((_, i) => (
+          user.hiveIDs.map((_, i) => (
             <View style={styles.tableRow} key={i}>
               <Text style={styles.tableCell}>{i + 1}</Text>
-              <Text style={styles.tableCell}>{user.NumberOfHives[i]}</Text>
-              <Text style={styles.tableCell}>{user.halfFrame[i]}</Text>
-              <Text style={styles.tableCell}>{user.fullFrame[i]}</Text>
+              <Text style={styles.tableCell}>{user.hiveIDs[i]}</Text>
+              <Text style={styles.tableCell}>{user.Halfframe[i]}</Text>
+              <Text style={styles.tableCell}>{user.Fullframe[i]}</Text>
 </View>
-          ))} */}
+          ))} 
 
         <StatusBar style="auto" />
       </View>

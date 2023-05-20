@@ -101,7 +101,7 @@ export default function ColAccInfo({ navigation, route }) {
     for (let i = 0; i < count; i++) {
       data.push({
         hiveNum: i,
-        hiveID: "",
+        hiveID: ""
       });
     }
     setTableData(data);
