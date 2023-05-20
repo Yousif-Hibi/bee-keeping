@@ -156,7 +156,6 @@ export default function AddParticipant({ navigation }) {
       password === confirmPassword
     ) {
       handleCreateUser();
-      navigation.navigate("ColAccInfoScreen");
     }
   };
 
@@ -185,7 +184,10 @@ export default function AddParticipant({ navigation }) {
         password
       );
       const currentUser = auth.currentUser;
+
       addData(currentUser);
+
+      navigation.navigate("ColAccInfoScreen", currentUser.uid);
       Alert.alert("Success", "User created successfully!");
     } catch (error) {
       Alert.alert("Error", error.message);

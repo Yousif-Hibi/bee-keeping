@@ -1,6 +1,12 @@
-
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, CheckBox, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  CheckBox,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import styles from "./styles";
 import { ImageBackground } from "react-native";
 import { StatusBar } from "react-native";
@@ -9,10 +15,7 @@ import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default function UserInfoScreen({ navigation, route }) {
-  const [isChecked1, setIsChecked1] = useState(false);
-  const [isChecked2, setIsChecked2] = useState(false);
   const colnum = 5;
-  const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -124,10 +127,9 @@ export default function UserInfoScreen({ navigation, route }) {
               <Text style={styles.tableCell}>{user.fullFrame[i]}</Text>
 </View>
           ))} */}
-        
+
         <StatusBar style="auto" />
       </View>
     </ImageBackground>
   );
 }
-
