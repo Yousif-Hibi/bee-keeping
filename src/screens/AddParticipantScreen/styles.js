@@ -27,6 +27,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: "100%",
   },
+  selectInput:{
+    opacity:0.6,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+    width: "100%",
+  },
   button: {
     backgroundColor: "#FFD700",
     borderRadius: 10,

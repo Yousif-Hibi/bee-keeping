@@ -15,16 +15,26 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 30,
   },
+  buttonContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
   button: {
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
     backgroundColor: "#FFD700",
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
-    flexDirection: "row",
-    // marginHorizontal: ,
+    marginHorizontal: 10,
+  },
+  count: {
+    fontSize: 30,
+    fontWeight: "bold",
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
     fontSize: 25,
@@ -32,17 +42,10 @@ const styles = StyleSheet.create({
     color: "black",
     alignItems: "center",
   },
-  count: {
-    fontSize: 30,
-    marginTop: 20,
-    fontWeight: "bold",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   submitButton: {
-    width: '100%',
-    height: 80,
-    margin: 40,
+    width: "70%",
+    height: 50,
+    margin: 70,
     backgroundColor: "#FFD700",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 4,
@@ -78,10 +81,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     backgroundColor: "white",
+    opacity:0.6,
   },
   row: {
     flexDirection: "row",
-    width: '100%',
+    width: "100%",
     marginBottom: 10,
   },
   column: {
@@ -91,6 +95,13 @@ const styles = StyleSheet.create({
   columnText: {
     fontSize: 16,
     fontWeight: "bold",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: "white",
   },
 });
 
