@@ -30,6 +30,8 @@ export default function ColAccInfo({ navigation, route }) {
   const [Fullframe, setFullframe] = useState([]);
   const colnum = 5;
   const [user, setUser] = useState(null);
+  const [submitVisible, setSubmitVisible] = useState(false);
+  const [createPressed, setCreatePressed] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -101,15 +103,20 @@ export default function ColAccInfo({ navigation, route }) {
     for (let i = 0; i < count; i++) {
       data.push({
         hiveNum: i,
-        hiveID: ""
+        hiveID: "",
       });
     }
     setTableData(data);
     setHalfframe(halfFrameArr);
     setFullframe(fullFrameArr);
+    setSubmitVisible(true);
+    setCreatePressed(true);
   };
 
   const handleRowInputChange = (index, fieldName, value) => {
+    if (fieldName === "hiveNum" && tableData[index]["hiveNum"] !== "") {
+      return; // Hive number already assigned, prevent changes
+    }
     setTableData((prevData) => {
       const newData = [...prevData];
       newData[index][fieldName] = value;
@@ -124,24 +131,22 @@ export default function ColAccInfo({ navigation, route }) {
     >
       <View style={styles.container}>
         <View style={styles.header}>
-          <MaterialCommunityIcons
-            name="home"
-            size={30}
-            onPress={() => navigation.navigate("AdminInfoScreen")}
-            style={styles.homeIcon}
-          />
           <View style={{ justifyContent: "center", alignItems: "center" }}>
             <Text style={styles.title}>Choose how many Bee hives!</Text>
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={handleDecrement}>
-            <Text style={styles.buttonText}>-</Text>
-          </TouchableOpacity>
-          <Text style={styles.count}>{count}</Text>
-          <TouchableOpacity style={styles.button} onPress={handleIncrement}>
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableOpacity>
+          {createPressed ? null : (
+            <>
+              <TouchableOpacity style={styles.button} onPress={handleDecrement}>
+                <Text style={styles.buttonText}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.count}>{count}</Text>
+              <TouchableOpacity style={styles.button} onPress={handleIncrement}>
+                <Text style={styles.buttonText}>+</Text>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
 
         <View style={styles.table}>
@@ -165,6 +170,7 @@ export default function ColAccInfo({ navigation, route }) {
                       onChangeText={(value) =>
                         handleRowInputChange(index, "hiveNum", value)
                       }
+                      editable={rowData.hiveNum === ""}
                     />
                   </View>
                   <View style={styles.column}>
@@ -182,12 +188,16 @@ export default function ColAccInfo({ navigation, route }) {
             </>
           )}
         </View>
-        <TouchableOpacity style={styles.submitButton} onPress={handleCreate}>
-          <Text style={styles.submitButtonText}>Create</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.submitButtonText}>Submit</Text>
-        </TouchableOpacity>
+        {!createPressed && (
+          <TouchableOpacity style={styles.submitButton} onPress={handleCreate}>
+            <Text style={styles.submitButtonText}>Create</Text>
+          </TouchableOpacity>
+        )}
+        {submitVisible && (
+          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+            <Text style={styles.submitButtonText}>Submit</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </ImageBackground>
   );
