@@ -147,8 +147,11 @@ export default function AddParticipant({ navigation }) {
 
     if (
       fullName !== "" &&
+      !/\d/.test(fullName) &&
       idNumber !== "" &&
+      /^\d{9}$/.test(idNumber) &&
       PhoneNumber !== "" &&
+      /^\d+$/.test(PhoneNumber) &&
       city !== "" &&
       username !== "" &&
       password !== "" &&

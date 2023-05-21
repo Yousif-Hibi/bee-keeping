@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,14 +9,37 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import styles from "./styles";
+import { collection, getDocs } from "firebase/firestore";
+import { database } from "../../../config/firebase";
 
 export default function ColonySearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("name"); // default search type is name
+  const [userData, setUserData] = useState([]);
 
-  const handleSearch = () => {
-    // handle search logic here
-  };
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      const usersCollectionRef = collection(database, "keepers");
+
+      try {
+        const usersQuerySnapshot = await getDocs(usersCollectionRef);
+
+        const usersData = usersQuerySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            name: data.name,
+            idNumber: data.idNumber,
+            location: data.location,
+          };
+        });
+        setUserData(usersData);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchUsersData();
+  }, []);
 
   return (
     <ImageBackground
@@ -25,47 +48,20 @@ export default function ColonySearch() {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Colony Search</Text>
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            onChangeText={(text) => setSearchTerm(text)}
-            value={searchTerm}
-            placeholder="Search by name, ID, or colony number"
-          />
-          <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-            <Text style={styles.searchButtonText}>Search</Text>
-          </TouchableOpacity>
-        </View>
 
         <View style={styles.table}>
           <View style={styles.tableHeader}>
             <Text style={styles.columnHeader}>Name</Text>
-            <Text style={styles.columnHeader}>Phone</Text>
             <Text style={styles.columnHeader}>ID</Text>
-            <Text style={styles.columnHeader}>Area</Text>
-            <Text style={styles.columnHeader}>Col/num</Text>
-            <Text style={styles.columnHeader}>Num/col</Text>
-            <Text style={styles.columnHeader}>Msgs</Text>
+            <Text style={styles.columnHeader}>Location</Text>
           </View>
-          <View style={styles.tableRow}>
-            <Text style={styles.column}>aziza</Text>
-            <Text style={styles.column}>0525454174</Text>
-            <Text style={styles.column}>315456756</Text>
-            <Text style={styles.column}>beitsafafa</Text>
-            <Text style={styles.column}>206</Text>
-            <Text style={styles.column}>1</Text>
-            <Text style={styles.column}>Nomsg</Text>
-          </View>
-          <View style={styles.tableRow}>
-            <Text style={styles.column}>dima</Text>
-            <Text style={styles.column}>0526454867</Text>
-            <Text style={styles.column}>3164857566</Text>
-            <Text style={styles.column}>oldcity</Text>
-            <Text style={styles.column}>745</Text>
-            <Text style={styles.column}>1</Text>
-            <Text style={styles.column}>Newmsg</Text>
-          </View>
-          {/* Add more rows here */}
+          {userData.map((user, index) => (
+            <View style={styles.tableRow} key={index}>
+              <Text style={styles.column}>{user.name}</Text>
+              <Text style={styles.column}>{user.idNumber}</Text>
+              <Text style={styles.column}>{user.location}</Text>
+            </View>
+          ))}
         </View>
       </View>
     </ImageBackground>
