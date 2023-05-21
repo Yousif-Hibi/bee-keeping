@@ -167,6 +167,8 @@ export default function AddParticipant({ navigation }) {
       idNumber: idNumber,
       phoneNumber: PhoneNumber,
       location: city,
+      signature: false,
+      obtain: false,
     });
 
     setFullName("");
