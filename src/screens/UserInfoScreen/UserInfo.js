@@ -15,8 +15,11 @@ import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default function UserInfoScreen({ navigation, route }) {
-  const [isChecked1, setIsChecked1] = useState(null);
-  const [isChecked2, setIsChecked2] = useState(null);
+ 
+  const [isSignatureChecked, setIsSignatureChecked] = useState(false);
+  const [isObtainChecked, setIsObtainChecked] = useState(false);
+
+
   const colnum = 5;
   const [user, setUser] = useState(null);
 
@@ -31,6 +34,9 @@ export default function UserInfoScreen({ navigation, route }) {
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
           setUser(userData);
+
+          setIsSignatureChecked(userData && userData.signature);
+          setIsObtainChecked(userData && userData.obtain);
         } else {
           console.log("User not found");
         }
@@ -42,20 +48,6 @@ export default function UserInfoScreen({ navigation, route }) {
     fetchUserData();
   }, []);
 
-  const renderTableRows = () => {
-    const rows = [];
-    for (let i = 1; i <= colnum; i++) {
-      rows.push(
-        <View style={styles.tableRow} key={i}>
-          <Text style={styles.tableCell}>{i}</Text>
-          <Text style={styles.tableCell}>{colnum}</Text>
-          <Text style={styles.tableCell}>Half Frame</Text>
-          <Text style={styles.tableCell}>Full Frame</Text>
-        </View>
-      );
-    }
-    return rows;
-  };
   return (
     <ImageBackground
       source={require("../../../assets/beesbackground.jpg")}
@@ -77,26 +69,25 @@ export default function UserInfoScreen({ navigation, route }) {
             {user && <Text style={styles.texts}>{user.idNumber}</Text>}
           </View>
         </View>
-       
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("ChatScreen")}
         >
           <View style={styles.row}>
             <Text style={styles.titleSend}>Send a message</Text>
-
           </View>
         </TouchableOpacity>
 
-        {/* <View style={styles.row}>
+        <View style={styles.row}>
           {user && <Text style={styles.texts}>{user.payment}</Text>}
           <Text style={styles.label}>الرسوم:</Text>
-        </View> */}
-{/* 
+        </View>
+
         <View style={styles.row}>
           {user && <Text style={styles.texts}>{user.placeOfHive}</Text>}
           <Text style={styles.label}>مكان تربية النحل:</Text>
-        </View> */}
+        </View>
 
         <View style={styles.row}>
           {user && <Text style={styles.texts}>{user.hiveIDs.length}</Text>}
@@ -105,12 +96,20 @@ export default function UserInfoScreen({ navigation, route }) {
 
         <View style={styles.row}>
           <Text style={styles.label}>توقيع الوثيقة</Text>
-          <CheckBox value={isChecked1} onValueChange={setIsChecked1} />
+          <CheckBox
+            value={isSignatureChecked}
+            disabled={!user || !user.signature}
+            onValueChange={null}
+          />
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>وصل استلام</Text>
-          <CheckBox value={isChecked2} onValueChange={setIsChecked2} />
+          <CheckBox
+            value={isObtainChecked}
+            disabled={!user || !user.obtain}
+            onValueChange={null}
+          />
         </View>
 
         <View style={styles.tableHeader}>
@@ -127,8 +126,8 @@ export default function UserInfoScreen({ navigation, route }) {
               <Text style={styles.tableCell}>{user.hiveIDs[i]}</Text>
               <Text style={styles.tableCell}>{user.Halfframe[i]}</Text>
               <Text style={styles.tableCell}>{user.Fullframe[i]}</Text>
-</View>
-          ))} 
+            </View>
+          ))}
 
         <StatusBar style="auto" />
       </View>
