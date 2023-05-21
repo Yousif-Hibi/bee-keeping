@@ -21,6 +21,7 @@ import Finance from "./src/screens/FinanceScreen/Finance";
 import ColAccIInfo from "./src/screens/ColAccInfoScreen/ColAccIInfo";
 import Chat from "./src/screens/ChatScreen/Chat";
 import UserInfo from "./src/screens/UserInfoScreen/UserInfo";
+
 const Stack = createStackNavigator();
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
         <Stack.Screen name="ColAccInfoScreen" component={ColAccIInfo} />
         <Stack.Screen name="ChatScreen" component={Chat} />
         <Stack.Screen name="UserInfoScreen" component={UserInfo} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

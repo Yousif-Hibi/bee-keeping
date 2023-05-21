@@ -23,9 +23,6 @@ export default function AdminInfoScreen({ navigation }) {
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('FinanceScreen')}>
             <Text style={styles.buttonText}>Finance</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('TestScreen')}>
-            <Text style={styles.buttonText}>Test</Text>
-          </TouchableOpacity>
           <StatusBar style="auto" />
         </View>
       </ImageBackground>
