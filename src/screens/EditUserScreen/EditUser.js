@@ -63,7 +63,7 @@ export default function EditUserScreen({ navigation, route }) {
     };
 
     const handleSaveChanges = async () => {
-        const uid = auth.currentUser.uid;
+        const uid = route.params.uid;
         if (!uid) {
             console.log("Invalid uid");
             return;
@@ -74,7 +74,7 @@ export default function EditUserScreen({ navigation, route }) {
         try {
             await updateDoc(keeperDocRef, editedData);
             console.log("Keeper data updated successfully!");
-            navigation.navigate("UserInfoScreen");
+            navigation.navigate("AdminInfoScreen");
         } catch (error) {
             console.error("Error updating keeper data:", error);
         }
