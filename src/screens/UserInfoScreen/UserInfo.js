@@ -15,18 +15,17 @@ import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default function UserInfoScreen({ navigation, route }) {
-
   const [isSignatureChecked, setIsSignatureChecked] = useState(false);
   const [isObtainChecked, setIsObtainChecked] = useState(false);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
-
-  const colnum = 5;
+  const [showEditButton, setShowEditButton] = useState(false);
   const [user, setUser] = useState(null);
-
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const uid = route.params.uid; // Get the uid from the route parameters
+      const uid = route.params.uid;
+      const admin = auth.currentUser.uid;
+
       const userDocRef = doc(database, "keepers", uid);
 
       try {
@@ -35,10 +34,17 @@ export default function UserInfoScreen({ navigation, route }) {
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
           setUser(userData);
-          setIsUserAdmin(userData.role === "admin");
-
           setIsSignatureChecked(userData && userData.signature);
           setIsObtainChecked(userData && userData.obtain);
+
+          const currentUser = auth.currentUser;
+          if (
+            currentUser &&
+            Array.isArray(userData.admins) &&
+            userData.admins.includes(currentUser.uid)
+          ) {
+            setIsUserAdmin(true);
+          }
         } else {
           console.log("User not found");
         }
@@ -48,24 +54,25 @@ export default function UserInfoScreen({ navigation, route }) {
     };
 
     fetchUserData();
-  }, [route.params.uid]); // Add route.pa
+    checkIfUserIsAdmin();
+  }, [route.params.uid]);
 
-  const renderEditButton = () => {
-    if (isUserAdmin) {
-      return (
-        <TouchableOpacity
-          style={styles.footerButton}
-          onPress={() => handleEditProfile()}
-        >
-          <Text style={styles.footerButtonText}>Edit</Text>
-        </TouchableOpacity>
-      );
+  const checkIfUserIsAdmin = async () => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const adminRef = doc(database, "admins", currentUser.uid);
+      try {
+        const adminDocSnapshot = await getDoc(adminRef);
+        setShowEditButton(adminDocSnapshot.exists());
+      } catch (error) {
+        console.error("Error checking admin:", error);
+      }
     }
-    return null;
   };
 
   const handleEditProfile = () => {
-    navigation.navigate("EditUserScreen");
+    const uid = route.params.uid;
+    navigation.navigate("EditUserScreen", { uid });
   };
 
   return (
@@ -149,16 +156,14 @@ export default function UserInfoScreen({ navigation, route }) {
             </View>
           ))}
 
-        
-      
-       { isUserAdmin && (
+        {showEditButton && (
           <TouchableOpacity
             style={styles.button}
             onPress={handleEditProfile}
           >
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
-      )}
+        )}
         <StatusBar style="auto" />
       </View>
     </ImageBackground>
