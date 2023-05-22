@@ -3,7 +3,13 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: "cover",
+        width: "100%",
+        height: "100%",
     },
     labelContainer: {
         backgroundColor: '#FFD700',
