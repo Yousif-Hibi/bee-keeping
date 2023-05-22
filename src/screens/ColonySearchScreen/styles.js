@@ -5,13 +5,14 @@ const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100",
-
+    flex: 1,
     backgroundColor: "rgba(255, 255, 255, 0.8)",
   },
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
+    width: "100%",
+    height: "100%",
   },
   title: {
     fontSize: 30,
