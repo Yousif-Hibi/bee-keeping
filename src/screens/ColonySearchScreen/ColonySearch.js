@@ -12,7 +12,7 @@ import styles from "./styles";
 import { collection, getDocs } from "firebase/firestore";
 import { database } from "../../../config/firebase";
 
-export default function ColonySearch() {
+export default function ColonySearch({ navigation }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("name"); // default search type is name
   const [userData, setUserData] = useState([]);
@@ -27,6 +27,7 @@ export default function ColonySearch() {
         const usersData = usersQuerySnapshot.docs.map((doc) => {
           const data = doc.data();
           return {
+            uid: doc.id, // Include the user's uid from Firebase document
             name: data.name,
             idNumber: data.idNumber,
             location: data.location,
@@ -40,7 +41,10 @@ export default function ColonySearch() {
 
     fetchUsersData();
   }, []);
-
+  const handleUserPress = (uid) => {
+    navigation.navigate("UserInfoScreen", { uid }); // Navigate to UserInfoScreen with the uid as a parameter
+    console.log("Navigating to UserInfoScreen with uid:", uid);
+  };
   return (
     <ImageBackground
       source={require("../../../assets/beesbackground.jpg")}
@@ -56,11 +60,15 @@ export default function ColonySearch() {
             <Text style={styles.columnHeader}>Location</Text>
           </View>
           {userData.map((user, index) => (
-            <View style={styles.tableRow} key={index}>
+            <TouchableOpacity
+              style={styles.tableRow}
+              key={index}
+              onPress={() => handleUserPress(user.uid)}
+            >
               <Text style={styles.column}>{user.name}</Text>
               <Text style={styles.column}>{user.idNumber}</Text>
               <Text style={styles.column}>{user.location}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </View>

@@ -15,6 +15,7 @@ import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default function UserInfoScreen({ navigation, route }) {
+
   const [isSignatureChecked, setIsSignatureChecked] = useState(false);
   const [isObtainChecked, setIsObtainChecked] = useState(false);
   const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -22,9 +23,10 @@ export default function UserInfoScreen({ navigation, route }) {
   const colnum = 5;
   const [user, setUser] = useState(null);
 
+
   useEffect(() => {
     const fetchUserData = async () => {
-      const uid = auth.currentUser.uid; // Get the UID of the current user
+      const uid = route.params.uid; // Get the uid from the route parameters
       const userDocRef = doc(database, "keepers", uid);
 
       try {
@@ -46,7 +48,7 @@ export default function UserInfoScreen({ navigation, route }) {
     };
 
     fetchUserData();
-  }, []);
+  }, [route.params.uid]); // Add route.pa
 
   const renderEditButton = () => {
     if (isUserAdmin) {
