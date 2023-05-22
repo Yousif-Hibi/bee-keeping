@@ -15,9 +15,14 @@ import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 
 export default function UserInfoScreen({ navigation, route }) {
-  const [user, setUser] = useState(null);
+
   const [isSignatureChecked, setIsSignatureChecked] = useState(false);
   const [isObtainChecked, setIsObtainChecked] = useState(false);
+  const [isUserAdmin, setIsUserAdmin] = useState(false);
+
+  const colnum = 5;
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -30,6 +35,7 @@ export default function UserInfoScreen({ navigation, route }) {
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
           setUser(userData);
+          setIsUserAdmin(userData.role === "admin");
 
           setIsSignatureChecked(userData && userData.signature);
           setIsObtainChecked(userData && userData.obtain);
@@ -43,6 +49,24 @@ export default function UserInfoScreen({ navigation, route }) {
 
     fetchUserData();
   }, [route.params.uid]); // Add route.pa
+
+  const renderEditButton = () => {
+    if (isUserAdmin) {
+      return (
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleEditProfile()}
+        >
+          <Text style={styles.footerButtonText}>Edit</Text>
+        </TouchableOpacity>
+      );
+    }
+    return null;
+  };
+
+  const handleEditProfile = () => {
+    navigation.navigate("EditUserScreen");
+  };
 
   return (
     <ImageBackground
@@ -125,6 +149,16 @@ export default function UserInfoScreen({ navigation, route }) {
             </View>
           ))}
 
+        
+      
+       { isUserAdmin && (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleEditProfile}
+          >
+            <Text style={styles.buttonText}>Edit</Text>
+          </TouchableOpacity>
+      )}
         <StatusBar style="auto" />
       </View>
     </ImageBackground>
