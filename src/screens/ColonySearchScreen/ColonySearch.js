@@ -6,6 +6,7 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
+  Picker,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import styles from "./styles";
@@ -16,6 +17,10 @@ export default function ColonySearch({ navigation }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("name"); // default search type is name
   const [userData, setUserData] = useState([]);
+  const [filterType, setFilterType] = useState("name"); // default filter type is name
+  const [originalData, setOriginalData] = useState([]); // Store the original data
+  const [nameSortOrder, setNameSortOrder] = useState(""); // Sort order for name column
+  const [locationSortOrder, setLocationSortOrder] = useState(""); // Sort order for location column
 
   useEffect(() => {
     const fetchUsersData = async () => {
@@ -34,6 +39,7 @@ export default function ColonySearch({ navigation }) {
           };
         });
         setUserData(usersData);
+        setOriginalData(usersData);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -41,10 +47,63 @@ export default function ColonySearch({ navigation }) {
 
     fetchUsersData();
   }, []);
+
   const handleUserPress = (uid) => {
     navigation.navigate("UserInfoScreen", { uid }); // Navigate to UserInfoScreen with the uid as a parameter
     console.log("Navigating to UserInfoScreen with uid:", uid);
   };
+
+  const handleNameColumnPress = () => {
+    if (nameSortOrder === "asc") {
+      const sortedData = [...userData].sort((a, b) => {
+        return b.name.localeCompare(a.name);
+      });
+      setUserData(sortedData);
+      setNameSortOrder("desc");
+    } else {
+      const sortedData = [...userData].sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+      setUserData(sortedData);
+      setNameSortOrder("asc");
+    }
+  };
+
+  const handleLocationColumnPress = () => {
+    if (locationSortOrder === "asc") {
+      const sortedData = [...userData].sort((a, b) => {
+        return b.location.localeCompare(a.location);
+      });
+      setUserData(sortedData);
+      setLocationSortOrder("desc");
+    } else {
+      const sortedData = [...userData].sort((a, b) => {
+        return a.location.localeCompare(b.location);
+      });
+      setUserData(sortedData);
+      setLocationSortOrder("asc");
+    }
+  };
+
+  const handleSearch = () => {
+    if (filterType === "all") {
+      // Show the entire list
+      setUserData(originalData);
+    } else {
+      // Filter the data based on the selected filter type and search term
+      const filteredData = originalData.filter((user) => {
+        if (filterType === "name") {
+          return user.name.toLowerCase().includes(searchTerm.toLowerCase());
+        } else if (filterType === "id") {
+          return user.idNumber.toLowerCase().includes(searchTerm.toLowerCase());
+        } else if (filterType === "location") {
+          return user.location.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+      });
+      setUserData(filteredData);
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../../../assets/beesbackground.jpg")}
@@ -53,12 +112,59 @@ export default function ColonySearch({ navigation }) {
       <View style={styles.container}>
         <Text style={styles.title}>Colony Search</Text>
 
+        <View style={styles.searchContainer}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search..."
+            value={searchTerm}
+            onChangeText={setSearchTerm}
+          />
+
+          <Picker
+            selectedValue={filterType}
+            style={styles.filterPicker}
+            onValueChange={(itemValue) => setFilterType(itemValue)}
+          >
+            <Picker.Item label="Name" value="name" />
+            <Picker.Item label="ID" value="id" />
+            <Picker.Item label="Location" value="location" />
+            <Picker.Item label="Show All" value="all" />
+          </Picker>
+
+          <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+            <Text style={styles.searchButtonText}>Search</Text>
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.table}>
           <View style={styles.tableHeader}>
-            <Text style={styles.columnHeader}>Name</Text>
+            <TouchableOpacity
+              onPress={handleNameColumnPress}
+              style={styles.columnHeaderContainer}
+            >
+              <Text style={styles.columnHeader}>Name</Text>
+              {nameSortOrder === "asc" && (
+                <Text style={styles.sortArrow}>▲</Text>
+              )}
+              {nameSortOrder === "desc" && (
+                <Text style={styles.sortArrow}>▼</Text>
+              )}
+            </TouchableOpacity>
             <Text style={styles.columnHeader}>ID</Text>
-            <Text style={styles.columnHeader}>Location</Text>
+            <TouchableOpacity
+              onPress={handleLocationColumnPress}
+              style={styles.columnHeaderContainer}
+            >
+              <Text style={styles.columnHeader}>Location</Text>
+              {locationSortOrder === "asc" && (
+                <Text style={styles.sortArrow}>▲</Text>
+              )}
+              {locationSortOrder === "desc" && (
+                <Text style={styles.sortArrow}>▼</Text>
+              )}
+            </TouchableOpacity>
           </View>
+
           {userData.map((user, index) => (
             <TouchableOpacity
               style={styles.tableRow}
