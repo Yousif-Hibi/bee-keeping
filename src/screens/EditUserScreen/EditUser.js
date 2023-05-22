@@ -14,13 +14,15 @@ import { StatusBar } from "react-native";
 import { database } from "../../../config/firebase";
 import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
+
 export default function EditUserScreen({ navigation, route }) {
     const [keeperData, setKeeperData] = useState(null);
     const [editedData, setEditedData] = useState({});
     const [tableData, setTableData] = useState([]);
+
     useEffect(() => {
         const fetchKeeperData = async () => {
-            const uid = auth.currentUser.uid;
+            const uid = route.params.uid;
             if (!uid) {
                 console.log("Invalid uid");
                 return;
@@ -53,8 +55,6 @@ export default function EditUserScreen({ navigation, route }) {
         fetchKeeperData();
     }, [route?.params?.uid]);
 
-
-
     const handleInputChange = (key, value) => {
         setEditedData((prevData) => ({
             ...prevData,
@@ -84,9 +84,6 @@ export default function EditUserScreen({ navigation, route }) {
         return <Text style={styles.loadingText}>Loading...</Text>;
     }
 
-
-
-
     const handleTableInputChange = (index, key, value) => {
         const updatedTableData = tableData.map((rowData, rowIndex) => {
             if (rowIndex === index) {
@@ -108,21 +105,20 @@ export default function EditUserScreen({ navigation, route }) {
         setEditedData(updatedEditedData);
     };
 
-
     return (
         <ImageBackground
             source={require("../../../assets/beesbackground.jpg")}
             style={styles.background}
         >
-        <View style={styles.container}>
+            <View style={styles.container}>
                 <View style={styles.labelContainer}>
                     <Text style={styles.labelText}>Name:</Text>
                 </View>
-            <TextInput
-                style={styles.input}
-                value={editedData.name}
-                onChangeText={(value) => handleInputChange("name", value)}
-            />
+                <TextInput
+                    style={styles.input}
+                    value={editedData.name}
+                    onChangeText={(value) => handleInputChange("name", value)}
+                />
 
                 <View style={styles.labelContainer}>
                     <Text style={styles.labelText}>Phone Number:</Text>
@@ -132,14 +128,16 @@ export default function EditUserScreen({ navigation, route }) {
                     value={editedData.phoneNumber}
                     onChangeText={(value) => handleInputChange("phoneNumber", value)}
                 />
+
                 <View style={styles.labelContainer}>
-                    <Text style={styles.labelText}>location:</Text>
+                    <Text style={styles.labelText}>Location:</Text>
                 </View>
                 <TextInput
                     style={styles.input}
                     value={editedData.location}
                     onChangeText={(value) => handleInputChange("location", value)}
                 />
+
                 <View style={styles.labelContainer}>
                     <Text style={styles.labelText}>ID:</Text>
                 </View>
@@ -148,6 +146,7 @@ export default function EditUserScreen({ navigation, route }) {
                     value={editedData.idNumber}
                     onChangeText={(value) => handleInputChange("idNumber", value)}
                 />
+
                 <View style={styles.toggleContainer}>
                     <Text style={styles.labelText}>Signature:</Text>
                     <Switch
@@ -156,6 +155,7 @@ export default function EditUserScreen({ navigation, route }) {
                         onValueChange={(value) => handleInputChange("signature", value)}
                     />
                 </View>
+
                 <View style={styles.toggleContainer}>
                     <Text style={styles.labelText}>Obtain:</Text>
                     <Switch
@@ -164,8 +164,6 @@ export default function EditUserScreen({ navigation, route }) {
                         onValueChange={(value) => handleInputChange("obtain", value)}
                     />
                 </View>
-
-                
 
                 <View style={styles.tableContainer}>
                     <View style={styles.tableHeader}>
@@ -201,17 +199,10 @@ export default function EditUserScreen({ navigation, route }) {
                     ))}
                 </View>
 
-
-
-
-
-
-
-
-            <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
-                <Text style={styles.buttonText}>Save Changes</Text>
-            </TouchableOpacity>
-        </View>
-        </ImageBackground> 
+                <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
+                    <Text style={styles.buttonText}>Save Changes</Text>
+                </TouchableOpacity>
+            </View>
+        </ImageBackground>
     );
 }
