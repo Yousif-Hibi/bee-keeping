@@ -2,8 +2,10 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: "rgba(255, 255, 255, 0.8)",
+        paddingHorizontal: 20,
+        paddingTop: 40,
     },
     backgroundImage: {
         flex: 1,
@@ -15,7 +17,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFD700',
         borderRadius: 5,
         marginBottom: 5,
-        // width: '15%',
         alignSelf: 'flex-start',
     },
     labelText: {
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     input: {
+        width: "100%",
         borderWidth: 1,
         borderColor: "#ccc",
         borderRadius: 4,
@@ -48,24 +50,19 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: "center",
         marginTop: 20,
-    
     },
     toggleContainer: {
         backgroundColor: '#FFD700',
         borderRadius: 5,
         marginBottom: 5,
-       paddingRight: 5,
+        paddingRight: 5,
         alignSelf: 'flex-start',
         flexDirection: "row",
         alignItems: "center",
-        
     },
     switch: {
         marginLeft: 10,
     },
-
-
-
     tableContainer: {
         marginTop: 16,
         borderWidth: 1,
@@ -91,7 +88,7 @@ const styles = StyleSheet.create({
     tableCell: {
         flex: 1,
         width: '33%',
-        backgroundColor:'white',
+        backgroundColor: 'white',
         borderWidth: 1,
         borderColor: "#ccc",
         padding: 8,

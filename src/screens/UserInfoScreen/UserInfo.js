@@ -3,16 +3,19 @@ import {
   View,
   Text,
   TextInput,
-  CheckBox,
+  
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import styles from "./styles";
 import { ImageBackground } from "react-native";
 import { StatusBar } from "react-native";
 import { database } from "../../../config/firebase";
 import { auth } from "../../../config/firebase";
-import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { getFirestore, doc, getDoc, deleteDoc } from "firebase/firestore";
+import { CheckBox } from 'react-native-elements';
+
 
 export default function UserInfoScreen({ navigation, route }) {
   const [isSignatureChecked, setIsSignatureChecked] = useState(false);
@@ -34,8 +37,8 @@ export default function UserInfoScreen({ navigation, route }) {
         if (userDocSnapshot.exists()) {
           const userData = userDocSnapshot.data();
           setUser(userData);
-          setIsSignatureChecked(userData && userData.signature);
-          setIsObtainChecked(userData && userData.obtain);
+          setIsSignatureChecked(userData?.signature || false);
+          setIsObtainChecked(userData?.obtain || false);
 
           const currentUser = auth.currentUser;
           if (
@@ -75,6 +78,34 @@ export default function UserInfoScreen({ navigation, route }) {
     navigation.navigate("EditUserScreen", { uid });
   };
 
+  const handleDeleteUser = async () => {
+    Alert.alert(
+      "Confirmation",
+      "Are you sure you want to delete this user?",
+      [
+        { text: "Cancel", style: "cancel" },
+        { text: "Delete", onPress: confirmDeleteUser, style: "destructive" },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const confirmDeleteUser = async () => {
+    const uid = route.params.uid;
+    const userDocRef = doc(database, "keepers", uid);
+
+    try {
+      await deleteDoc(userDocRef);
+      console.log("User deleted successfully");
+      // Show a success message or navigate to another screen if needed
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      // Show an error message or handle the error appropriately
+    }
+  };
+
+
+
   return (
     <ImageBackground
       source={require("../../../assets/beesbackground.jpg")}
@@ -112,7 +143,7 @@ export default function UserInfoScreen({ navigation, route }) {
         </View>
 
         <View style={styles.row}>
-          {user && <Text style={styles.texts}>{user.placeOfHive}</Text>}
+          {user && <Text style={styles.texts}>{user.hiveLocation}</Text>}
           <Text style={styles.label}>مكان تربية النحل:</Text>
         </View>
 
@@ -121,21 +152,22 @@ export default function UserInfoScreen({ navigation, route }) {
           <Text style={styles.label}>عدد المناحل:</Text>
         </View>
 
+
         <View style={styles.row}>
           <Text style={styles.label}>توقيع الوثيقة</Text>
           <CheckBox
-            value={isSignatureChecked}
+            checked={isSignatureChecked}
             disabled={!user || !user.signature}
-            onValueChange={null}
+            onPress={() => setIsSignatureChecked(!isSignatureChecked)}
           />
         </View>
 
         <View style={styles.row}>
           <Text style={styles.label}>وصل استلام</Text>
           <CheckBox
-            value={isObtainChecked}
+            checked={isObtainChecked}
             disabled={!user || !user.obtain}
-            onValueChange={null}
+            onPress={() => setIsObtainChecked(!isObtainChecked)}
           />
         </View>
 
@@ -146,24 +178,26 @@ export default function UserInfoScreen({ navigation, route }) {
           <Text style={styles.tableHeaderText}>Full Frame</Text>
         </View>
 
-        {user &&
-          user.hiveIDs.map((_, i) => (
-            <View style={styles.tableRow} key={i}>
-              <Text style={styles.tableCell}>{i + 1}</Text>
-              <Text style={styles.tableCell}>{user.hiveIDs[i]}</Text>
-              <Text style={styles.tableCell}>{user.Halfframe[i]}</Text>
-              <Text style={styles.tableCell}>{user.Fullframe[i]}</Text>
-            </View>
-          ))}
+        {user?.hiveIDs.map((_, i) => (
+          <View style={styles.tableRow} key={i}>
+            <Text style={styles.tableCell}>{i + 1}</Text>
+            <Text style={styles.tableCell}>{user.hiveIDs[i]}</Text>
+            <Text style={styles.tableCell}>{user.Halfframe[i]}</Text>
+            <Text style={styles.tableCell}>{user.Fullframe[i]}</Text>
+          </View>
+        ))}
 
         {showEditButton && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleEditProfile}
-          >
-            <Text style={styles.buttonText}>Edit</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.Deletebutton} onPress={handleEditProfile}>
+              <Text style={styles.buttonText}>Edit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.Deletebutton} onPress={handleDeleteUser}>
+              <Text style={styles.buttonText}>Delete</Text>
+            </TouchableOpacity>
+          </View>
         )}
+
         <StatusBar style="auto" />
       </View>
     </ImageBackground>

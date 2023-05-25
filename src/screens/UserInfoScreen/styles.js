@@ -60,12 +60,13 @@ const styles = StyleSheet.create({
   },
 
   texts: {
+   
+  },
+  text: {
     color: "black",
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
-  },
-  text: {
     backgroundColor: "#FFD700",
     width: "50%",
     alignItems: "center",
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   titleSend: {
-    color: "balck",
+    color: "black",
     fontSize: 16,
     fontWeight: "bold",
     marginRight: 20,
@@ -127,6 +128,15 @@ const styles = StyleSheet.create({
   },
   tableCell: {
     fontSize: 16,
+  },
+  Deletebutton:{
+  backgroundColor: "#FFD700",
+  borderRadius: 5,
+  padding: 10,
+  width: "100%",
+  alignItems: "center",
+  
+  marginBottom: 20,
   },
 });
 

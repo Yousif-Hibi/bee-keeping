@@ -3,17 +3,22 @@ import {
     View,
     Text,
     TextInput,
-    CheckBox,
     TouchableOpacity,
     Image,
     Switch,
+    ScrollView,
 } from "react-native";
 import styles from "./styles";
 import { ImageBackground } from "react-native";
 import { StatusBar } from "react-native";
 import { database } from "../../../config/firebase";
 import { auth } from "../../../config/firebase";
-import { getFirestore, doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    updateDoc,
+} from "firebase/firestore";
 
 export default function EditUserScreen({ navigation, route }) {
     const [keeperData, setKeeperData] = useState(null);
@@ -108,17 +113,20 @@ export default function EditUserScreen({ navigation, route }) {
     return (
         <ImageBackground
             source={require("../../../assets/beesbackground.jpg")}
-            style={styles.background}
+            style={styles.backgroundImage}
         >
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.labelContainer}>
                     <Text style={styles.labelText}>Name:</Text>
                 </View>
-                <TextInput
-                    style={styles.input}
-                    value={editedData.name}
-                    onChangeText={(value) => handleInputChange("name", value)}
-                />
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        value={editedData.name}
+                        onChangeText={(value) => handleInputChange("name", value)}
+                    />
+                    <View style={styles.line} />
+                </View>
 
                 <View style={styles.labelContainer}>
                     <Text style={styles.labelText}>Phone Number:</Text>
@@ -145,6 +153,24 @@ export default function EditUserScreen({ navigation, route }) {
                     style={styles.input}
                     value={editedData.idNumber}
                     onChangeText={(value) => handleInputChange("idNumber", value)}
+                />
+
+                <View style={styles.labelContainer}>
+                    <Text style={styles.labelText}>Hive Location:</Text>
+                </View>
+                <TextInput
+                    style={styles.input}
+                    value={editedData.hiveLocation}
+                    onChangeText={(value) => handleInputChange("hiveLocation", value)}
+                />
+
+                <View style={styles.labelContainer}>
+                    <Text style={styles.labelText}>Payment:</Text>
+                </View>
+                <TextInput
+                    style={styles.input}
+                    value={editedData.payment}
+                    onChangeText={(value) => handleInputChange("payment", value)}
                 />
 
                 <View style={styles.toggleContainer}>
@@ -199,10 +225,13 @@ export default function EditUserScreen({ navigation, route }) {
                     ))}
                 </View>
 
-                <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
+                <TouchableOpacity
+                    style={styles.saveButton}
+                    onPress={handleSaveChanges}
+                >
                     <Text style={styles.buttonText}>Save Changes</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         </ImageBackground>
     );
 }
