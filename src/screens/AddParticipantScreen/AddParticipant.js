@@ -5,11 +5,12 @@ import {
   TextInput,
   Button,
   StyleSheet,
-  Picker,
+  
   ImageBackground,
   Alert,
 } from "react-native";
 import styles from "./styles";
+import { Picker } from '@react-native-picker/picker';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
   getFirestore,

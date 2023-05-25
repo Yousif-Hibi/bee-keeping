@@ -6,8 +6,10 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
-  Picker,
+
 } from "react-native";
+import { Picker } from '@react-native-picker/picker';
+
 import { StatusBar } from "expo-status-bar";
 import styles from "./styles";
 import { collection, getDocs } from "firebase/firestore";
