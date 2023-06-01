@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import styles from "./styles";
-import { Picker } from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
 import { ImageBackground } from "react-native";
 import { StatusBar } from "react-native";
 import { database } from "../../../config/firebase";
@@ -62,8 +62,8 @@ export default function EditUserScreen({ navigation, route }) {
 
           const newTableData = keeper.hiveIDs.map((hiveID, index) => ({
             hiveID,
-            Fullframe: keeper.Fullframe[index],
-            Halfframe: keeper.Halfframe[index],
+            Secondcollect: keeper.Secondcollect[index],
+            Firstcollect: keeper.Firstcollect[index],
           }));
           setTableData(newTableData);
         } else {
@@ -122,8 +122,10 @@ export default function EditUserScreen({ navigation, route }) {
     // Update editedData with the changes
     const updatedEditedData = { ...editedData };
     updatedEditedData.hiveIDs[index] = updatedTableData[index].hiveID;
-    updatedEditedData.Fullframe[index] = updatedTableData[index].Fullframe;
-    updatedEditedData.Halfframe[index] = updatedTableData[index].Halfframe;
+    updatedEditedData.Secondcollect[index] =
+      updatedTableData[index].Secondcollect;
+    updatedEditedData.Firstcollect[index] =
+      updatedTableData[index].Firstcollect;
     setEditedData(updatedEditedData);
   };
 
@@ -160,7 +162,9 @@ export default function EditUserScreen({ navigation, route }) {
         <Picker
           selectedValue={editedData.location}
           style={[styles.selectInput, cityError && styles.errorInput]}
-          onValueChange={(selectedValue) => handleInputChange("location", selectedValue)}
+          onValueChange={(selectedValue) =>
+            handleInputChange("location", selectedValue)
+          }
         >
           <Picker.Item label="Select City" value="" />
           {cities.map((city) => (
@@ -216,8 +220,8 @@ export default function EditUserScreen({ navigation, route }) {
         <View style={styles.tableContainer}>
           <View style={styles.tableHeader}>
             <Text style={styles.tableHeaderText}>Hive ID</Text>
-            <Text style={styles.tableHeaderText}>Full Frame</Text>
-            <Text style={styles.tableHeaderText}>Half Frame</Text>
+            <Text style={styles.tableHeaderText}>FirstCollect</Text>
+            <Text style={styles.tableHeaderText}>SecondCollect</Text>
           </View>
 
           {tableData.map((rowData, index) => (
@@ -231,16 +235,16 @@ export default function EditUserScreen({ navigation, route }) {
               />
               <TextInput
                 style={styles.tableCell}
-                value={rowData.Fullframe}
+                value={rowData.Secondcollect}
                 onChangeText={(value) =>
-                  handleTableInputChange(index, "Fullframe", value)
+                  handleTableInputChange(index, "Secondcollect", value)
                 }
               />
               <TextInput
                 style={styles.tableCell}
-                value={rowData.Halfframe}
+                value={rowData.Firstcollect}
                 onChangeText={(value) =>
-                  handleTableInputChange(index, "Halfframe", value)
+                  handleTableInputChange(index, "Firstcollect", value)
                 }
               />
             </View>

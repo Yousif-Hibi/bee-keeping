@@ -26,8 +26,8 @@ import {
 import AdminInfoScreen from "../AdminInfoScreen/AdminInfo";
 
 export default function ColAccInfo({ navigation, route }) {
-  const [Halfframe, setHalfframe] = useState([]);
-  const [Fullframe, setFullframe] = useState([]);
+  const [Firstcollect, setFirstcollect] = useState([]);
+  const [Secondcollect, setSecondcollect] = useState([]);
   const colnum = 5;
   const [user, setUser] = useState(null);
   const [submitVisible, setSubmitVisible] = useState(false);
@@ -79,14 +79,16 @@ export default function ColAccInfo({ navigation, route }) {
     try {
       await updateDoc(docRef, {
         hiveIDs: arrayUnion(...tableData.map((rowData) => rowData.hiveID)),
-        Halfframe: Halfframe,
-        Fullframe: Fullframe,
+        Firstcollect: Firstcollect,
+        Secondcollect: Secondcollect,
       });
-      console.log("Bee hive IDs, Halfframe, and Fullframe added to Firestore");
+      console.log(
+        "Bee hive IDs, Firstcollect, and Secondcollect added to Firestore"
+      );
       navigation.navigate(AdminInfoScreen);
     } catch (error) {
       console.error(
-        "Error adding bee hive IDs, Halfframe, and Fullframe:",
+        "Error adding bee hive IDs, Firstcollect, and Secondcollect:",
         error
       );
     }
@@ -98,8 +100,8 @@ export default function ColAccInfo({ navigation, route }) {
     // Additional logic or navigation can be performed here
     // Build the table based on the count
     const data = [];
-    const halfFrameArr = Array(count).fill("");
-    const fullFrameArr = Array(count).fill("");
+    const FirstcollectArr = Array(count).fill("");
+    const SecondcollectArr = Array(count).fill("");
     for (let i = 0; i < count; i++) {
       data.push({
         hiveNum: i,
@@ -107,8 +109,8 @@ export default function ColAccInfo({ navigation, route }) {
       });
     }
     setTableData(data);
-    setHalfframe(halfFrameArr);
-    setFullframe(fullFrameArr);
+    setFirstcollect(FirstcollectArr);
+    setSecondcollect(SecondcollectArr);
     setSubmitVisible(true);
     setCreatePressed(true);
   };
