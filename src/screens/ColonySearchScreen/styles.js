@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "center",
     alignContent: "center",
+    textAlign: "center",
   },
   searchContainer: {
     flexDirection: "row",

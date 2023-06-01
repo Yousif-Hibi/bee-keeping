@@ -17,7 +17,7 @@ import AddParticipant from "./src/screens/AddParticipantScreen/AddParticipant";
 import CheckMessages from "./src/screens/CheckMessagesScreen/CheckMessages";
 import CheckerInfo from "./src/screens/CheckerInfoScreen/CheckerInfo";
 import ColonySearch from "./src/screens/ColonySearchScreen/ColonySearch";
-import Finance from "./src/screens/FinanceScreen/Finance";
+import Statistics from "./src/screens/StatisticsScreen/Statistics";
 import ColAccIInfo from "./src/screens/ColAccInfoScreen/ColAccIInfo";
 import Chat from "./src/screens/ChatScreen/Chat";
 import UserInfo from "./src/screens/UserInfoScreen/UserInfo";
@@ -33,7 +33,7 @@ export default function App() {
         <Stack.Screen name="ColonySearchScreen" component={ColonySearch} />
         <Stack.Screen name="CheckMessagesScreen" component={CheckMessages} />
         <Stack.Screen name="AddParticipantScreen" component={AddParticipant} />
-        <Stack.Screen name="FinanceScreen" component={Finance} />
+        <Stack.Screen name="StatisticsScreen" component={Statistics} />
         <Stack.Screen name="ColAccInfoScreen" component={ColAccIInfo} />
         <Stack.Screen name="ChatScreen" component={Chat} />
         <Stack.Screen name="UserInfoScreen" component={UserInfo} />

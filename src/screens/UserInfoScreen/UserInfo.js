@@ -169,16 +169,16 @@ export default function UserInfoScreen({ navigation, route }) {
         <View style={styles.tableHeader}>
           <Text style={styles.tableHeaderText}>رقم</Text>
           <Text style={styles.tableHeaderText}>رقم المنحلة</Text>
-          <Text style={styles.tableHeaderText}>نصف اطار</Text>
-          <Text style={styles.tableHeaderText}>اطار كامل</Text>
+          <Text style={styles.tableHeaderText}>قطف اول</Text>
+          <Text style={styles.tableHeaderText}> قطف ثاني</Text>
         </View>
 
         {user?.hiveIDs.map((_, i) => (
           <View style={styles.tableRow} key={i}>
             <Text style={styles.tableCell}>{i + 1}</Text>
             <Text style={styles.tableCell}>{user.hiveIDs[i]}</Text>
-            <Text style={styles.tableCell}>{user.Halfframe[i]}</Text>
-            <Text style={styles.tableCell}>{user.Fullframe[i]}</Text>
+            <Text style={styles.tableCell}>{user.Firstcollect[i]}</Text>
+            <Text style={styles.tableCell}>{user.Secondcollect[i]}</Text>
           </View>
         ))}
 
