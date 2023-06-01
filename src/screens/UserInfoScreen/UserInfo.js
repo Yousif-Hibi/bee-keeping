@@ -140,10 +140,10 @@ export default function UserInfoScreen({ navigation, route }) {
         </View>
 
         <View style={styles.tableHeader}>
-          <Text style={styles.tableHeaderText}>Number</Text>
-          <Text style={styles.tableHeaderText}>Colnumber</Text>
-          <Text style={styles.tableHeaderText}>Half Frame</Text>
-          <Text style={styles.tableHeaderText}>Full Frame</Text>
+          <Text style={styles.tableHeaderText}>رقم</Text>
+          <Text style={styles.tableHeaderText}>رقم المنحلة</Text>
+          <Text style={styles.tableHeaderText}>نصف اطار</Text>
+          <Text style={styles.tableHeaderText}>اطار كامل</Text>
         </View>
 
         {user &&
@@ -157,10 +157,7 @@ export default function UserInfoScreen({ navigation, route }) {
           ))}
 
         {showEditButton && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleEditProfile}
-          >
+          <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
             <Text style={styles.buttonText}>Edit</Text>
           </TouchableOpacity>
         )}

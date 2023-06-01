@@ -125,10 +125,10 @@ export default function ColonySearch({ navigation }) {
             style={styles.filterPicker}
             onValueChange={(itemValue) => setFilterType(itemValue)}
           >
+            <Picker.Item label="Show All" value="all" />
             <Picker.Item label="Name" value="name" />
             <Picker.Item label="ID" value="id" />
             <Picker.Item label="Location" value="location" />
-            <Picker.Item label="Show All" value="all" />
           </Picker>
 
           <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>

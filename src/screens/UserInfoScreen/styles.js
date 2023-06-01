@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
+    alignItems: "center",
   },
   text: {
     backgroundColor: "#FFD700",
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginRight: 8,
+    marginLeft: 8,
   },
   txt: {
     color: "black",
@@ -127,6 +129,7 @@ const styles = StyleSheet.create({
   },
   tableCell: {
     fontSize: 16,
+    textAlign: "center",
   },
 });
 
