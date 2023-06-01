@@ -17,6 +17,10 @@
   version "7.10.4"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz"
   integrity sha512-vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg==
+"@babel/code-frame@7.10.4", "@babel/code-frame@~7.10.4":
+  version "7.10.4"
+  resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz"
+  integrity sha512-vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg==
   dependencies:
     "@babel/highlight" "^7.10.4"
 
@@ -24,7 +28,12 @@
   version "7.18.6"
   resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.18.6.tgz"
   integrity sha512-TDCmlK5eOvH+eH7cdAFlNXeVJqWIQ7gW9tY1GJIpUtFb6CmjVyq2VM3u71bOyR8CRihcCgMUYoDNyLXao3+70Q==
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.18.6":
+  version "7.18.6"
+  resolved "https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.18.6.tgz"
+  integrity sha512-TDCmlK5eOvH+eH7cdAFlNXeVJqWIQ7gW9tY1GJIpUtFb6CmjVyq2VM3u71bOyR8CRihcCgMUYoDNyLXao3+70Q==
   dependencies:
+    "@babel/highlight" "^7.18.6"
     "@babel/highlight" "^7.18.6"
 
 "@babel/compat-data@^7.17.7", "@babel/compat-data@^7.20.1", "@babel/compat-data@^7.20.5":
@@ -35,7 +44,7 @@
   resolved "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.21.0.tgz"
   integrity sha512-gMuZsmsgxk/ENC3O/fRw5QY8A9/uxQbbCEypnLIiYYc/qVJtEV7ouxC3EllIIwNzMqAQee5tanFabWsUOutS7g==
 
-"@babel/core@^7.13.16", "@babel/core@^7.20.0", "@babel/core@^7.20.2":
+"@babel/core@^7.13.16", "@babel/core@^7.16.0", "@babel/core@^7.20.0":
   version "7.21.3"
   resolved "https://registry.npmjs.org/@babel/core/-/core-7.21.3.tgz"
   integrity sha512-qIJONzoa/qiHghnm0l1n4i/6IIziDpzqc36FBs4pzMhDUraHqponwJLiAKm1hGLP3OSB/TVNz6rMwVGpwxxySw==
@@ -2358,10 +2367,10 @@
   resolved "https://registry.npmjs.org/@react-native-community/masked-view/-/masked-view-0.1.11.tgz"
   integrity sha512-rQfMIGSR/1r/SyN87+VD8xHHzDYeHaJq6elOSCAD+0iLagXkSI2pfA0LmSXP21uw5i3em7GkkRjfJ8wpqWXZNw==
 
-"@react-native-firebase/app@^17.5.0":
-  version "17.5.0"
-  resolved "https://registry.npmjs.org/@react-native-firebase/app/-/app-17.5.0.tgz"
-  integrity sha512-8DWjguVmVYmuPWI7mhXlmLB6GxKnPjUjZ4Wnnyj3Wh5uqHzgUREHEA1aH92PT84LJLZL8F6dJZk+fIyo9UyXnA==
+"@react-native-firebase/app@^17.5.0", "@react-native-firebase/app@17.5.0":
+  "integrity" "sha512-8DWjguVmVYmuPWI7mhXlmLB6GxKnPjUjZ4Wnnyj3Wh5uqHzgUREHEA1aH92PT84LJLZL8F6dJZk+fIyo9UyXnA=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-17.5.0.tgz"
+  "version" "17.5.0"
   dependencies:
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
@@ -4774,15 +4783,10 @@ expo-application@~5.1.1:
     "find-up" "^5.0.0"
     "fs-extra" "^9.1.0"
 
-expo-keep-awake@~12.0.1:
-  version "12.0.1"
-  resolved "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-12.0.1.tgz"
-  integrity sha512-hqeCnb4033TyuZaXs93zTK7rjVJ3bywXATyMmKmKkLEsH2PKBAl/VmjlCOPQL/2Ncqz6aj7Wo//tjeJTARBD4g==
-
-expo-modules-autolinking@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/expo-modules-autolinking/-/expo-modules-autolinking-1.2.0.tgz"
-  integrity sha512-QOPh/iXykNDCAzUual1imSrn2aDakzCGUp2QmxVREr0llajXygroUWlT9sQXh1zKzbNp+a+i/xK375ZeBFiNJA==
+"expo-modules-core@1.2.7":
+  "integrity" "sha512-sulqn2M8+tIdxi6QFkKppDEzbePAscgE2LEHocYoQOgHxJpeT7axE0Hkzc+81EeviQilZzGeFZMtNMGh3c9yJg=="
+  "resolved" "https://registry.npmjs.org/expo-modules-core/-/expo-modules-core-1.2.7.tgz"
+  "version" "1.2.7"
   dependencies:
     "compare-versions" "^3.4.0"
     "invariant" "^2.2.4"
@@ -7450,10 +7454,15 @@ open@^8.0.4, open@^8.0.9, open@^8.3.0:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-"open@^8.0.4", "open@^8.0.9", "open@^8.3.0":
-  "integrity" "sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ=="
-  "resolved" "https://registry.npmjs.org/open/-/open-8.4.2.tgz"
-  "version" "8.4.2"
+opencollective-postinstall@^2.0.1, opencollective-postinstall@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz"
+  integrity sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==
+
+ora@3.4.0:
+  version "3.4.0"
+  resolved "https://registry.npmjs.org/ora/-/ora-3.4.0.tgz"
+  integrity sha512-eNwHudNbO1folBP3JsZ19v9azXWtQZjICdr3Q0TDPIaeBQ3mXLrh54wM+er0+hSp+dWKf+Z8KM58CYzEyIYxYg==
   dependencies:
     "define-lazy-prop" "^2.0.0"
     "is-docker" "^2.1.1"
@@ -8283,24 +8292,10 @@ react-native-communications@2.2.1:
   resolved "https://registry.npmjs.org/react-native-communications/-/react-native-communications-2.2.1.tgz"
   integrity sha512-5+C0X9mopI0+qxyQHzOPEi5v5rxNBQjxydPPiKMQSlX1RBIcJ8uTcqUPssQ9Mo8p6c1IKIWJUSqCj4jAmD0qVQ==
 
-react-native-elements@^3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-3.4.3.tgz#c33919002aef83a0c0f98d0ed56009714ad9b1b3"
-  integrity sha512-VtZc25EecPZyUBER85zFK9ZbY6kkUdcm1ZwJ9hdoGSCr1R/GFgxor4jngOcSYeMvQ+qimd5No44OVJW3rSJECA==
-  dependencies:
-    "@types/react-native-vector-icons" "^6.4.6"
-    color "^3.1.2"
-    deepmerge "^4.2.2"
-    hoist-non-react-statics "^3.3.2"
-    lodash.isequal "^4.5.0"
-    opencollective-postinstall "^2.0.3"
-    react-native-ratings "8.0.4"
-    react-native-size-matters "^0.3.1"
-
-react-native-gesture-handler@^2.9.0:
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.9.0.tgz"
-  integrity sha512-a0BcH3Qb1tgVqUutc6d3VuWQkI1AM3+fJx8dkxzZs9t06qA27QgURYFoklpabuWpsUTzuKRpxleykp25E8m7tg==
+"react-native-gesture-handler@^2.9.0", "react-native-gesture-handler@>= 1.0.0":
+  "integrity" "sha512-a0BcH3Qb1tgVqUutc6d3VuWQkI1AM3+fJx8dkxzZs9t06qA27QgURYFoklpabuWpsUTzuKRpxleykp25E8m7tg=="
+  "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.9.0.tgz"
+  "version" "2.9.0"
   dependencies:
     "@egjs/hammerjs" "^2.0.17"
     hoist-non-react-statics "^3.3.0"
@@ -8401,15 +8396,10 @@ react-native-screens@^3.20.0, "react-native-screens@>= 3.0.0":
   "resolved" "https://registry.npmjs.org/react-native-typing-animation/-/react-native-typing-animation-0.1.7.tgz"
   "version" "0.1.7"
 
-react-native-typing-animation@0.1.7:
-  version "0.1.7"
-  resolved "https://registry.npmjs.org/react-native-typing-animation/-/react-native-typing-animation-0.1.7.tgz"
-  integrity sha512-4H3rF9M+I2yAZpYJcY0Mb29TXkn98QK12rrKSY6LZj1BQD9NNmRZuNXzwX4XHapsIz+N/J8M3p27FOQPbfzqeg==
-
-react-native-web@~0.18.10:
-  version "0.18.12"
-  resolved "https://registry.npmjs.org/react-native-web/-/react-native-web-0.18.12.tgz"
-  integrity sha512-fboP7yqobJ8InSr4fP+bQ3scOtSQtUoPcR+HWasH8b/fk/RO+mWcJs/8n+lewy9WTZc2D68ha7VwRDviUshEWA==
+"react-native-web@~0.18.10":
+  "integrity" "sha512-fboP7yqobJ8InSr4fP+bQ3scOtSQtUoPcR+HWasH8b/fk/RO+mWcJs/8n+lewy9WTZc2D68ha7VwRDviUshEWA=="
+  "resolved" "https://registry.npmjs.org/react-native-web/-/react-native-web-0.18.12.tgz"
+  "version" "0.18.12"
   dependencies:
     "@babel/runtime" "^7.18.6"
     create-react-class "^15.7.0"
