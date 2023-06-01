@@ -60,20 +60,17 @@ const styles = StyleSheet.create({
   },
 
   texts: {
-   
-  },
-  text: {
     color: "black",
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
+  },
+  text: {
     backgroundColor: "#FFD700",
     width: "50%",
     alignItems: "center",
-    borderRadius: 10,
-    padding: 2.5,
-    marginRight: 5,
   },
+
   row: {
     backgroundColor: "#FFD700",
     flexDirection: "row",
@@ -90,6 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginRight: 8,
+    marginLeft: 8,
   },
   txt: {
     color: "black",
@@ -128,15 +126,16 @@ const styles = StyleSheet.create({
   },
   tableCell: {
     fontSize: 16,
+    textAlign: "center",
   },
-  Deletebutton:{
-  backgroundColor: "#FFD700",
-  borderRadius: 5,
-  padding: 10,
-  width: "100%",
-  alignItems: "center",
-  
-  marginBottom: 20,
+  Deletebutton: {
+    backgroundColor: "#FFD700",
+    borderRadius: 5,
+    padding: 10,
+    width: "100%",
+    alignItems: "center",
+
+    marginBottom: 20,
   },
 });
 
