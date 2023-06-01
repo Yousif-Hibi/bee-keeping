@@ -157,9 +157,20 @@ export default function UserInfoScreen({ navigation, route }) {
           ))}
 
         {showEditButton && (
-          <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
-            <Text style={styles.buttonText}>Edit</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={styles.Deletebutton}
+              onPress={handleEditProfile}
+            >
+              <Text style={styles.buttonText}>Edit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.Deletebutton}
+              onPress={handleDeleteUser}
+            >
+              <Text style={styles.buttonText}>Delete</Text>
+            </TouchableOpacity>
+          </View>
         )}
         <StatusBar style="auto" />
       </View>

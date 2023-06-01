@@ -59,21 +59,14 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
 
-  texts: {
+  text: {
     color: "black",
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
     alignItems: "center",
   },
-  text: {
-    backgroundColor: "#FFD700",
-    width: "50%",
-    alignItems: "center",
-    borderRadius: 10,
-    padding: 2.5,
-    marginRight: 5,
-  },
+
   row: {
     backgroundColor: "#FFD700",
     flexDirection: "row",
