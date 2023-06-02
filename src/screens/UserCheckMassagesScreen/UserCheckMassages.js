@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
@@ -16,8 +15,8 @@ import { auth, database } from '../../../config/firebase';
 
 export default function ChatScreen({ route }) {
     const [messages, setMessages] = useState([]);
-    const adminId = auth.currentUser?.uid; // Admin's ID
-    const userId = route.params.userId; // User's ID received from the route
+    const adminId = 'vSASeJ65mCgLlwCOGSRDnt6Mpuv1' ; // Admin's ID
+    const userId = auth.currentUser?.uid; // User's ID received from the route
 
     useEffect(() => {
         if (adminId && userId) {
@@ -156,4 +155,3 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
-

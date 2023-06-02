@@ -22,12 +22,14 @@ import ColAccIInfo from "./src/screens/ColAccInfoScreen/ColAccIInfo";
 import Chat from "./src/screens/ChatScreen/Chat";
 import UserInfo from "./src/screens/UserInfoScreen/UserInfo";
 import EditUser from "./src/screens/EditUserScreen/EditUser";
+import UserCheckMessages from "./src/screens/UserCheckMassagesScreen/UserCheckMassages";
+
 const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="HomeScreen" component={Home} />
+        <Stack.Screen name="HomeScreen" component={Home} /> 
         <Stack.Screen name="AdminInfoScreen" component={AdminInfo} />
         <Stack.Screen name="CheckerInfoScreen" component={CheckerInfo} />
         <Stack.Screen name="ColonySearchScreen" component={ColonySearch} />
@@ -38,6 +40,7 @@ export default function App() {
         <Stack.Screen name="ChatScreen" component={Chat} />
         <Stack.Screen name="UserInfoScreen" component={UserInfo} />
         <Stack.Screen name="EditUserScreen" component={EditUser} />
+        <Stack.Screen name="UserCheckMessagesScreen" component={UserCheckMessages} />
       </Stack.Navigator>
     </NavigationContainer>
   );

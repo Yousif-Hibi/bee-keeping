@@ -1,336 +1,54 @@
-import React, { useState } from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  Modal,
-  ImageBackground,
-  TextInput,
-} from "react-native";
-import styles from "./styles";
-import { StatusBar } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { auth, database } from '../../../config/firebase';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CheckMessages() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isModal2Visible, setIsModal2Visible] = useState(false);
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [keepers, setKeepers] = useState([]);
+  const userUID = auth.currentUser?.uid;
+  const navigation = useNavigation();
+  const [selectedUser, setSelectedUser] = useState(null); // Newly added state variable
 
-  function handleSend() {
-    // Send the message to the backend server or API
-    // Then add the message to the list of messages
-    setMessages([...messages, message]);
-    setMessage("");
-  }
-  function textPress() {
-    setIsModal2Visible(true);
-  }
-  function imgPress() {
-    setIsModalVisible(true);
-  }
+  useEffect(() => {
+    const fetchKeepers = async () => {
+      const keepersRef = collection(database, 'keepers');
+      const q = query(
+        keepersRef,
+        orderBy('name')
+      );
 
-  function closeModal() {
-    setIsModalVisible(false);
-    setIsModal2Visible(false);
-  }
+      const querySnapshot = await getDocs(q);
+      const keepersData = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        return { id: doc.id, ...data };
+      });
+      setKeepers(keepersData);
+    };
+
+    if (userUID) {
+      fetchKeepers();
+    }
+  }, [userUID]);
+
+  const handleChatPress = (userId) => { // Updated function to receive the user ID
+    setSelectedUser(userId); // Store the selected user ID
+    
+    navigation.navigate('ChatScreen', { userId }); // Pass the user ID to ChatScreen
+  };
 
   return (
-    <ImageBackground
-      source={require("../../../assets/beesbackground.jpg")}
-      style={styles.background}
-    >
-      <View style={styles.container}>
-        <TouchableOpacity style={styles.square}>
-          <TouchableOpacity onPress={imgPress}>
-            <Image
-              source={require("../../../assets/image.png")}
-              style={styles.image}
-            />
+    <View>
+      <Text>All Keepers</Text>
+      <FlatList
+        data={keepers}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => handleChatPress(item.id)}>
+            <Text>{item.name}</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={textPress}>
-            <Text style={styles.text}>عزيزة بدران</Text>
-          </TouchableOpacity>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModalVisible}
-          >
-            <TouchableOpacity
-              style={styles.modalBackground}
-              onPress={closeModal}
-            >
-              <View style={styles.modalContent}>
-                <Image
-                  source={require("../../../assets/beeColony.jpg")}
-                  style={styles.imagePop}
-                />
-                <TouchableOpacity onPress={closeModal}>
-                  <Text style={styles.closeButton}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          </Modal>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModal2Visible}
-          >
-            <TouchableOpacity
-              style={styles.modalBackground}
-              onPress={closeModal}
-            >
-              <View style={styles.modalContent}>
-                <Text style={styles.modalText}>الاسم :- عزيزة بدران</Text>
-                <Text style={styles.modalText}>
-                  خلبة 2 وضع ممتاز يجب اضافة طبقة
-                </Text>
-
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Type your message here"
-                    value={message}
-                    onChangeText={setMessage}
-                  />
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                      style={styles.sendButton}
-                      onPress={handleSend}
-                    >
-                      <Text style={styles.sendButtonText}>Send</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.closeButton}
-                      onPress={closeModal}
-                    >
-                      <Text style={styles.closeButtonText}>Close</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </Modal>
-        </TouchableOpacity>
-
-        {/* /////////////////////////////////////////////////////// */}
-        {/* doublacations  */}
-        <TouchableOpacity style={styles.square}>
-          <TouchableOpacity onPress={imgPress}>
-            <Image
-              source={require("../../../assets/image.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={textPress}>
-            <Text style={styles.text}>سهير ابو رميلة</Text>
-          </TouchableOpacity>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModalVisible}
-          >
-            <TouchableOpacity
-              style={styles.modalBackground}
-              onPress={closeModal}
-            >
-              <View style={styles.modalContent}>
-                <Image
-                  source={require("../../../assets/beeColony.jpg")}
-                  style={styles.imagePop}
-                />
-                <TouchableOpacity onPress={closeModal}>
-                  <Text style={styles.closeButton}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          </Modal>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModal2Visible}
-          >
-            <TouchableOpacity
-              style={styles.modalBackground}
-              onPress={closeModal}
-            >
-              <View style={styles.modalContent}>
-                <Text style={styles.modalText}>الاسم :- عزيزة بدران</Text>
-                <Text style={styles.modalText}>
-                  خلبة 2 وضع ممتاز يجب اضافة طبقة
-                </Text>
-
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Type your message here"
-                    value={message}
-                    onChangeText={setMessage}
-                  />
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                      style={styles.sendButton}
-                      onPress={handleSend}
-                    >
-                      <Text style={styles.sendButtonText}>Send</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.closeButton}
-                      onPress={closeModal}
-                    >
-                      <Text style={styles.closeButtonText}>Close</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </Modal>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.square}>
-          <TouchableOpacity onPress={imgPress}>
-            <Image
-              source={require("../../../assets/image.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={textPress}>
-            <Text style={styles.text}>صابرين قاسم</Text>
-          </TouchableOpacity>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModalVisible}
-          >
-            <TouchableOpacity
-              style={styles.modalBackground}
-              onPress={closeModal}
-            >
-              <View style={styles.modalContent}>
-                <Image
-                  source={require("../../../assets/beeColony.jpg")}
-                  style={styles.imagePop}
-                />
-                <TouchableOpacity onPress={closeModal}>
-                  <Text style={styles.closeButton}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          </Modal>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModal2Visible}
-          >
-            <TouchableOpacity
-              style={styles.modalBackground}
-              onPress={closeModal}
-            >
-              <View style={styles.modalContent}>
-                <Text style={styles.modalText}>الاسم :- عزيزة بدران</Text>
-                <Text style={styles.modalText}>
-                  خلبة 2 وضع ممتاز يجب اضافة طبقة
-                </Text>
-
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Type your message here"
-                    value={message}
-                    onChangeText={setMessage}
-                  />
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                      style={styles.sendButton}
-                      onPress={handleSend}
-                    >
-                      <Text style={styles.sendButtonText}>Send</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.closeButton}
-                      onPress={closeModal}
-                    >
-                      <Text style={styles.closeButtonText}>Close</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </Modal>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.square}>
-          <TouchableOpacity onPress={imgPress}>
-            <Image
-              source={require("../../../assets/image.png")}
-              style={styles.image}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={textPress}>
-            <Text style={styles.text}> ديما حمدان</Text>
-          </TouchableOpacity>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModalVisible}
-          >
-            <TouchableOpacity
-              style={styles.modalBackground}
-              onPress={closeModal}
-            >
-              <View style={styles.modalContent}>
-                <Image
-                  source={require("../../../assets/beeColony.jpg")}
-                  style={styles.imagePop}
-                />
-                <TouchableOpacity onPress={closeModal}>
-                  <Text style={styles.closeButton}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          </Modal>
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={isModal2Visible}
-          >
-            <TouchableOpacity
-              style={styles.modalBackground}
-              onPress={closeModal}
-            >
-              <View style={styles.modalContent}>
-                <Text style={styles.modalText}>الاسم :- عزيزة بدران</Text>
-                <Text style={styles.modalText}>
-                  خلبة 2 وضع ممتاز يجب اضافة طبقة
-                </Text>
-
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Type your message here"
-                    value={message}
-                    onChangeText={setMessage}
-                  />
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                      style={styles.sendButton}
-                      onPress={handleSend}
-                    >
-                      <Text style={styles.sendButtonText}>Send</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.closeButton}
-                      onPress={closeModal}
-                    >
-                      <Text style={styles.closeButtonText}>Close</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </Modal>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+        )}
+        keyExtractor={item => item.id}
+      />
+    </View>
   );
 }
