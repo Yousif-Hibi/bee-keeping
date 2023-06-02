@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
@@ -155,3 +156,4 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
+

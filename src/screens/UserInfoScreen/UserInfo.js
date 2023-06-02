@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  
   TouchableOpacity,
   Image,
   Alert,
@@ -14,8 +13,7 @@ import { StatusBar } from "react-native";
 import { database } from "../../../config/firebase";
 import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc, deleteDoc } from "firebase/firestore";
-import { CheckBox } from 'react-native-elements';
-
+import { CheckBox } from "react-native-elements";
 
 export default function UserInfoScreen({ navigation, route }) {
   const [isSignatureChecked, setIsSignatureChecked] = useState(false);
@@ -104,8 +102,6 @@ export default function UserInfoScreen({ navigation, route }) {
     }
   };
 
-
-
   return (
     <ImageBackground
       source={require("../../../assets/beesbackground.jpg")}
@@ -154,7 +150,6 @@ export default function UserInfoScreen({ navigation, route }) {
           <Text style={styles.label}>عدد المناحل:</Text>
         </View>
 
-
         <View style={styles.row}>
           <Text style={styles.label}>توقيع الوثيقة</Text>
           <CheckBox
@@ -174,10 +169,12 @@ export default function UserInfoScreen({ navigation, route }) {
         </View>
 
         <View style={styles.tableHeader}>
-          <Text style={styles.tableHeaderText}>Number</Text>
-          <Text style={styles.tableHeaderText}>Colnumber</Text>
-          <Text style={styles.tableHeaderText}>Firstcollect</Text>
-          <Text style={styles.tableHeaderText}>Secondcollect</Text>
+
+          <Text style={styles.tableHeaderText}>رقم</Text>
+          <Text style={styles.tableHeaderText}>رقم المنحلة</Text>
+          <Text style={styles.tableHeaderText}>قطف اول</Text>
+          <Text style={styles.tableHeaderText}> قطف ثاني</Text>
+
         </View>
 
         {user?.hiveIDs.map((_, i) => (
@@ -191,10 +188,16 @@ export default function UserInfoScreen({ navigation, route }) {
 
         {showEditButton && (
           <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.Deletebutton} onPress={handleEditProfile}>
+            <TouchableOpacity
+              style={styles.Deletebutton}
+              onPress={handleEditProfile}
+            >
               <Text style={styles.buttonText}>Edit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.Deletebutton} onPress={handleDeleteUser}>
+            <TouchableOpacity
+              style={styles.Deletebutton}
+              onPress={handleDeleteUser}
+            >
               <Text style={styles.buttonText}>Delete</Text>
             </TouchableOpacity>
           </View>

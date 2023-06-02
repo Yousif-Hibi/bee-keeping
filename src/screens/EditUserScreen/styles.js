@@ -93,6 +93,19 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         padding: 8,
     },
+    selectInput:{
+        opacity:0.6,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 5,
+        padding: 10,
+        marginBottom: 10,
+        width: "100%",
+      },
+      errorInput: {
+        borderColor: "red",
+        borderWidth: 1,
+      },
 });
 
 export default styles;
