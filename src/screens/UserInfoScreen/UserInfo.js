@@ -126,8 +126,10 @@ export default function UserInfoScreen({ navigation, route }) {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("ChatScreen")}
+          onPress={() => navigation.navigate("UserCheckMessagesScreen", { userId: user })}
         >
+        
+
           <View style={styles.row}>
             <Text style={styles.titleSend}>Send a message</Text>
           </View>
@@ -167,10 +169,12 @@ export default function UserInfoScreen({ navigation, route }) {
         </View>
 
         <View style={styles.tableHeader}>
+
           <Text style={styles.tableHeaderText}>رقم</Text>
           <Text style={styles.tableHeaderText}>رقم المنحلة</Text>
           <Text style={styles.tableHeaderText}>قطف اول</Text>
           <Text style={styles.tableHeaderText}> قطف ثاني</Text>
+
         </View>
 
         {user?.hiveIDs.map((_, i) => (
