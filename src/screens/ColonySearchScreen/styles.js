@@ -14,6 +14,26 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#f2f2f2",
+    height: 60,
+  },
+  footerButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footerIcon: {
+    width: 24,
+    height: 24,
+    marginBottom: 5,
+  },
+  footerButtonText: {
+    fontSize: 12,
+  },
   title: {
     fontSize: 30,
     fontWeight: "bold",
