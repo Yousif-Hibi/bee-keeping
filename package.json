@@ -10,16 +10,13 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",
-    "@react-native-async-storage/async-storage": "^1.18.1",
+    "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-community/checkbox": "^0.5.15",
     "@react-native-community/masked-view": "^0.1.11",
-
-    "@react-native-community/picker": "^1.8.1",
     "@react-native-firebase/app": "^17.5.0",
     "@react-native-firebase/auth": "^17.5.0",
     "@react-native-firebase/firestore": "^17.5.0",
-
-    "@react-native-picker/picker": "2.4.8",
+    "@react-native-picker/picker": "^2.4.8",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
     "@types/react": "~18.0.27",
@@ -28,6 +25,8 @@
     "example-library": "^0.4.0",
     "expo": "^48.0.18",
     "expo-asset": "^8.6.0",
+    "expo-constants": "~14.2.1",
+    "expo-image-picker": "~14.1.1",
     "expo-status-bar": "~1.4.4",
     "firebase": "^9.22.0",
     "googleapis": "^118.0.0",
