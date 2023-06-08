@@ -18,23 +18,28 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 10,
+  rowContainer: {
+    flexDirection: "row",
     marginBottom: 10,
-    width: "100%",
   },
-  button: {
+  square: {
+    flex: 1,
+    aspectRatio: 1,
     backgroundColor: "#FFD700",
     borderRadius: 10,
-    padding: 10,
-    width: "100%",
+    marginHorizontal: 5,
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
-    color: "#000",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
+
   buttonText: {
     color: "#000",
     fontWeight: "bold",
