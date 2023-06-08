@@ -172,8 +172,8 @@ export default function UserInfoScreen({ navigation, route }) {
           <View style={styles.tableRow} key={i}>
             <Text style={styles.tableCell}>{i + 1}</Text>
             <Text style={styles.tableCell}>{user.hiveIDs[i]}</Text>
-            <Text style={styles.tableCell}>{user.Firstcollect[i]}</Text>
-            <Text style={styles.tableCell}>{user.Secondcollect[i]}</Text>
+            <Text style={styles.tableCell}>{user.Firstcollect[i]}%</Text>
+            <Text style={styles.tableCell}>{user.Secondcollect[i]}%</Text>
           </View>
         ))}
         <TouchableOpacity
