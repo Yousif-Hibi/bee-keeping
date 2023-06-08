@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import { collection, getDocs, doc, getDoc, orderBy, query, collectionGroup, where, limit } from 'firebase/firestore';
 import { database } from '../../../config/firebase';
 import { useNavigation } from '@react-navigation/native';
@@ -11,107 +11,94 @@ export default function CheckMessages() {
   const navigation = useNavigation();
   const [selectedUser, setSelectedUser] = useState(null);
 
-  useEffect(() => {
-    const fetchChatIDs = async () => {
-      try {
-        const chatsRef = collection(database, 'chats');
-        const querySnapshot = await getDocs(query(chatsRef));
-        const chatIDsData = [];
-        const chatNames = new Set();
+  const fetchChatIDs = async () => {
+    setLoading(true);
+    try {
+      const chatsRef = collection(database, 'chats');
+      const querySnapshot = await getDocs(query(chatsRef));
+      const chatIDsData = [];
+      const chatNames = new Set();
 
-        for (const docSnapshot of querySnapshot.docs) {
-          const data = docSnapshot.data();
-          const name = data.name ?? 'Unknown';
+      for (const docSnapshot of querySnapshot.docs) {
+        const data = docSnapshot.data();
+        const name = data.name ?? 'Unknown';
 
-          const uid1 = data.id1;
-          const uid2 = data.id2;
-          let time = data.createdAt;
+        const uid1 = data.id1;
+        const uid2 = data.id2;
+        let time = data.createdAt;
 
-          let uid = null;
-          if (uid1 === 'vSASeJ65mCgLlwCOGSRDnt6Mpuv1') {
-            uid = uid2;
-          } else if (uid2 === 'vSASeJ65mCgLlwCOGSRDnt6Mpuv1') {
-            uid = uid1;
-          }
-
-          if (uid) {
-            const keeperRef = doc(database, 'keepers', uid);
-            const keeperDoc = await getDoc(keeperRef);
-
-            if (keeperDoc.exists()) {
-              const keeperData = keeperDoc.data();
-              const chatRef = collection(database, 'chats', docSnapshot.id, 'messages');
-              const querySnapshot = await getDocs(query(chatRef, orderBy('createdAt', 'desc'), limit(1)));
-              let lastMessage = null;
-             
-
-              const existingChat = chatIDsData.find(chat => chat.uid === uid);
-
-              if (existingChat) {
-                // Update the existing chat's last message
-               
-                if (existingChat.lastMessage.createdAt < time) {
-                  
-                  existingChat.lastMessage.createdAt = time;
-                }
-              
-
-              } else {
-                // Add a new chat
-                chatIDsData.push({
-                  id: docSnapshot.id,
-                  name: name,
-                  uid: uid,
-                  keeperData: keeperData,
-                  lastMessage: lastMessage || { createdAt: time }
-                });
-                chatNames.add(name);
-              }
-            } else {
-              console.log(`No matching keeper document found for uid '${uid}'.`);
-            }
-          }
+        let uid = null;
+        if (uid1 === 'vSASeJ65mCgLlwCOGSRDnt6Mpuv1') {
+          uid = uid2;
+        } else if (uid2 === 'vSASeJ65mCgLlwCOGSRDnt6Mpuv1') {
+          uid = uid1;
         }
 
+        if (uid) {
+          const keeperRef = doc(database, 'keepers', uid);
+          const keeperDoc = await getDoc(keeperRef);
 
-        const filteredChatIDsData = chatIDsData.filter(chat => {
-          // Add your name filter condition here
-          return chatNames.has(chat.name);
-        });
+          if (keeperDoc.exists()) {
+            const keeperData = keeperDoc.data();
+            const chatRef = collection(database, 'chats', docSnapshot.id, 'messages');
+            const querySnapshot = await getDocs(query(chatRef, orderBy('createdAt', 'desc'), limit(1)));
+            let lastMessage = null;
 
-        filteredChatIDsData.sort((a, b) => {
-          const timeA = a.lastMessage.createdAt ;
-          const timeB = b.lastMessage.createdAt ;
-              console.log(timeA)
-          console.log(timeB)
-          // First, sort by lastMessage.createdAt in descending order
-          const sortByTime = timeB - timeA;
+            const existingChat = chatIDsData.find(chat => chat.uid === uid);
 
-          // If the values are equal, perform secondary sorting based on another property
-          if (sortByTime === 0) {
-            // Add your secondary sorting condition here
-            // For example, sorting alphabetically based on chat name
-            return a.name.localeCompare(b.name);
+            if (existingChat) {
+              // Update the existing chat's last message
+              if (existingChat.lastMessage.createdAt < time) {
+                existingChat.lastMessage.createdAt = time;
+              }
+            } else {
+              // Add a new chat
+              chatIDsData.push({
+                id: docSnapshot.id,
+                name: name,
+                uid: uid,
+                keeperData: keeperData,
+                lastMessage: lastMessage || { createdAt: time }
+              });
+              chatNames.add(name);
+            }
+          } else {
+            console.log(`No matching keeper document found for uid '${uid}'.`);
           }
-
-          return sortByTime;
-        });
-
-
-
-
-
-
-
-        console.log(filteredChatIDsData)
-        setChatIDs(filteredChatIDsData);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
+        }
       }
-    };
 
+      const filteredChatIDsData = chatIDsData.filter(chat => {
+        // Add your name filter condition here
+        return chatNames.has(chat.name);
+      });
+
+      filteredChatIDsData.sort((a, b) => {
+        const timeA = a.lastMessage.createdAt;
+        const timeB = b.lastMessage.createdAt;
+
+        // First, sort by lastMessage.createdAt in descending order
+        const sortByTime = timeB - timeA;
+
+        // If the values are equal, perform secondary sorting based on another property
+        if (sortByTime === 0) {
+          // Add your secondary sorting condition here
+          // For example, sorting alphabetically based on chat name
+          return a.name.localeCompare(b.name);
+        }
+
+        return sortByTime;
+      });
+
+      setChatIDs(filteredChatIDsData);
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchChatIDs();
   }, []);
 
@@ -120,6 +107,10 @@ export default function CheckMessages() {
     console.log('Chat1:', uid);
     setSelectedUser(uid);
     navigation.navigate('ChatScreen', { uid });
+  };
+
+  const handleRefresh = () => {
+    fetchChatIDs();
   };
 
   if (loading) {
@@ -132,6 +123,7 @@ export default function CheckMessages() {
 
   return (
     <View style={styles.container}>
+    
       <FlatList
         data={chatIDs}
         keyExtractor={(item) => item.id}
@@ -156,29 +148,3 @@ export default function CheckMessages() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#f9f9f9',
-  },
-  itemContainer: {
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 8,
-  },
-  itemSeparator: {
-    marginTop: 8,
-  },
-  itemName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  itemLastMessage: {
-    fontSize: 12,
-    color: '#888888',
-  },
-});
