@@ -7,6 +7,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
@@ -183,16 +184,6 @@ export default function ColonySearch({ navigation }) {
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={styles.footerButton}
-          onPress={() => handleFooterButtonPress("ColonySearchScreen")}
-        >
-          <Image
-            source={require("../../../assets/search-icon.png")}
-            style={styles.footerIcon}
-          />
-          <Text style={styles.footerButtonText}>ColonySearcn</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={styles.footerButton}
           onPress={() => handleFooterButtonPress("CheckMessagesScreen")}

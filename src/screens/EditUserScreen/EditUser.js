@@ -235,16 +235,16 @@ export default function EditUserScreen({ navigation, route }) {
               />
               <TextInput
                 style={styles.tableCell}
-                value={rowData.Secondcollect}
+                value={rowData.Firstcollect}
                 onChangeText={(value) =>
-                  handleTableInputChange(index, "Secondcollect", value)
+                  handleTableInputChange(index, "Firstcollect", value)
                 }
               />
               <TextInput
                 style={styles.tableCell}
-                value={rowData.Firstcollect}
+                value={rowData.Secondcollect}
                 onChangeText={(value) =>
-                  handleTableInputChange(index, "Firstcollect", value)
+                  handleTableInputChange(index, "Secondcollect", value)
                 }
               />
             </View>
