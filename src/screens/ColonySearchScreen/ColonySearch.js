@@ -4,11 +4,12 @@ import {
   Text,
   View,
   TextInput,
+  Image,
   ImageBackground,
   TouchableOpacity,
-
+  ScrollView,
 } from "react-native";
-import { Picker } from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
 
 import { StatusBar } from "expo-status-bar";
 import styles from "./styles";
@@ -86,7 +87,9 @@ export default function ColonySearch({ navigation }) {
       setLocationSortOrder("asc");
     }
   };
-
+  const handleFooterButtonPress = (screenName) => {
+    navigation.navigate(screenName);
+  };
   const handleSearch = () => {
     if (filterType === "all") {
       // Show the entire list
@@ -179,6 +182,48 @@ export default function ColonySearch({ navigation }) {
             </TouchableOpacity>
           ))}
         </View>
+      </View>
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("CheckMessagesScreen")}
+        >
+          <Image
+            source={require("../../../assets/sendMassege.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>Messages</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("AddParticipantScreen")}
+        >
+          <Image
+            source={require("../../../assets/addicon.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>AddUser</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("StatisticsScreen")}
+        >
+          <Image
+            source={require("../../../assets/stat.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>Stats</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("AdminInfoScreen")}
+        >
+          <Image
+            source={require("../../../assets/home.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>Home</Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );

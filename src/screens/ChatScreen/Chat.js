@@ -1,8 +1,8 @@
-
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import React, { useState, useEffect, useCallback } from "react";
+import { View, StyleSheet } from "react-native";
+import { GiftedChat, Bubble } from "react-native-gifted-chat";
 import {
+
     collection,
     doc,
     getDocs,
@@ -32,59 +32,43 @@ export default function ChatScreen({ route }) {
                 orderBy('__name__', 'desc')
             );
 
-            const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                const updatedMessages = querySnapshot.docs.map((doc) => {
-                    const data = doc.data();
-                    const message = {
-                        _id: doc.id,
-                        text: data.text,
-                        createdAt: data.createdAt.toDate(),
-                        user: {
-                            _id: data.id2,
-                        },
-                    };
-                    return message;
-                });
-                setMessages(updatedMessages);
-            });
 
-            return unsubscribe;
-        }
-    }, [adminId, userId]);
+  useEffect(() => {
+    if (adminId && userId) {
+      const chatRef = collection(database, "chats");
+      const q = query(
+        chatRef,
+        where("id1", "in", [adminId, userId]),
+        where("id2", "in", [adminId, userId]),
+        orderBy("createdAt", "desc"),
+        orderBy("__name__", "desc")
+      );
 
-    useEffect(() => {
-        // Load previous messages when the component mounts
-        loadPreviousMessages();
-    }, []);
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const updatedMessages = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          const message = {
+            _id: doc.id,
+            text: data.text,
+            createdAt: data.createdAt.toDate(),
+            user: {
+              _id: data.id2,
+            },
+          };
+          return message;
+        });
+        setMessages(updatedMessages);
+      });
 
-    const loadPreviousMessages = async () => {
-        try {
-            const chatRef = collection(database, 'chats');
-            const q = query(
-                chatRef,
-                where('id1', 'in', [adminId, userId]),
-                where('id2', 'in', [adminId, userId]),
-                orderBy('createdAt', 'desc'),
-                orderBy('__name__', 'desc')
-            );
-            const querySnapshot = await getDocs(q);
-            const updatedMessages = querySnapshot.docs.map((doc) => {
-                const data = doc.data();
-                const message = {
-                    _id: doc.id,
-                    text: data.text,
-                    createdAt: data.createdAt.toDate(),
-                    user: {
-                        _id: data.id2,
-                    },
-                };
-                return message;
-            });
-            setMessages(updatedMessages);
-        } catch (error) {
-            console.log('Error loading previous messages:', error);
-        }
-    };
+      return unsubscribe;
+    }
+  }, [adminId, userId]);
+
+  useEffect(() => {
+    // Load previous messages when the component mounts
+    loadPreviousMessages();
+  }, []);
+
 
     const onSend = useCallback(async (messages) => {
         setMessages((previousMessages) =>
@@ -154,23 +138,24 @@ export default function ChatScreen({ route }) {
         );
     };
 
-    return (
-        <View style={styles.container}>
-            <GiftedChat
-                messages={messages}
-                onSend={onSend}
-                user={{
-                    _id: adminId,
-                }}
-                renderBubble={renderBubble}
-            />
-        </View>
-    );
+
+  
+  return (
+    <View style={styles.container}>
+      <GiftedChat
+        messages={messages}
+        onSend={onSend}
+        user={{
+          _id: adminId,
+        }}
+        renderBubble={renderBubble}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
+  container: {
+    flex: 1,
+  },
 });
-
