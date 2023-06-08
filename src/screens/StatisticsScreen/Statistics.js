@@ -16,7 +16,7 @@ import { database } from "../../../config/firebase";
 import styles from "./styles";
 import { Picker } from "@react-native-picker/picker";
 
-export default function Finance({ navigation }) {
+export default function Statistics({ navigation }) {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [averageFirstCollect, setAverageFirstCollect] = useState(0);
   const [averageSecondCollect, setAverageSecondCollect] = useState(0);
