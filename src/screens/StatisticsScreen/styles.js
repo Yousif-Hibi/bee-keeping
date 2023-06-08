@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     padding: 10,
+    height: "80%",
   },
   tableTitle: {
     fontSize: 18,
