@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { collection, getDocs } from "firebase/firestore";
 import { database } from "../../../config/firebase";
-import { VictoryPie } from "victory";
+import { VictoryPie } from "victory-native";
 
 const colors = [
   "#FF3E3E",

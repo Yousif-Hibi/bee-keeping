@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { View, StyleSheet } from "react-native";
-import { GiftedChat, Bubble } from "react-native-gifted-chat";
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import {
   collection,
   doc,
@@ -11,8 +11,10 @@ import {
   query,
   onSnapshot,
   where,
-} from "firebase/firestore";
-import { auth, database } from "../../../config/firebase";
+
+} from 'firebase/firestore';
+import { auth, database } from '../../../config/firebase';
+
 
 export default function ChatScreen({ route }) {
   const [messages, setMessages] = useState([]);
@@ -20,14 +22,15 @@ export default function ChatScreen({ route }) {
   const userId = route.params.uid; // User's ID received from the route
 
   useEffect(() => {
+
     if (adminId && userId) {
-      const chatRef = collection(database, "chats");
+      const chatRef = collection(database, 'chats');
       const q = query(
         chatRef,
-        where("id1", "in", [adminId, userId]),
-        where("id2", "in", [adminId, userId]),
-        orderBy("createdAt", "desc"),
-        orderBy("__name__", "desc")
+        where('id1', 'in', [adminId, userId]),
+        where('id2', 'in', [adminId, userId]),
+        orderBy('createdAt', 'desc'),
+        orderBy('__name__', 'desc')
       );
 
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -57,13 +60,15 @@ export default function ChatScreen({ route }) {
 
   const loadPreviousMessages = async () => {
     try {
-      const chatRef = collection(database, "chats");
+
+      const chatRef = collection(database, 'chats');
       const q = query(
         chatRef,
-        where("id1", "in", [adminId, userId]),
-        where("id2", "in", [adminId, userId]),
-        orderBy("createdAt", "desc"),
-        orderBy("__name__", "desc")
+        where('id1', 'in', [adminId, userId]),
+        where('id2', 'in', [adminId, userId]),
+        orderBy('createdAt', 'desc'),
+        orderBy('__name__', 'desc')
+
       );
       const querySnapshot = await getDocs(q);
       const updatedMessages = querySnapshot.docs.map((doc) => {
@@ -80,47 +85,47 @@ export default function ChatScreen({ route }) {
       });
       setMessages(updatedMessages);
     } catch (error) {
-      console.log("Error loading previous messages:", error);
+
+      console.log('Error loading previous messages:', error);
     }
   };
 
-  const onSend = useCallback(
-    async (messages) => {
-      setMessages((previousMessages) =>
-        GiftedChat.append(previousMessages, messages)
-      );
+  const onSend = useCallback(async (messages) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, messages)
+    );
 
-      try {
-        const adminRef = doc(database, "keepers", route.params.uid);
-        const docSnapshot = await getDoc(adminRef);
-        if (docSnapshot.exists()) {
-          const adminData = docSnapshot.data();
-          const adminName = adminData.name;
+    try {
+      const adminRef = doc(database, 'keepers', route.params.uid);
+      const docSnapshot = await getDoc(adminRef);
+      if (docSnapshot.exists()) {
+        const adminData = docSnapshot.data();
+        const adminName = adminData.name;
 
-          messages.forEach((message) => {
-            addDoc(collection(database, "chats"), {
-              text: message.text,
-              createdAt: new Date(),
-              id1: adminId === auth.currentUser?.uid ? userId : adminId,
-              id2: adminId === auth.currentUser?.uid ? adminId : userId,
-              name: adminName, // Add the admin's name to the message data
+        messages.forEach((message) => {
+          addDoc(collection(database, 'chats'), {
+            text: message.text,
+            createdAt: new Date(),
+            id1: adminId === auth.currentUser?.uid ? userId : adminId,
+            id2: adminId === auth.currentUser?.uid ? adminId : userId,
+            name: adminName, // Add the admin's name to the message data
+          })
+            .then(() => {
+              console.log('Message saved successfully');
             })
-              .then(() => {
-                console.log("Message saved successfully");
-              })
-              .catch((error) => {
-                console.log("Error saving message:", error);
-              });
-          });
+            .catch((error) => {
+              console.log('Error saving message:', error);
+            });
+        });
 
-          console.log("Admin Name:", adminName);
-        }
-      } catch (error) {
-        console.log("Error fetching admin name:", error);
+        console.log('Admin Name:', adminName);
       }
-    },
-    [adminId, userId]
-  );
+    } catch (error) {
+      console.log('Error fetching admin name:', error);
+    }
+  }, [adminId, userId]);
+
+
 
   const renderBubble = (props) => {
     return (
@@ -131,23 +136,29 @@ export default function ChatScreen({ route }) {
             backgroundColor: "#FFD700",
           },
           left: {
-            backgroundColor: "gray",
+
+            backgroundColor: 'gray',
+
           },
         }}
         textStyle={{
           right: {
-            color: "black",
+
+            color: 'black',
           },
           left: {
-            color: "black",
+            color: 'black',
+
           },
         }}
         timeTextStyle={{
           right: {
-            color: "black",
+
+            color: 'black',
           },
           left: {
-            color: "black",
+            color: 'black',
+
           },
         }}
       />
