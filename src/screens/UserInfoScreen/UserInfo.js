@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ScrollView,
 } from "react-native";
 import styles from "./styles";
 import { ImageBackground } from "react-native";
@@ -70,7 +71,9 @@ export default function UserInfoScreen({ navigation, route }) {
       }
     }
   };
-
+  const handleFooterButtonPress = (screenName) => {
+    navigation.navigate(screenName);
+  };
   const handleEditProfile = () => {
     const uid = route.params.uid;
     navigation.navigate("EditUserScreen", { uid });
@@ -103,11 +106,8 @@ export default function UserInfoScreen({ navigation, route }) {
   };
 
   return (
-    <ImageBackground
-      source={require("../../../assets/beesbackground.jpg")}
-      style={styles.background}
-    >
-      <View style={styles.container}>
+    <ImageBackground style={styles.background}>
+      <ScrollView style={styles.container}>
         <View style={styles.head}>
           <View style={styles.square}>
             <Image
@@ -124,18 +124,7 @@ export default function UserInfoScreen({ navigation, route }) {
           </View>
         </View>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("UserCheckMessagesScreen", { userId: user })}
-        >
-        
-
-          <View style={styles.row}>
-            <Text style={styles.titleSend}>Send a message</Text>
-          </View>
-        </TouchableOpacity>
-
-        <View style={styles.row}>
+        <View style={styles.row2}>
           {user && <Text style={styles.texts}>{user.payment}</Text>}
           <Text style={styles.label}>الرسوم:</Text>
         </View>
@@ -145,7 +134,7 @@ export default function UserInfoScreen({ navigation, route }) {
           <Text style={styles.label}>مكان تربية النحل:</Text>
         </View>
 
-        <View style={styles.row}>
+        <View style={styles.row2}>
           {user && <Text style={styles.texts}>{user.hiveIDs.length}</Text>}
           <Text style={styles.label}>عدد المناحل:</Text>
         </View>
@@ -156,25 +145,27 @@ export default function UserInfoScreen({ navigation, route }) {
             checked={isSignatureChecked}
             disabled={!user || !user.signature}
             onPress={() => setIsSignatureChecked(!isSignatureChecked)}
+            checkedColor="black"
+            uncheckedColor="black"
           />
         </View>
 
-        <View style={styles.row}>
+        <View style={styles.row2}>
           <Text style={styles.label}>وصل استلام</Text>
           <CheckBox
             checked={isObtainChecked}
             disabled={!user || !user.obtain}
             onPress={() => setIsObtainChecked(!isObtainChecked)}
+            checkedColor="black"
+            uncheckedColor="black"
           />
         </View>
 
         <View style={styles.tableHeader}>
-
           <Text style={styles.tableHeaderText}>رقم</Text>
           <Text style={styles.tableHeaderText}>رقم المنحلة</Text>
           <Text style={styles.tableHeaderText}>قطف اول</Text>
           <Text style={styles.tableHeaderText}> قطف ثاني</Text>
-
         </View>
 
         {user?.hiveIDs.map((_, i) => (
@@ -185,11 +176,20 @@ export default function UserInfoScreen({ navigation, route }) {
             <Text style={styles.tableCell}>{user.Secondcollect[i]}</Text>
           </View>
         ))}
-
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate("UserCheckMessagesScreen", { userId: user })
+          }
+        >
+          <View style={styles.row2}>
+            <Text style={styles.titleSend}>Send a message</Text>
+          </View>
+        </TouchableOpacity>
         {showEditButton && (
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
-              style={styles.Deletebutton}
+              style={styles.editbutton}
               onPress={handleEditProfile}
             >
               <Text style={styles.buttonText}>Edit</Text>
@@ -204,7 +204,61 @@ export default function UserInfoScreen({ navigation, route }) {
         )}
 
         <StatusBar style="auto" />
-      </View>
+      </ScrollView>
+      {showEditButton && (
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("ColonySearchScreen")}
+          >
+            <Image
+              source={require("../../../assets/search-icon.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>ColonySearcn</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("CheckMessagesScreen")}
+          >
+            <Image
+              source={require("../../../assets/sendMassege.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>Messages</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("AddParticipantScreen")}
+          >
+            <Image
+              source={require("../../../assets/addicon.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>AddUser</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("StatisticsScreen")}
+          >
+            <Image
+              source={require("../../../assets/stat.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>Stats</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("AdminInfoScreen")}
+          >
+            <Image
+              source={require("../../../assets/home.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>Home</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </ImageBackground>
   );
 }

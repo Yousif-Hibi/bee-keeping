@@ -4,6 +4,27 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: "cover",
+    backgroundColor: "#F1E7AB",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#f2f2f2",
+    height: 60,
+  },
+  footerButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footerIcon: {
+    width: 24,
+    height: 24,
+    marginBottom: 5,
+  },
+  footerButtonText: {
+    fontSize: 12,
   },
   container: {
     flex: 1,
@@ -27,7 +48,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   button: {
-    backgroundColor: "#FFD700",
+    backgroundColor: "#FFE449",
     borderRadius: 5,
     padding: 10,
     width: "100%",
@@ -46,7 +67,7 @@ const styles = StyleSheet.create({
   },
 
   square: {
-    backgroundColor: "#FFD700",
+    backgroundColor: "#ffebd5",
     borderRadius: 5,
     padding: 2.5,
     alignItems: "center",
@@ -64,15 +85,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 10,
+    textAlign: "center",
+    flex: 1, // Add flex property
+    justifyContent: "center", // Add justifyContent property
   },
+
   text: {
-    backgroundColor: "#FFD700",
+    backgroundColor: "#ffebd5",
     width: "50%",
     alignItems: "center",
   },
 
   row: {
-    backgroundColor: "#FFD700",
+    backgroundColor: "#FFED87",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 2,
+    alignItems: "center",
+    borderRadius: 10,
+
+    padding: 3,
+  },
+  row2: {
+    backgroundColor: "#FFE449",
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 2,
@@ -101,6 +136,7 @@ const styles = StyleSheet.create({
     color: "black",
   },
   titleSend: {
+    backgroundColor: "#FFE449",
     color: "black",
     fontSize: 16,
     fontWeight: "bold",
@@ -109,7 +145,7 @@ const styles = StyleSheet.create({
   tableHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#FFD700",
+    backgroundColor: "#FFED87",
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginTop: 20,
@@ -117,25 +153,44 @@ const styles = StyleSheet.create({
   tableHeaderText: {
     fontWeight: "bold",
     fontSize: 16,
+    flex: 1, // Add flex property
+    textAlign: "center",
+    alignSelf: "center", // Add alignSelf property
   },
+
   tableRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingVertical: 10,
+    backgroundColor: "#ffebd5",
   },
   tableCell: {
     fontSize: 16,
     textAlign: "center",
+    flex: 1, // Add flex property
+    justifyContent: "center", // Add justifyContent property
   },
-  Deletebutton: {
-    backgroundColor: "#FFD700",
-    borderRadius: 5,
-    padding: 10,
-    width: "100%",
-    alignItems: "center",
 
+  Deletebutton: {
+    backgroundColor: "#FFED87",
+    borderRadius: 10,
+    padding: 10,
+    marginLeft: 50,
+    marginRight: 50,
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 20,
+  },
+  editbutton: {
+    backgroundColor: "#FFED87",
+    borderRadius: 10,
+    padding: 10,
+    marginLeft: 50,
+    marginRight: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 5,
   },
 });
 
