@@ -6,6 +6,7 @@ import {
     doc,
     getDocs,
     addDoc,
+    getDoc,
     orderBy,
     query,
     onSnapshot,
@@ -15,8 +16,8 @@ import { auth, database } from '../../../config/firebase';
 
 export default function ChatScreen({ route }) {
     const [messages, setMessages] = useState([]);
-    const adminId = 'vSASeJ65mCgLlwCOGSRDnt6Mpuv1' ; // Admin's ID
-    const userId = auth.currentUser?.uid; // User's ID received from the route
+    const adminId = auth.currentUser?.uid; // Admin's ID
+    const userId = 'vSASeJ65mCgLlwCOGSRDnt6Mpuv1';  // User's ID received from the route
 
     useEffect(() => {
         if (adminId && userId) {
@@ -83,25 +84,39 @@ export default function ChatScreen({ route }) {
         }
     };
 
-    const onSend = useCallback((messages) => {
+    const onSend = useCallback(async (messages) => {
         setMessages((previousMessages) =>
             GiftedChat.append(previousMessages, messages)
         );
 
-        messages.forEach((message) => {
-            addDoc(collection(database, 'chats'), {
-                text: message.text,
-                createdAt: new Date(),
-                id1: adminId === auth.currentUser?.uid ? adminId : userId,
-                id2: adminId === auth.currentUser?.uid ? userId : adminId,
-            })
-                .then(() => {
-                    console.log('Message saved successfully');
-                })
-                .catch((error) => {
-                    console.log('Error saving message:', error);
+        try {
+            const adminRef = doc(database, 'keepers', auth.currentUser?.uid);
+            const docSnapshot = await getDoc(adminRef);
+            if (docSnapshot.exists()) {
+                const adminData = docSnapshot.data();
+                const adminName = adminData.name;
+
+                messages.forEach((message) => {
+                    addDoc(collection(database, 'chats'), {
+                        text: message.text,
+                        createdAt: new Date(),
+                        id1: adminId === auth.currentUser?.uid ? userId : adminId,
+                        id2: adminId === auth.currentUser?.uid ? adminId : userId,
+                        name: adminName, // Add the admin's name to the message data
+                    })
+                        .then(() => {
+                            console.log('Message saved successfully');
+                        })
+                        .catch((error) => {
+                            console.log('Error saving message:', error);
+                        });
                 });
-        });
+
+                console.log('Admin Name:', adminName);
+            }
+        } catch (error) {
+            console.log('Error fetching admin name:', error);
+        }
     }, [adminId, userId]);
 
     const renderBubble = (props) => {
@@ -110,7 +125,7 @@ export default function ChatScreen({ route }) {
                 {...props}
                 wrapperStyle={{
                     right: {
-                        backgroundColor: "#FFD700",
+                        backgroundColor: '#FFD700',
                     },
                     left: {
                         backgroundColor: 'gray',
