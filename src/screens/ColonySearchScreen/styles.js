@@ -48,11 +48,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     borderRadius: 5,
-    padding: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     margin: 20,
+    justifyContent: "space-between", // Align items with space between them
   },
   searchInput: {
-    flex: 1,
+    flex: 1, // Let the search input take available space
     height: 40,
     padding: 10,
     fontSize: 16,
@@ -101,6 +103,13 @@ const styles = StyleSheet.create({
     width: "30%",
     textAlign: "center",
   },
+  filterPicker: {
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    width: 150,
+  },  
 });
 
 export default styles;
