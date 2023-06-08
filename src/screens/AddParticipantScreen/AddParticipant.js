@@ -5,12 +5,11 @@ import {
   TextInput,
   Button,
   StyleSheet,
-  
   ImageBackground,
   Alert,
 } from "react-native";
 import styles from "./styles";
-import { Picker } from '@react-native-picker/picker';
+import { Picker } from "@react-native-picker/picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
   getFirestore,
@@ -234,16 +233,18 @@ export default function AddParticipant({ navigation }) {
         {phoneNumberError && (
           <Text style={styles.errorText}>{phoneNumberErrorMessage}</Text>
         )}
-        <Picker
-          selectedValue={city}
-          style={[styles.selectInput, cityError && styles.errorInput]}
-          onValueChange={(itemValue) => setCity(itemValue)}
-        >
-          <Picker.Item label="Select City" value="" />
-          {cities.map((city) => (
-            <Picker.Item key={city} label={city} value={city} />
-          ))}
-        </Picker>
+        <View style={styles.cont}>
+          <Picker
+            selectedValue={city}
+            style={[styles.selectInput, cityError && styles.errorInput]}
+            onValueChange={(itemValue) => setCity(itemValue)}
+          >
+            <Picker.Item label="Select City" value="" />
+            {cities.map((city) => (
+              <Picker.Item key={city} label={city} value={city} />
+            ))}
+          </Picker>
+        </View>
         {cityError && <Text style={styles.errorText}>{cityErrorMessage}</Text>}
 
         <TextInput
