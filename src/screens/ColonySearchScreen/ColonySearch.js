@@ -124,24 +124,25 @@ export default function ColonySearch({ navigation }) {
             value={searchTerm}
             onChangeText={setSearchTerm}
           />
-
-          <Picker
-            selectedValue={filterType}
-            style={styles.filterPicker}
-            onValueChange={(itemValue) => setFilterType(itemValue)}
-          >
-            <Picker.Item label="Show All" value="all" />
-            <Picker.Item label="Name" value="name" />
-            <Picker.Item label="ID" value="id" />
-            <Picker.Item label="Location" value="location" />
-          </Picker>
-
+        </View>
+        <View style={styles.searchContainer}>
+          <View style={styles.cont}>
+            <Picker
+              selectedValue={filterType}
+              style={styles.filterPicker}
+              onValueChange={(itemValue) => setFilterType(itemValue)}
+            >
+              <Picker.Item label="Show All" value="all" />
+              <Picker.Item label="Name" value="name" />
+              <Picker.Item label="ID" value="id" />
+              <Picker.Item label="Location" value="location" />
+            </Picker>
+          </View>
           <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
             <Text style={styles.searchButtonText}>Search</Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.table}>
+        <ScrollView style={styles.table}>
           <View style={styles.tableHeader}>
             <TouchableOpacity
               onPress={handleNameColumnPress}
@@ -181,7 +182,7 @@ export default function ColonySearch({ navigation }) {
               <Text style={styles.column}>{user.location}</Text>
             </TouchableOpacity>
           ))}
-        </View>
+        </ScrollView>
       </View>
       <View style={styles.footer}>
         <TouchableOpacity

@@ -50,7 +50,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    margin: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 10,
     justifyContent: "space-between", // Align items with space between them
   },
   searchInput: {
@@ -62,8 +64,22 @@ const styles = StyleSheet.create({
   searchButton: {
     backgroundColor: "#ffd500",
     borderRadius: 5,
-    padding: 10,
-    marginLeft: 10,
+    marginLeft: 5,
+
+    width: 150,
+    alignItems: "center",
+    alignContent: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+  },
+  cont: {
+    borderColor: "#ccc",
+    borderRadius: 2,
+    height: "100%",
+    width: 150,
+  },
+  filterPicker: {
+    backgroundColor: "#fff",
   },
   searchButtonText: {
     color: "black",
@@ -74,8 +90,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 5,
-    marginTop: 20,
-    width: "100%",
+    marginLeft: 2,
+    marginRight: 2,
   },
   tableHeader: {
     flexDirection: "row",
@@ -103,13 +119,6 @@ const styles = StyleSheet.create({
     width: "30%",
     textAlign: "center",
   },
-  filterPicker: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    width: 150,
-  },  
 });
 
 export default styles;
