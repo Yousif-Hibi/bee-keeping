@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { View, StyleSheet ,Text } from 'react-native';
+import { GiftedChat, Bubble, renderBubble } from 'react-native-gifted-chat';
 import {
     collection,
     doc,
@@ -112,13 +112,12 @@ export default function ChatScreen({ route }) {
                         });
                 });
 
-                console.log('Admin Name:', adminName);
+             
             }
         } catch (error) {
             console.log('Error fetching admin name:', error);
         }
     }, [adminId, userId]);
-
     const renderBubble = (props) => {
         return (
             <Bubble
@@ -126,6 +125,7 @@ export default function ChatScreen({ route }) {
                 wrapperStyle={{
                     right: {
                         backgroundColor: '#FFD700',
+                        marginRight:"10%"
                     },
                     left: {
                         backgroundColor: 'gray',
@@ -150,6 +150,8 @@ export default function ChatScreen({ route }) {
             />
         );
     };
+   
+
 
     return (
         <View style={styles.container}>
@@ -160,13 +162,17 @@ export default function ChatScreen({ route }) {
                     _id: adminId,
                 }}
                 renderBubble={renderBubble}
+               
             />
         </View>
     );
-}
 
-const styles = StyleSheet.create({
+} const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    listViewContent: {
+        flexGrow: 1,
+        justifyContent: 'flex-end',
     },
 });

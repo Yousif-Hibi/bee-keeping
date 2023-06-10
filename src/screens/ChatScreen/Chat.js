@@ -128,6 +128,7 @@ export default function ChatScreen({ route }) {
         wrapperStyle={{
           right: {
             backgroundColor: "#FFD700",
+            marginRight: "10%"
           },
           left: {
             backgroundColor: 'gray',
