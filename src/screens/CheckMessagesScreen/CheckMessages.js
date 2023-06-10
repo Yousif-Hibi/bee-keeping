@@ -52,21 +52,12 @@ export default function CheckMessages() {
             uid = uid1;
           }
 
-          if (uid) {
-            const keeperRef = doc(database, "keepers", uid);
-            const keeperDoc = await getDoc(keeperRef);
+         
+           
 
-            if (keeperDoc.exists()) {
-              const keeperData = keeperDoc.data();
-              const chatRef = collection(
-                database,
-                "chats",
-                docSnapshot.id,
-                "messages"
-              );
-              const querySnapshot = await getDocs(
-                query(chatRef, orderBy("createdAt", "desc"), limit(1))
-              );
+           
+            
+          
               let lastMessage = null;
 
               const existingChat = chatIDsData.find((chat) => chat.uid === uid);
@@ -83,17 +74,13 @@ export default function CheckMessages() {
                   id: docSnapshot.id,
                   name: name,
                   uid: uid,
-                  keeperData: keeperData,
+                 
                   lastMessage: lastMessage || { createdAt: time },
                 });
                 chatNames.add(name);
               }
-            } else {
-              console.log(
-                `No matching keeper document found for uid '${uid}'.`
-              );
-            }
-          }
+            
+          
         }
 
         const filteredChatIDsData = chatIDsData.filter((chat) => {
