@@ -11,10 +11,8 @@ import {
   query,
   onSnapshot,
   where,
-
 } from 'firebase/firestore';
 import { auth, database } from '../../../config/firebase';
-
 
 export default function ChatScreen({ route }) {
   const [messages, setMessages] = useState([]);
@@ -60,7 +58,6 @@ export default function ChatScreen({ route }) {
 
   const loadPreviousMessages = async () => {
     try {
-
       const chatRef = collection(database, 'chats');
       const q = query(
         chatRef,
@@ -68,7 +65,6 @@ export default function ChatScreen({ route }) {
         where('id2', 'in', [adminId, userId]),
         orderBy('createdAt', 'desc'),
         orderBy('__name__', 'desc')
-
       );
       const querySnapshot = await getDocs(q);
       const updatedMessages = querySnapshot.docs.map((doc) => {
@@ -85,7 +81,6 @@ export default function ChatScreen({ route }) {
       });
       setMessages(updatedMessages);
     } catch (error) {
-
       console.log('Error loading previous messages:', error);
     }
   };
@@ -126,7 +121,6 @@ export default function ChatScreen({ route }) {
   }, [adminId, userId]);
 
 
-
   const renderBubble = (props) => {
     return (
       <Bubble
@@ -137,29 +131,23 @@ export default function ChatScreen({ route }) {
             marginRight: "10%"
           },
           left: {
-
             backgroundColor: 'gray',
-
           },
         }}
         textStyle={{
           right: {
-
             color: 'black',
           },
           left: {
             color: 'black',
-
           },
         }}
         timeTextStyle={{
           right: {
-
             color: 'black',
           },
           left: {
             color: 'black',
-
           },
         }}
       />
