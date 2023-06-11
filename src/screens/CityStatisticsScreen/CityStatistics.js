@@ -56,6 +56,9 @@ export default function CityStatistics() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.halfCircle}>
+        <Text style={styles.title}>Stats for womens by city</Text>
+      </View>
       <View style={styles.chartContainer}>
         <VictoryPie
           data={cityData}
@@ -81,8 +84,9 @@ export default function CityStatistics() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fefcf1', // Add the background color here
   },
   chartContainer: {
     marginBottom: 20,
@@ -111,5 +115,22 @@ const styles = StyleSheet.create({
   countText: {
     fontSize: 14,
     fontWeight: "bold",
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color:"black",
+  },
+  halfCircle: {
+    opacity: 0.8,
+    marginLeft: 30,
+    width: '100%',
+    aspectRatio: 3, // Adjust the aspect ratio to change the curvature of the half circle
+    borderTopLeftRadius:200,
+    borderBottomLeftRadius: 200,
+    backgroundColor: '#f9e6b9', // Adjust the background color as desired
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

@@ -4,11 +4,15 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import Constants from "expo-constants";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+import { getDatabase } from 'firebase/database';
+
+
+// Initialize Firebase
+
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBDxWaOapX03TXYUWDrxlJ3caiApknK3o0",
   authDomain: "beekeeping-8f7e6.firebaseapp.com",
@@ -24,3 +28,5 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const database = getFirestore();
 const analytics = getAnalytics(app);
+export const rdatabase = getDatabase(app);
+
