@@ -113,7 +113,7 @@ export default function ChatScreen({ route }) {
             });
         });
 
-        console.log('Admin Name:', adminName);
+      
       }
     } catch (error) {
       console.log('Error fetching admin name:', error);

@@ -57,7 +57,7 @@ export default function CityStatistics() {
   return (
     <View style={styles.container}>
       <View style={styles.halfCircle}>
-        <Text style={styles.title}>Stats for womens by city</Text>
+        <Text style={styles.title}>Keepers Population</Text>
       </View>
       <View style={styles.chartContainer}>
         <VictoryPie

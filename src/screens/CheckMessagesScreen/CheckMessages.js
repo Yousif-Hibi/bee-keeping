@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
+
+import { useFocusEffect } from '@react-navigation/native';
+
 import styles from "./styles";
+
 import {
   View,
   Text,
@@ -23,13 +27,16 @@ import {
 } from "firebase/firestore";
 import { database } from "../../../config/firebase";
 import { useNavigation } from "@react-navigation/native";
-
+import { useIsFocused } from '@react-navigation/native';
 export default function CheckMessages() {
   const [chatIDs, setChatIDs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigation = useNavigation();
   const [selectedUser, setSelectedUser] = useState(null);
+  const isFocused = useIsFocused();
+  const [refresh, setRefresh] = useState(false);
+
 
   useEffect(() => {
     const fetchChatIDs = async () => {
@@ -93,8 +100,6 @@ export default function CheckMessages() {
         filteredChatIDsData.sort((a, b) => {
           const timeA = a.lastMessage.createdAt;
           const timeB = b.lastMessage.createdAt;
-          console.log(timeA);
-          console.log(timeB);
           // First, sort by lastMessage.createdAt in descending order
           const sortByTime = timeB - timeA;
 
@@ -108,7 +113,7 @@ export default function CheckMessages() {
           return sortByTime;
         });
 
-        console.log(filteredChatIDsData);
+      
         setChatIDs(filteredChatIDsData);
         setLoading(false);
       } catch (error) {
@@ -122,6 +127,7 @@ export default function CheckMessages() {
 
   const handleChatPress = (item) => {
     const uid = item.uid;
+
     setSelectedUser(uid);
     navigation.navigate("ChatScreen", { uid });
   };
