@@ -25,13 +25,14 @@ export default{
         "backgroundColor": "#ffffff"
       },
       extra:{
-        apiKey: "AIzaSyBDxWaOapX03TXYUWDrxlJ3caiApknK3o0",
-        authDomain: "beekeeping-8f7e6.firebaseapp.com",
-        projectId: "beekeeping-8f7e6",
-        storageBucket: "beekeeping-8f7e6.appspot.com",
-        messagingSenderId: "43486883566",
-        appId: "1:43486883566:web:b512c45d93113b91548dff",
-        measurementId: "G-SZ0PL1ERZG"
+        apiKey: process.env.API_KEY,
+        authDomain: process.env.AUTH_DOMAIN,
+        projectId: process.env.PROJECT_ID,
+        storageBucket: process.env.STORAGE_BUCKET,
+        messagingSenderId: process.env.MESSAGING_SENDER_ID,
+        appId: process.env.APP_ID,
+        measurementId: process.env.MEASUREMENT_ID,
+      
       }
     }
   }
