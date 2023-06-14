@@ -8,6 +8,17 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     padding: 20,
   },
+  yearPickerContainer: {
+    backgroundColor: "white",
+    borderRadius: 5,
+    marginTop: 10,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  yearPicker: {
+    height: 40,
+    color: "black",
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",

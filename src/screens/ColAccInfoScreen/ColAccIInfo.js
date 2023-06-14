@@ -32,7 +32,7 @@ export default function ColAccInfo({ navigation, route }) {
   const [user, setUser] = useState(null);
   const [submitVisible, setSubmitVisible] = useState(false);
   const [createPressed, setCreatePressed] = useState(false);
-
+  const [years, setYears] = useState([]);
   useEffect(() => {
     const fetchUserData = async () => {
       const uid = auth.currentUser.uid; // Get the UID of the current user
@@ -77,11 +77,53 @@ export default function ColAccInfo({ navigation, route }) {
     const docRef = doc(database, "keepers", currentUser.uid);
 
     try {
+      const firestore = getFirestore();
+      const docRef = doc(firestore, "keepers", currentUser.uid);
+
       await updateDoc(docRef, {
         hiveIDs: arrayUnion(...tableData.map((rowData) => rowData.hiveID)),
-        Firstcollect: Firstcollect,
-        Secondcollect: Secondcollect,
+        year: {
+         
+          2022: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          } ,
+          2023: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          } ,
+           2024: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          } ,
+          2025: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          },
+          2026: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          },
+          2027: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          },
+          2028: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          },
+          2029: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          },
+          2030: {
+            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
+            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+          },
+        },
+    
       });
+
       console.log(
         "Bee hive IDs, Firstcollect, and Secondcollect added to Firestore"
       );
@@ -93,27 +135,51 @@ export default function ColAccInfo({ navigation, route }) {
       );
     }
   };
+  const addNumbersToYear2022 = (tableData) => {
+    const updatedTableData = [...tableData];
+
+    for (let i = 0; i < updatedTableData.length; i++) {
+      const yearData2022 = updatedTableData[i].year[2022];
+      yearData2022.Firstcollect.push(1, 2);
+      yearData2022.Secondcollect.push(3, 4);
+    }
+
+    return updatedTableData;
+  };
+
 
   const handleCreate = () => {
     console.log("Submit button pressed");
     console.log("Count:", count);
-    // Additional logic or navigation can be performed here
-    // Build the table based on the count
+
     const data = [];
-    const FirstcollectArr = Array(count).fill("");
-    const SecondcollectArr = Array(count).fill("");
+    const yearsArray = Array.from({ length: 9 }, (_, index) => 2022 + index);
+    const yearData = {};
+
+    for (const year of yearsArray) {
+      yearData[year] = {
+        Firstcollect: [1, 2, 3, 4, 5],
+        Secondcollect: [6, 7, 8, 9, 10],
+      };
+    }
+
     for (let i = 0; i < count; i++) {
+    
       data.push({
         hiveNum: i,
         hiveID: "",
+        year: yearData,
       });
     }
-    setTableData(data);
-    setFirstcollect(FirstcollectArr);
-    setSecondcollect(SecondcollectArr);
+
+
+    setTableData((prevData) => [...prevData, ...data]);
+    setYears(yearsArray);
     setSubmitVisible(true);
     setCreatePressed(true);
+ 
   };
+
 
   const handleRowInputChange = (index, fieldName, value) => {
     if (fieldName === "hiveNum" && tableData[index]["hiveNum"] !== "") {
