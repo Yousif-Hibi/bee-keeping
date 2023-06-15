@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     // marginTop: 5,
     textAlign: "left",
     marginLeft: 10,
-    alignItems: "left",
+  
   },
 });
 
