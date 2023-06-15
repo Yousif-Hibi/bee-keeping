@@ -80,48 +80,49 @@ export default function ColAccInfo({ navigation, route }) {
       const firestore = getFirestore();
       const docRef = doc(firestore, "keepers", currentUser.uid);
 
+      const FirstcollectArr = Array(5).fill("0");
+      const SecondcollectArr = Array(5).fill("0");
+
       await updateDoc(docRef, {
         hiveIDs: arrayUnion(...tableData.map((rowData) => rowData.hiveID)),
         year: {
-         
           2022: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
-          } ,
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
           2023: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
-          } ,
-           2024: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
-          } ,
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2024: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
           2025: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
           },
           2026: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
           },
           2027: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
           },
           2028: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
           },
           2029: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
           },
           2030: {
-            Firstcollect: Firstcollect.map((arr) => arrayUnion(...arr)),
-            Secondcollect: Secondcollect.map((arr) => arrayUnion(...arr)),
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
           },
         },
-    
       });
 
       console.log(
@@ -135,18 +136,6 @@ export default function ColAccInfo({ navigation, route }) {
       );
     }
   };
-  const addNumbersToYear2022 = (tableData) => {
-    const updatedTableData = [...tableData];
-
-    for (let i = 0; i < updatedTableData.length; i++) {
-      const yearData2022 = updatedTableData[i].year[2022];
-      yearData2022.Firstcollect.push(1, 2);
-      yearData2022.Secondcollect.push(3, 4);
-    }
-
-    return updatedTableData;
-  };
-
 
   const handleCreate = () => {
     console.log("Submit button pressed");
@@ -156,29 +145,33 @@ export default function ColAccInfo({ navigation, route }) {
     const yearsArray = Array.from({ length: 9 }, (_, index) => 2022 + index);
     const yearData = {};
 
+    const FirstcollectArr = Array(count).fill("").map((_, index) => `0${index}`);
+    const SecondcollectArr = Array(count).fill("").map((_, index) => `0${index}`);
+    for (let i = 0; i < 5; i++) {
+      FirstcollectArr.push("0");
+      SecondcollectArr.push("0");
+    }
     for (const year of yearsArray) {
       yearData[year] = {
-        Firstcollect: [1, 2, 3, 4, 5],
-        Secondcollect: [6, 7, 8, 9, 10],
+        Firstcollect: [...FirstcollectArr], // Initialize with strings containing '0' followed by the index
+        Secondcollect: [...SecondcollectArr], // Initialize with strings containing '0' followed by the index
       };
     }
 
     for (let i = 0; i < count; i++) {
-    
       data.push({
         hiveNum: i,
         hiveID: "",
-        year: yearData,
+        year: { ...yearData },
       });
     }
-
 
     setTableData((prevData) => [...prevData, ...data]);
     setYears(yearsArray);
     setSubmitVisible(true);
     setCreatePressed(true);
- 
   };
+
 
 
   const handleRowInputChange = (index, fieldName, value) => {

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image, Alert, ScrollView } from "react-native";
-import styles from "./styles";
+import { View, Text, TouchableOpacity, Image, Alert, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { ImageBackground } from "react-native";
 import { StatusBar } from "react-native";
-import { database } from "../../../config/firebase";
-import { auth } from "../../../config/firebase";
 import { getFirestore, doc, getDoc, deleteDoc } from "firebase/firestore";
 import { CheckBox } from "react-native-elements";
+import { database, auth } from "../../../config/firebase";
+import styles from "./styles";
 
 export default function UserInfoScreen({ navigation, route }) {
   const [isSignatureChecked, setIsSignatureChecked] = useState(false);
@@ -15,7 +14,7 @@ export default function UserInfoScreen({ navigation, route }) {
   const [isUserAdmin, setIsUserAdmin] = useState(false);
   const [showEditButton, setShowEditButton] = useState(false);
   const [user, setUser] = useState(null);
-  const [selectedYear, setSelectedYear] = useState("2021");
+  const [selectedYear, setSelectedYear] = useState("2023");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -124,7 +123,7 @@ export default function UserInfoScreen({ navigation, route }) {
           </View>
         </View>
 
-        <View style={styles.row2}>
+        <View style={styles.row}>
           {user && <Text style={styles.texts}>{user.payment}</Text>}
           <Text style={styles.label}>الرسوم:</Text>
         </View>
@@ -132,11 +131,6 @@ export default function UserInfoScreen({ navigation, route }) {
         <View style={styles.row}>
           {user && <Text style={styles.texts}>{user.hiveLocation}</Text>}
           <Text style={styles.label}>مكان تربية النحل:</Text>
-        </View>
-
-        <View style={styles.row2}>
-          {user && <Text style={styles.texts}>{user.hiveIDs.length}</Text>}
-          <Text style={styles.label}>عدد المناحل:</Text>
         </View>
 
         <View style={styles.row}>
@@ -150,7 +144,7 @@ export default function UserInfoScreen({ navigation, route }) {
           />
         </View>
 
-        <View style={styles.row2}>
+        <View style={styles.row}>
           <Text style={styles.label}>وصل استلام</Text>
           <CheckBox
             checked={isObtainChecked}
@@ -167,10 +161,17 @@ export default function UserInfoScreen({ navigation, route }) {
             onValueChange={handleYearChange}
             style={styles.picker}
           >
-            <Picker.Item label="2021" value="2024" />
+           
             <Picker.Item label="2022" value="2022" />
             <Picker.Item label="2023" value="2023" />
-            {/* Add more options for different years */}
+            <Picker.Item label="2024" value="2024" />
+            <Picker.Item label="2025" value="2025" />
+            <Picker.Item label="2026" value="2026" />
+            <Picker.Item label="2027" value="2027" />
+            <Picker.Item label="2028" value="2028" />
+            <Picker.Item label="2029" value="2029" />
+            <Picker.Item label="2030" value="2030" />
+           
           </Picker>
         </View>
 
@@ -186,16 +187,17 @@ export default function UserInfoScreen({ navigation, route }) {
             <View style={styles.tableRow} key={i}>
               <Text style={styles.tableCell}>{i + 1}</Text>
               <Text style={styles.tableCell}>{hiveID}</Text>
-              <Text style={styles.tableCell}>{user.year[selectedYear]?.Firstcollect?.[i] !== null ? user.year[selectedYear]?.Firstcollect?.[i] : 0}</Text>
-              <Text style={styles.tableCell}>{user.year[selectedYear]?.Secondcollect?.[i] !== null ? user.year[selectedYear]?.Secondcollect?.[i] : 0}</Text>
- </View>
+              <Text style={styles.tableCell}>
+                {user.year[selectedYear]?.Firstcollect?.[i] || 0}
+              </Text>
+              <Text style={styles.tableCell}>
+                {user.year[selectedYear]?.Secondcollect?.[i] || 0}
+              </Text>
+            </View>
           ))
         ) : (
           <Text>No hive IDs available.</Text>
         )}
-
-
-
 
         <TouchableOpacity
           style={styles.button}
@@ -222,7 +224,63 @@ export default function UserInfoScreen({ navigation, route }) {
             </TouchableOpacity>
           </View>
         )}
+
+        <StatusBar style="auto" />
       </ScrollView>
+      {showEditButton && (
+        <View style={styles.footer}>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("ColonySearchScreen")}
+          >
+            <Image
+              source={require("../../../assets/search-icon.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>ColonySearcn</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("CheckMessagesScreen")}
+          >
+            <Image
+              source={require("../../../assets/sendMassege.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>Messages</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("AddParticipantScreen")}
+          >
+            <Image
+              source={require("../../../assets/addicon.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>AddUser</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("StatisticsScreen")}
+          >
+            <Image
+              source={require("../../../assets/stat.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>Stats</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.footerButton}
+            onPress={() => handleFooterButtonPress("AdminInfoScreen")}
+          >
+            <Image
+              source={require("../../../assets/home.png")}
+              style={styles.footerIcon}
+            />
+            <Text style={styles.footerButtonText}>Home</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </ImageBackground>
   );
 }
