@@ -28,7 +28,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="HomeScreen" component={Home} />
         <Stack.Screen name="AdminInfoScreen" component={AdminInfo} />
         <Stack.Screen name="CheckerInfoScreen" component={CheckerInfo} />

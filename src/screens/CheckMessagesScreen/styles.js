@@ -1,119 +1,59 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    padding: 20,
+    padding: 16,
+    backgroundColor: "#f9f9f9",
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 20,
-    width: "100%",
-  },
-  button: {
-    borderRadius: 5,
-    padding: 10,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  buttonText: {
-    color: "balck",
-    fontWeight: "bold",
-  },
-  square: {
-    backgroundColor: "#FFD700",
-    borderRadius: 5,
-    padding: 10,
-    width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    marginTop: 10,
-  },
-  textRed: {
-    color: "red",
-  },
-  textBlue: {
-    color: "blue",
-  },
-  text: {
-    color: "black",
-    fontWeight: "bold",
-    fontSize: 20,
-    textAlign: "right",
-  },
-  image: {
-    width: 30,
-    height: 30,
-    textAlign: "left",
-  },
-  imagePop: {
-    width: "100%",
-    height: "90%",
-    textAlign: "left",
-  },
-  modalBackground: {
+  loadingContainer: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#FFFFFF",
   },
-  modalContent: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#fff",
-    padding: 20,
-    borderRadius: 10,
-    alignItems: "center",
+  flyingBee: {
+    width: 150,
+    height: 150,
+    marginTop: 16,
   },
-  modalText: {
+  itemContainer: {
+    backgroundColor: "#ffffff",
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 8,
+  },
+  itemSeparator: {
+    marginTop: 8,
+  },
+  itemName: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 8,
   },
-  buttonContainer: {
+  itemLastMessage: {
+    fontSize: 12,
+    color: "#888888",
+  },
+  footer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#f2f2f2",
+    height: 60,
+  },
+  footerButton: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
-  sendButton: {
-    backgroundColor: "#FFD700",
-    padding: 10,
-    borderRadius: 10,
-    overflow: "hidden",
-    marginRight: 10,
+  footerIcon: {
+    width: 24,
+    height: 24,
+    marginBottom: 5,
   },
-  closeButton: {
-    backgroundColor: "#FFD700",
-    padding: 10,
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-  inputContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: "#CCCCCC",
-    backgroundColor: "#ffffff",
+  footerButtonText: {
+    fontSize: 12,
   },
 });
 

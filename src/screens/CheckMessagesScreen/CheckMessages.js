@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import { useFocusEffect } from '@react-navigation/native';
+
+import styles from "./styles";
 
 import {
   View,
@@ -8,6 +11,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  ActivityIndicator,
   Image,
 } from "react-native";
 import {
@@ -123,13 +127,21 @@ export default function CheckMessages() {
 
   const handleChatPress = (item) => {
     const uid = item.uid;
-  
+
     setSelectedUser(uid);
     navigation.navigate("ChatScreen", { uid });
   };
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#000000" />
+        <Image
+          source={require("../../../assets/flying-bee.gif")}
+          style={styles.flyingBee}
+        />
+      </View>
+    );
   }
 
   if (error) {
@@ -167,7 +179,7 @@ export default function CheckMessages() {
             source={require("../../../assets/search-icon.png")}
             style={styles.footerIcon}
           />
-          <Text style={styles.footerButtonText}>ColonySearcn</Text>
+          <Text style={styles.footerButtonText}>ColonySearch</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -205,48 +217,3 @@ export default function CheckMessages() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#f9f9f9",
-  },
-  itemContainer: {
-    backgroundColor: "#ffffff",
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 8,
-  },
-  itemSeparator: {
-    marginTop: 8,
-  },
-  itemName: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  itemLastMessage: {
-    fontSize: 12,
-    color: "#888888",
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#f2f2f2",
-    height: 60,
-  },
-  footerButton: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  footerIcon: {
-    width: 24,
-    height: 24,
-    marginBottom: 5,
-  },
-  footerButtonText: {
-    fontSize: 12,
-  },
-});
