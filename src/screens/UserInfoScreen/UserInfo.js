@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Image, Alert, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ScrollView,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { ImageBackground } from "react-native";
 import { StatusBar } from "react-native";
@@ -177,7 +184,6 @@ export default function UserInfoScreen({ navigation, route }) {
             onValueChange={handleYearChange}
             style={styles.picker}
           >
-           
             <Picker.Item label="2022" value="2022" />
             <Picker.Item label="2023" value="2023" />
             <Picker.Item label="2024" value="2024" />
@@ -187,7 +193,6 @@ export default function UserInfoScreen({ navigation, route }) {
             <Picker.Item label="2028" value="2028" />
             <Picker.Item label="2029" value="2029" />
             <Picker.Item label="2030" value="2030" />
-           
           </Picker>
         </View>
 

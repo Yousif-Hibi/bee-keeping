@@ -80,8 +80,8 @@ export default function ColAccInfo({ navigation, route }) {
       const firestore = getFirestore();
       const docRef = doc(firestore, "keepers", currentUser.uid);
 
-      const FirstcollectArr = Array(5).fill("0");
-      const SecondcollectArr = Array(5).fill("0");
+      const FirstcollectArr = Array(count).fill("0");
+      const SecondcollectArr = Array(count).fill("0");
 
       await updateDoc(docRef, {
         hiveIDs: arrayUnion(...tableData.map((rowData) => rowData.hiveID)),
@@ -145,8 +145,12 @@ export default function ColAccInfo({ navigation, route }) {
     const yearsArray = Array.from({ length: 9 }, (_, index) => 2022 + index);
     const yearData = {};
 
-    const FirstcollectArr = Array(count).fill("").map((_, index) => `0${index}`);
-    const SecondcollectArr = Array(count).fill("").map((_, index) => `0${index}`);
+    const FirstcollectArr = Array(count)
+      .fill("")
+      .map((_, index) => `0${index}`);
+    const SecondcollectArr = Array(count)
+      .fill("")
+      .map((_, index) => `0${index}`);
     for (let i = 0; i < 5; i++) {
       FirstcollectArr.push("0");
       SecondcollectArr.push("0");
@@ -171,8 +175,6 @@ export default function ColAccInfo({ navigation, route }) {
     setSubmitVisible(true);
     setCreatePressed(true);
   };
-
-
 
   const handleRowInputChange = (index, fieldName, value) => {
     if (fieldName === "hiveNum" && tableData[index]["hiveNum"] !== "") {
@@ -229,7 +231,7 @@ export default function ColAccInfo({ navigation, route }) {
                       placeholder={index.toString()}
                       value={rowData.hiveNum}
                       onChangeText={(value) =>
-                        handleRowInputChange(index,  index.toString() , value)
+                        handleRowInputChange(index, index.toString(), value)
                       }
                       editable={rowData.hiveNum === ""}
                     />
