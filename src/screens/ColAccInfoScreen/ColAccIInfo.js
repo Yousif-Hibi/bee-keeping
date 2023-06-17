@@ -228,10 +228,10 @@ export default function ColAccInfo({ navigation, route }) {
                   <View style={styles.column}>
                     <TextInput
                       style={styles.input}
-                      placeholder="Enter hive num"
+                      placeholder={index.toString()}
                       value={rowData.hiveNum}
                       onChangeText={(value) =>
-                        handleRowInputChange(index, "index", value)
+                        handleRowInputChange(index, index.toString(), value)
                       }
                       editable={rowData.hiveNum === ""}
                     />

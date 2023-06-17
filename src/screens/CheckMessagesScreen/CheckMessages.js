@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from "@react-navigation/native";
 
 import styles from "./styles";
 
@@ -27,7 +27,7 @@ import {
 } from "firebase/firestore";
 import { database } from "../../../config/firebase";
 import { useNavigation } from "@react-navigation/native";
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from "@react-navigation/native";
 export default function CheckMessages() {
   const [chatIDs, setChatIDs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,6 @@ export default function CheckMessages() {
   const [selectedUser, setSelectedUser] = useState(null);
   const isFocused = useIsFocused();
   const [refresh, setRefresh] = useState(false);
-
 
   useEffect(() => {
     const fetchChatIDs = async () => {
@@ -61,35 +60,27 @@ export default function CheckMessages() {
             uid = uid1;
           }
 
-         
-           
+          let lastMessage = null;
 
-           
-            
-          
-              let lastMessage = null;
+          const existingChat = chatIDsData.find((chat) => chat.uid === uid);
 
-              const existingChat = chatIDsData.find((chat) => chat.uid === uid);
+          if (existingChat) {
+            // Update the existing chat's last message
 
-              if (existingChat) {
-                // Update the existing chat's last message
+            if (existingChat.lastMessage.createdAt < time) {
+              existingChat.lastMessage.createdAt = time;
+            }
+          } else {
+            // Add a new chat
+            chatIDsData.push({
+              id: docSnapshot.id,
+              name: name,
+              uid: uid,
 
-                if (existingChat.lastMessage.createdAt < time) {
-                  existingChat.lastMessage.createdAt = time;
-                }
-              } else {
-                // Add a new chat
-                chatIDsData.push({
-                  id: docSnapshot.id,
-                  name: name,
-                  uid: uid,
-                 
-                  lastMessage: lastMessage || { createdAt: time },
-                });
-                chatNames.add(name);
-              }
-            
-          
+              lastMessage: lastMessage || { createdAt: time },
+            });
+            chatNames.add(name);
+          }
         }
 
         const filteredChatIDsData = chatIDsData.filter((chat) => {
@@ -113,7 +104,6 @@ export default function CheckMessages() {
           return sortByTime;
         });
 
-      
         setChatIDs(filteredChatIDsData);
         setLoading(false);
       } catch (error) {
@@ -161,7 +151,7 @@ export default function CheckMessages() {
             onPress={() => handleChatPress(item)}
           >
             <Text style={styles.itemName}>{item.name}</Text>
-            {item.lastMessage && (
+            {item.lastMessage && item.lastMessage.createdAt && (
               <Text style={styles.itemLastMessage}>
                 Last Message: {item.lastMessage.createdAt.toDate().toString()}
               </Text>
@@ -216,4 +206,3 @@ export default function CheckMessages() {
     </View>
   );
 }
-
