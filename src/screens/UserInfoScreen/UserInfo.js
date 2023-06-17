@@ -86,19 +86,35 @@ export default function UserInfoScreen({ navigation, route }) {
     );
   };
 
+
   const confirmDeleteUser = async () => {
     const uid = route.params.uid;
     const userDocRef = doc(database, "keepers", uid);
 
     try {
+      // Delete user document
       await deleteDoc(userDocRef);
       console.log("User deleted successfully");
+
+      // Delete messages from chats collection
+      const chatsQuery = query(collection(database, "chats"));
+      const chatsSnapshot = await getDocs(chatsQuery);
+
+      chatsSnapshot.forEach(async (doc) => {
+        const data = doc.data();
+        if (data.id1 === uid || data.id2 === uid) {
+          await deleteDoc(doc.ref);
+          console.log("Message deleted successfully");
+        }
+      });
+
       // Show a success message or navigate to another screen if needed
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error deleting user or messages:", error);
       // Show an error message or handle the error appropriately
     }
   };
+
 
   const handleYearChange = (year) => {
     setSelectedYear(year);
