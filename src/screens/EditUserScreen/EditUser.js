@@ -63,8 +63,8 @@ export default function EditUserScreen({ navigation, route }) {
 
           const newTableData = keeper.hiveIDs.map((hiveID, index) => ({
             hiveIDs: hiveID,
-            Secondcollect: keeper.year[selectedYear]?.Secondcollect?.[index] ,
-            Firstcollect: keeper.year[selectedYear]?.Firstcollect?.[index] ,
+            Secondcollect: keeper.year[selectedYear]?.Secondcollect?.[index],
+            Firstcollect: keeper.year[selectedYear]?.Firstcollect?.[index],
           }));
 
           setTableData(newTableData);
@@ -131,11 +131,11 @@ export default function EditUserScreen({ navigation, route }) {
       updatedEditedData.year[selectedYear] = {}; // Create the selected year object if it doesn't exist
     }
 
-    if (key === 'Firstcollect') {
+    if (key === "Firstcollect") {
       updatedEditedData.year[selectedYear][key] = updatedTableData.map(
         (rowData) => rowData[key]
       );
-    } else if (key === 'Secondcollect') {
+    } else if (key === "Secondcollect") {
       updatedEditedData.year[selectedYear][key] = updatedTableData.map(
         (rowData) => rowData[key]
       );
@@ -143,7 +143,6 @@ export default function EditUserScreen({ navigation, route }) {
 
     setEditedData(updatedEditedData);
   };
-
 
   const handleYearChange = (itemValue) => {
     setSelectedYear(itemValue);
@@ -236,14 +235,15 @@ export default function EditUserScreen({ navigation, route }) {
             onValueChange={(value) => handleInputChange("obtain", value)}
           />
         </View>
-
+        <View style={styles.labelContainer}>
+          <Text style={styles.labelText}>Year:</Text>
+        </View>
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={selectedYear}
             onValueChange={handleYearChange}
             style={styles.picker}
           >
-
             <Picker.Item label="2022" value="2022" />
             <Picker.Item label="2023" value="2023" />
             <Picker.Item label="2024" value="2024" />
@@ -253,7 +253,6 @@ export default function EditUserScreen({ navigation, route }) {
             <Picker.Item label="2028" value="2028" />
             <Picker.Item label="2029" value="2029" />
             <Picker.Item label="2030" value="2030" />
-
           </Picker>
         </View>
         <View style={styles.tableContainer}>
@@ -268,18 +267,14 @@ export default function EditUserScreen({ navigation, route }) {
                 <Text style={styles.tableCell}>{hiveIDs}</Text>
                 <TextInput
                   style={styles.tableCell}
-                  value={
-                    editedData.year[selectedYear]?.Firstcollect?.[i]
-                  }
+                  value={editedData.year[selectedYear]?.Firstcollect?.[i]}
                   onChangeText={(value) =>
                     handleTableInputChange(i, "Firstcollect", value)
                   }
                 />
                 <TextInput
                   style={styles.tableCell}
-                  value={
-                    editedData.year[selectedYear]?.Secondcollect?.[i]
-                  }
+                  value={editedData.year[selectedYear]?.Secondcollect?.[i]}
                   onChangeText={(value) =>
                     handleTableInputChange(i, "Secondcollect", value)
                   }
@@ -289,8 +284,6 @@ export default function EditUserScreen({ navigation, route }) {
           ) : (
             <Text>No hive IDs available.</Text>
           )}
-
-
         </View>
 
         <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
