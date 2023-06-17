@@ -4,53 +4,46 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: "cover",
+    justifyContent: "center",
   },
   container: {
     flex: 1,
-    marginRight: 20,
-    marginLeft: 20,
-  },
-  pickerContainer: {
-    marginBottom: 5,
-  },
-  picker: {
-    width: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-  },
-  tableContainer: {
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 5,
-    padding: 10,
-    height: "80%",
-  },
-  tableTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    marginBottom: 10,
-  },
-  label: {
-    fontWeight: "bold",
-    marginRight: 10,
-    flex: 1,
-  },
-  buttonContainer: {
-    borderRadius: 5,
-    overflow: "hidden",
-
-    marginBottom: 5,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  circle: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: "rgba(255, 215, 0, 0.6)",
+    marginHorizontal: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   footer: {
     flexDirection: "row",
@@ -58,6 +51,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f2f2f2",
     height: 60,
+  },
+  pickerContainer: {
+    backgroundColor: "#FFED87",
+
+    marginBottom: 2,
+
+    borderRadius: 10,
+    padding: 3,
+    width: "100%",
+    borderColor: "#ccc",
   },
   footerButton: {
     flex: 1,
@@ -72,7 +75,6 @@ const styles = StyleSheet.create({
   footerButtonText: {
     fontSize: 12,
   },
-  value: { flex: 1 },
 });
 
 export default styles;

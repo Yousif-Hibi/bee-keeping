@@ -13,6 +13,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#f2f2f2",
     height: 60,
   },
+  pickerContainer: {
+    backgroundColor: "#FFED87",
+
+    marginBottom: 2,
+
+    borderRadius: 10,
+    padding: 3,
+    width: "100%",
+    borderColor: "#ccc",
+  },
   footerButton: {
     flex: 1,
     justifyContent: "center",
