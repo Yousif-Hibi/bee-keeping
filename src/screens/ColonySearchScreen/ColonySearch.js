@@ -149,11 +149,12 @@ export default function ColonySearch({ navigation }) {
               style={styles.columnHeaderContainer}
             >
               <Text style={styles.columnHeader}>Name</Text>
-              {nameSortOrder === "asc" && (
+              {nameSortOrder === "asc" ? (
                 <Text style={styles.sortArrow}>▲</Text>
-              )}
-              {nameSortOrder === "desc" && (
+              ) : nameSortOrder === "desc" ? (
                 <Text style={styles.sortArrow}>▼</Text>
+              ) : (
+                <Text style={styles.sortArrow1}>⇵</Text>
               )}
             </TouchableOpacity>
             <Text style={styles.columnHeader}>ID</Text>
@@ -162,11 +163,12 @@ export default function ColonySearch({ navigation }) {
               style={styles.columnHeaderContainer}
             >
               <Text style={styles.columnHeader}>Location</Text>
-              {locationSortOrder === "asc" && (
+              {locationSortOrder === "asc" ? (
                 <Text style={styles.sortArrow}>▲</Text>
-              )}
-              {locationSortOrder === "desc" && (
+              ) : locationSortOrder === "desc" ? (
                 <Text style={styles.sortArrow}>▼</Text>
+              ) : (
+                <Text style={styles.sortArrow1}>⇵</Text>
               )}
             </TouchableOpacity>
           </View>

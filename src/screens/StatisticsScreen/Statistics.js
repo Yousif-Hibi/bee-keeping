@@ -1,291 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
-  Text,
   View,
-  FlatList,
-  StyleSheet,
-  ImageBackground,
-  Button,
+  Text,
   TouchableOpacity,
+  ImageBackground,
   Image,
-  ScrollView,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { collection, getDocs } from "firebase/firestore";
-import { database } from "../../../config/firebase";
+import { StatusBar } from "react-native";
 import styles from "./styles";
-import { Picker } from "@react-native-picker/picker";
 
-export default function Statistics({ navigation }) {
-  const [selectedLocation, setSelectedLocation] = useState("");
-  const [averageFirstCollect, setAverageFirstCollect] = useState(0);
-  const [averageSecondCollect, setAverageSecondCollect] = useState(0);
-  const [averageCollect, setAverageCollect] = useState(0);
-  const [highestAverageFirstCollect, setHighestAverageFirstCollect] =
-    useState(0);
-  const [lowestAverageFirstCollect, setLowestAverageFirstCollect] = useState(0);
-  const [cityWithHighestFirstAvg, setCityWithHighestFirstAvg] = useState("");
-  const [cityWithLowestFirstAvg, setCityWithLowestFirstAvg] = useState("");
-  const [highestAverageSecondCollect, setHighestAverageSecondCollect] =
-    useState(0);
-  const [lowestAverageSecondCollect, setLowestAverageSecondCollect] =
-    useState(0);
-  const [cityWithHighestSecondAvg, setCityWithHighestSecondAvg] = useState("");
-  const [cityWithLowestSecondAvg, setCityWithLowestSecondAvg] = useState("");
-  const [highestAverageCollect, setHighestAverageCollect] = useState(0);
-  const [lowestAverageCollect, setLowestAverageCollect] = useState(0);
-  const [cityWithHighestAvg, setCityWithHighestAvg] = useState("");
-  const [cityWithLowestAvg, setCityWithLowestAvg] = useState("");
-
-  const cities = [
-    "Old City / البلدة القديمة",
-    "ras al amood / رأس العامود",
-    "Beit Hanina / بيت حنينا",
-    "Shuafat / شعفاط",
-    "Silwan / سلوان",
-    "Issawiya / العيسوية",
-    "Jabal Mukaber / جبل المكبر",
-    "Beit Safafa / بيت صفافا",
-    "Abu Tor / ثوري",
-    "Al Toor / الطور",
-    "Em toba / ام طوبة",
-    "Wadi el joz / وادي الجوز",
-    "Abu des / أبو ديس",
-    "Al Eizareya / العيزرية",
-    "Anata / مخيم أناتا",
-    "Zeayem / زعيم",
-    "Kofor Akab / كفر عقب",
-  ];
-
-  useEffect(() => {
-    const fetchUsersData = async () => {
-      const usersCollectionRef = collection(database, "keepers");
-
-      try {
-        const usersQuerySnapshot = await getDocs(usersCollectionRef);
-
-        const usersData = usersQuerySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            uid: doc.id,
-            name: data.name,
-            idNumber: data.idNumber,
-            location: data.location,
-            hiveid: data.hiveid,
-            Firstcollect: data.Firstcollect,
-            SecondCollect: data.Secondcollect,
-          };
-        });
-
-        const filteredData = selectedLocation
-          ? usersData.filter((user) => user.location === selectedLocation)
-          : usersData;
-
-        const allFirstCollectData = filteredData.flatMap(
-          (user) => user.Firstcollect
-        );
-
-        const allSecondCollectData = filteredData.flatMap(
-          (user) => user.SecondCollect
-        );
-
-        const averageFirstCollect = calculateAverage(allFirstCollectData);
-        const averageSecondCollect = calculateAverage(allSecondCollectData);
-        const averageCollect = (averageFirstCollect + averageSecondCollect) / 2;
-
-        setAverageFirstCollect(averageFirstCollect);
-        setAverageSecondCollect(averageSecondCollect);
-        setAverageCollect(averageCollect);
-
-        // Calculate highest and lowest averageFirstCollect***************************************************************************************
-        const averageFirstCollectsByCity = {};
-
-        usersData.forEach((user) => {
-          const city = user.location;
-          if (!averageFirstCollectsByCity[city]) {
-            averageFirstCollectsByCity[city] = [];
-          }
-          averageFirstCollectsByCity[city].push(...user.Firstcollect);
-        });
-
-        const averageFirstCollects = Object.values(
-          averageFirstCollectsByCity
-        ).map((data) => calculateAverage(data));
-
-        const highestAverageFirstCollect = Math.max(...averageFirstCollects);
-        const lowestAverageFirstCollect = Math.min(...averageFirstCollects);
-
-        setHighestAverageFirstCollect(highestAverageFirstCollect);
-        setLowestAverageFirstCollect(lowestAverageFirstCollect);
-
-        // Find the city with the highest and lowest average first collect
-        const cityWithHighestFirstAvg = Object.keys(
-          averageFirstCollectsByCity
-        ).filter(
-          (city) =>
-            calculateAverage(averageFirstCollectsByCity[city]) ===
-            highestAverageFirstCollect
-        );
-        const cityWithLowestFirstAvg = Object.keys(
-          averageFirstCollectsByCity
-        ).filter(
-          (city) =>
-            calculateAverage(averageFirstCollectsByCity[city]) ===
-            lowestAverageFirstCollect
-        );
-
-        setCityWithHighestFirstAvg(cityWithHighestFirstAvg);
-        setCityWithLowestFirstAvg(cityWithLowestFirstAvg);
-        //***************************************************************** */
-        const averageSecondCollectsByCity = {};
-
-        usersData.forEach((user) => {
-          const city = user.location;
-          if (!averageSecondCollectsByCity[city]) {
-            averageSecondCollectsByCity[city] = [];
-          }
-          averageSecondCollectsByCity[city].push(...user.SecondCollect);
-        });
-
-        const averageSecondCollects = Object.values(
-          averageSecondCollectsByCity
-        ).map((data) => calculateAverage(data));
-
-        const highestAverageSecondCollect = Math.max(...averageSecondCollects);
-        const lowestAverageSecondCollect = Math.min(...averageSecondCollects);
-
-        setHighestAverageSecondCollect(highestAverageSecondCollect);
-        setLowestAverageSecondCollect(lowestAverageSecondCollect);
-
-        // Find the city with the highest and lowest average first collect********************************************************************
-
-        const cityWithHighestSecondAvg = Object.keys(
-          averageSecondCollectsByCity
-        ).filter(
-          (city) =>
-            calculateAverage(averageSecondCollectsByCity[city]) ===
-            highestAverageSecondCollect
-        );
-        const cityWithLowestSecondAvg = Object.keys(
-          averageSecondCollectsByCity
-        ).filter(
-          (city) =>
-            calculateAverage(averageSecondCollectsByCity[city]) ===
-            lowestAverageSecondCollect
-        );
-
-        setCityWithHighestSecondAvg(cityWithHighestSecondAvg);
-        setCityWithLowestSecondAvg(cityWithLowestSecondAvg);
-        //**************************************************************************************************** */
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchUsersData();
-  }, [selectedLocation]);
-
-  const calculateAverage = (data) => {
-    if (data.length === 0) {
-      return 0; // Handle empty array case
-    }
-
-    const sum = data.reduce((acc, num) => {
-      const parsedNum = parseFloat(num);
-      return isNaN(parsedNum) ? acc : acc + parsedNum;
-    }, 0);
-
-    return sum / data.length;
-  };
-  const renderRow = (label, value) => {
-    return (
-      <View style={styles.row}>
-        <Text style={styles.label}>{label}</Text>
-        <Text style={styles.value}>{value}</Text>
-      </View>
-    );
-  };
-  const handleNavigateStatistics = () => {
-    navigation.navigate("CityStatisticsScreen");
-  };
+export default function AdminInfoScreen({ navigation }) {
   const handleFooterButtonPress = (screenName) => {
     navigation.navigate(screenName);
   };
   return (
     <ImageBackground
-      source={require("../../../assets/stats.jpg")}
-      style={[styles.background, { opacity: 0.7 }]}
+      source={require("../../../assets/beesbackground.jpg")}
+      style={styles.background}
     >
       <View style={styles.container}>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={selectedLocation}
-            style={styles.picker}
-            onValueChange={(value) => setSelectedLocation(value)}
+        <Text style={styles.title}>Statistics</Text>
+        <View style={styles.rowContainer}>
+          <TouchableOpacity
+            style={styles.circle}
+            onPress={() => navigation.navigate("CityStatsScreen")}
           >
-            <Picker.Item label="All Cities" value="" />
-            {cities.map((city) => (
-              <Picker.Item key={city} label={city} value={city} />
-            ))}
-          </Picker>
+            <Text style={styles.buttonText}>CityCollects Stats</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.circle}
+            onPress={() => navigation.navigate("AvgStatsScreen")}
+          >
+            <Text style={styles.buttonText}>Average Stats</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.circle}
+            onPress={() => navigation.navigate("CityStatisticsScreen")}
+          >
+            <Text style={styles.buttonText}>Keepers Stats</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            title="View City Statistics"
-            onPress={handleNavigateStatistics}
-            color="#007bff"
-          />
-        </View>
-        <View style={styles.tableContainer}>
-          <Text style={styles.tableTitle}>Statistics</Text>
-          {renderRow(
-            "Average First Collect:",
-            averageFirstCollect.toFixed(2) + "%"
-          )}
-          {renderRow(
-            "Average Second Collect:",
-            averageSecondCollect.toFixed(2) + "%"
-          )}
-          {renderRow("Average Collect:", averageCollect.toFixed(2) + "%")}
-          <FlatList
-            data={[
-              {
-                label: "Highest Average FirstCollect:",
-                value: highestAverageFirstCollect.toFixed(2) + "%",
-              },
-              {
-                label: "Cities Highest AVC:",
-                value: cityWithHighestFirstAvg,
-              },
-              {
-                label: "Lowest Average Firstcollect:",
-                value: lowestAverageFirstCollect.toFixed(2) + "%",
-              },
-              {
-                label: "City with Lowest Average Firstcollect:",
-                value: cityWithLowestFirstAvg,
-              },
-              {
-                label: "Highest Average Secondcollect:",
-                value: highestAverageSecondCollect.toFixed(2) + "%",
-              },
-              {
-                label: "City with Highest Average Secondcollect:",
-                value: cityWithHighestSecondAvg,
-              },
-              {
-                label: "Lowest Average Secondcollect:",
-                value: lowestAverageSecondCollect.toFixed(2) + "%",
-              },
-              {
-                label: "City with Lowest Average Secondcollect:",
-                value: cityWithLowestSecondAvg,
-              },
-            ]}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => renderRow(item.label, item.value)}
-          />
-        </View>
+        <StatusBar style="auto" />
       </View>
       <View style={styles.footer}>
         <TouchableOpacity
