@@ -161,7 +161,7 @@ export default function Statistics({ navigation }) {
     };
 
     fetchUsersData();
-  }, [selectedLocation]);
+  }, [selectedLocation, selectedYear]);
 
   const calculateAverage = (data) => {
     if (data.length === 0) {

@@ -59,7 +59,7 @@ export default function CityStatistics({ navigation }) {
     };
 
     fetchCityData();
-  }, []);
+  });
   const handleFooterButtonPress = (screenName) => {
     navigation.navigate(screenName);
   };
