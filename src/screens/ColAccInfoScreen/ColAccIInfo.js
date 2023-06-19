@@ -32,7 +32,7 @@ export default function ColAccInfo({ navigation, route }) {
   const [user, setUser] = useState(null);
   const [submitVisible, setSubmitVisible] = useState(false);
   const [createPressed, setCreatePressed] = useState(false);
-
+  const [years, setYears] = useState([]);
   useEffect(() => {
     const fetchUserData = async () => {
       const uid = auth.currentUser.uid; // Get the UID of the current user
@@ -77,11 +77,54 @@ export default function ColAccInfo({ navigation, route }) {
     const docRef = doc(database, "keepers", currentUser.uid);
 
     try {
+      const firestore = getFirestore();
+      const docRef = doc(firestore, "keepers", currentUser.uid);
+
+      const FirstcollectArr = Array(count).fill("0");
+      const SecondcollectArr = Array(count).fill("0");
+
       await updateDoc(docRef, {
         hiveIDs: arrayUnion(...tableData.map((rowData) => rowData.hiveID)),
-        Firstcollect: Firstcollect,
-        Secondcollect: Secondcollect,
+        year: {
+          2022: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2023: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2024: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2025: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2026: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2027: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2028: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2029: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+          2030: {
+            Firstcollect: [...FirstcollectArr],
+            Secondcollect: [...SecondcollectArr],
+          },
+        },
       });
+
       console.log(
         "Bee hive IDs, Firstcollect, and Secondcollect added to Firestore"
       );
@@ -97,20 +140,38 @@ export default function ColAccInfo({ navigation, route }) {
   const handleCreate = () => {
     console.log("Submit button pressed");
     console.log("Count:", count);
-    // Additional logic or navigation can be performed here
-    // Build the table based on the count
+
     const data = [];
-    const FirstcollectArr = Array(count).fill("");
-    const SecondcollectArr = Array(count).fill("");
+    const yearsArray = Array.from({ length: 9 }, (_, index) => 2022 + index);
+    const yearData = {};
+
+    const FirstcollectArr = Array(count)
+      .fill("")
+      .map((_, index) => `0${index}`);
+    const SecondcollectArr = Array(count)
+      .fill("")
+      .map((_, index) => `0${index}`);
+    for (let i = 0; i < 5; i++) {
+      FirstcollectArr.push("0");
+      SecondcollectArr.push("0");
+    }
+    for (const year of yearsArray) {
+      yearData[year] = {
+        Firstcollect: [...FirstcollectArr], // Initialize with strings containing '0' followed by the index
+        Secondcollect: [...SecondcollectArr], // Initialize with strings containing '0' followed by the index
+      };
+    }
+
     for (let i = 0; i < count; i++) {
       data.push({
         hiveNum: i,
         hiveID: "",
+        year: { ...yearData },
       });
     }
-    setTableData(data);
-    setFirstcollect(FirstcollectArr);
-    setSecondcollect(SecondcollectArr);
+
+    setTableData((prevData) => [...prevData, ...data]);
+    setYears(yearsArray);
     setSubmitVisible(true);
     setCreatePressed(true);
   };
@@ -167,10 +228,10 @@ export default function ColAccInfo({ navigation, route }) {
                   <View style={styles.column}>
                     <TextInput
                       style={styles.input}
-                      placeholder="Enter hive num"
+                      placeholder={index.toString()}
                       value={rowData.hiveNum}
                       onChangeText={(value) =>
-                        handleRowInputChange(index, "hiveNum", value)
+                        handleRowInputChange(index, index.toString(), value)
                       }
                       editable={rowData.hiveNum === ""}
                     />

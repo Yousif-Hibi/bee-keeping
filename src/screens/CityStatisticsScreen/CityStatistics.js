@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from "react-native";
 import { collection, getDocs } from "firebase/firestore";
 import { database } from "../../../config/firebase";
 import { VictoryPie } from "victory-native";
@@ -17,7 +24,7 @@ const colors = [
   "#FF3E96",
 ];
 
-export default function CityStatistics() {
+export default function CityStatistics({ navigation }) {
   const [cityData, setCityData] = useState([]);
 
   useEffect(() => {
@@ -53,40 +60,95 @@ export default function CityStatistics() {
 
     fetchCityData();
   }, []);
-
+  const handleFooterButtonPress = (screenName) => {
+    navigation.navigate(screenName);
+  };
   return (
-    <View style={styles.container}>
-      <View style={styles.halfCircle}>
-        <Text style={styles.title}>Stats for womens by city</Text>
+    <ImageBackground style={[styles.background, { opacity: 1 }]}>
+      <View style={styles.container}>
+        <View style={styles.halfCircle}>
+          <Text style={styles.title}>Keepers Population</Text>
+        </View>
+        <View style={styles.chartContainer}>
+          <VictoryPie
+            data={cityData}
+            x="city"
+            y="count"
+            colorScale={colors}
+            labels={({ datum }) => datum.count.toString()} // Display count as labels
+          />
+        </View>
+        <View style={styles.legendContainer}>
+          {cityData.map(({ city, count, color }) => (
+            <View key={city} style={styles.legendItem}>
+              <View style={[styles.colorSquare, { backgroundColor: color }]} />
+              <Text style={styles.legendText}>{city}</Text>
+              <Text style={styles.countText}>{count}</Text>
+            </View>
+          ))}
+        </View>
       </View>
-      <View style={styles.chartContainer}>
-        <VictoryPie
-          data={cityData}
-          x="city"
-          y="count"
-          colorScale={colors}
-          labels={({ datum }) => datum.count.toString()} // Display count as labels
-        />
+      <View style={styles.footer}>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("ColonySearchScreen")}
+        >
+          <Image
+            source={require("../../../assets/search-icon.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>ColonySearcn</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("CheckMessagesScreen")}
+        >
+          <Image
+            source={require("../../../assets/sendMassege.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>Messages</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("AddParticipantScreen")}
+        >
+          <Image
+            source={require("../../../assets/addicon.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>AddUser</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("StatisticsScreen")}
+        >
+          <Image
+            source={require("../../../assets/stat.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>Stats</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.footerButton}
+          onPress={() => handleFooterButtonPress("AdminInfoScreen")}
+        >
+          <Image
+            source={require("../../../assets/home.png")}
+            style={styles.footerIcon}
+          />
+          <Text style={styles.footerButtonText}>Home</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.legendContainer}>
-        {cityData.map(({ city, count, color }) => (
-          <View key={city} style={styles.legendItem}>
-            <View style={[styles.colorSquare, { backgroundColor: color }]} />
-            <Text style={styles.legendText}>{city}</Text>
-            <Text style={styles.countText}>{count}</Text>
-          </View>
-        ))}
-      </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fefcf1', // Add the background color here
+
+    backgroundColor: "#fefcf1",
   },
   chartContainer: {
     marginBottom: 20,
@@ -96,6 +158,29 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "#f2f2f2",
+    height: 60,
+  },
+  footerButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footerIcon: {
+    width: 24,
+    height: 24,
+    marginBottom: 5,
+  },
+  footerButtonText: {
+    fontSize: 12,
+  },
+  background: {
+    flex: 1,
   },
   legendItem: {
     flexDirection: "row",
@@ -119,18 +204,18 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     fontWeight: "bold",
-    color:"black",
+    color: "black",
   },
   halfCircle: {
     opacity: 0.8,
     marginLeft: 30,
-    width: '100%',
+    width: "100%",
     aspectRatio: 3, // Adjust the aspect ratio to change the curvature of the half circle
-    borderTopLeftRadius:200,
+    borderTopLeftRadius: 200,
     borderBottomLeftRadius: 200,
-    backgroundColor: '#f9e6b9', // Adjust the background color as desired
-    overflow: 'hidden',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#f9e6b9", // Adjust the background color as desired
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

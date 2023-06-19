@@ -41,6 +41,7 @@ export default function EditUserScreen({ navigation, route }) {
     "Zeayem / زعيم",
     "Kofor Akab / كفر عقب",
   ];
+  const [selectedYear, setSelectedYear] = useState("2023");
 
   useEffect(() => {
     const fetchKeeperData = async () => {
@@ -61,10 +62,11 @@ export default function EditUserScreen({ navigation, route }) {
           setEditedData(keeper);
 
           const newTableData = keeper.hiveIDs.map((hiveID, index) => ({
-            hiveID,
-            Secondcollect: keeper.Secondcollect[index],
-            Firstcollect: keeper.Firstcollect[index],
+            hiveIDs: hiveID,
+            Secondcollect: keeper.year[selectedYear]?.Secondcollect?.[index],
+            Firstcollect: keeper.year[selectedYear]?.Firstcollect?.[index],
           }));
+
           setTableData(newTableData);
         } else {
           console.log("Keeper not found");
@@ -105,7 +107,6 @@ export default function EditUserScreen({ navigation, route }) {
   if (!keeperData) {
     return <Text style={styles.loadingText}>Loading...</Text>;
   }
-
   const handleTableInputChange = (index, key, value) => {
     const updatedTableData = tableData.map((rowData, rowIndex) => {
       if (rowIndex === index) {
@@ -121,12 +122,30 @@ export default function EditUserScreen({ navigation, route }) {
 
     // Update editedData with the changes
     const updatedEditedData = { ...editedData };
-    updatedEditedData.hiveIDs[index] = updatedTableData[index].hiveID;
-    updatedEditedData.Secondcollect[index] =
-      updatedTableData[index].Secondcollect;
-    updatedEditedData.Firstcollect[index] =
-      updatedTableData[index].Firstcollect;
+
+    if (!updatedEditedData.year) {
+      updatedEditedData.year = {}; // Create the 'year' property if it doesn't exist
+    }
+
+    if (!updatedEditedData.year[selectedYear]) {
+      updatedEditedData.year[selectedYear] = {}; // Create the selected year object if it doesn't exist
+    }
+
+    if (key === "Firstcollect") {
+      updatedEditedData.year[selectedYear][key] = updatedTableData.map(
+        (rowData) => rowData[key]
+      );
+    } else if (key === "Secondcollect") {
+      updatedEditedData.year[selectedYear][key] = updatedTableData.map(
+        (rowData) => rowData[key]
+      );
+    }
+
     setEditedData(updatedEditedData);
+  };
+
+  const handleYearChange = (itemValue) => {
+    setSelectedYear(itemValue);
   };
 
   return (
@@ -216,39 +235,55 @@ export default function EditUserScreen({ navigation, route }) {
             onValueChange={(value) => handleInputChange("obtain", value)}
           />
         </View>
-
+        <View style={styles.labelContainer}>
+          <Text style={styles.labelText}>Year:</Text>
+        </View>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={selectedYear}
+            onValueChange={handleYearChange}
+            style={styles.picker}
+          >
+            <Picker.Item label="2022" value="2022" />
+            <Picker.Item label="2023" value="2023" />
+            <Picker.Item label="2024" value="2024" />
+            <Picker.Item label="2025" value="2025" />
+            <Picker.Item label="2026" value="2026" />
+            <Picker.Item label="2027" value="2027" />
+            <Picker.Item label="2028" value="2028" />
+            <Picker.Item label="2029" value="2029" />
+            <Picker.Item label="2030" value="2030" />
+          </Picker>
+        </View>
         <View style={styles.tableContainer}>
           <View style={styles.tableHeader}>
             <Text style={styles.tableHeaderText}>Hive ID</Text>
             <Text style={styles.tableHeaderText}>FirstCollect</Text>
             <Text style={styles.tableHeaderText}>SecondCollect</Text>
           </View>
-
-          {tableData.map((rowData, index) => (
-            <View style={styles.tableRow} key={index}>
-              <TextInput
-                style={styles.tableCell}
-                value={rowData.hiveID}
-                onChangeText={(value) =>
-                  handleTableInputChange(index, "hiveID", value)
-                }
-              />
-              <TextInput
-                style={styles.tableCell}
-                value={rowData.Firstcollect}
-                onChangeText={(value) =>
-                  handleTableInputChange(index, "Firstcollect", value)
-                }
-              />
-              <TextInput
-                style={styles.tableCell}
-                value={rowData.Secondcollect}
-                onChangeText={(value) =>
-                  handleTableInputChange(index, "Secondcollect", value)
-                }
-              />
-            </View>
-          ))}
+          {editedData && editedData.hiveIDs ? (
+            editedData.hiveIDs.map((hiveIDs, i) => (
+              <View style={styles.tableRow} key={i}>
+                <Text style={styles.tableCell}>{hiveIDs}</Text>
+                <TextInput
+                  style={styles.tableCell}
+                  value={editedData.year[selectedYear]?.Firstcollect?.[i]}
+                  onChangeText={(value) =>
+                    handleTableInputChange(i, "Firstcollect", value)
+                  }
+                />
+                <TextInput
+                  style={styles.tableCell}
+                  value={editedData.year[selectedYear]?.Secondcollect?.[i]}
+                  onChangeText={(value) =>
+                    handleTableInputChange(i, "Secondcollect", value)
+                  }
+                />
+              </View>
+            ))
+          ) : (
+            <Text>No hive IDs available.</Text>
+          )}
         </View>
 
         <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>

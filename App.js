@@ -24,6 +24,8 @@ import UserInfo from "./src/screens/UserInfoScreen/UserInfo";
 import EditUser from "./src/screens/EditUserScreen/EditUser";
 import UserCheckMessages from "./src/screens/UserCheckMassagesScreen/UserCheckMassages";
 import CityStatistics from "./src/screens/CityStatisticsScreen/CityStatistics";
+import CityStats from "./src/screens/CityStatsScreen/CityStats";
+import AvgStats from "./src/screens/AvgStatsScreen/AvgStats";
 const Stack = createStackNavigator();
 export default function App() {
   return (
@@ -45,6 +47,8 @@ export default function App() {
           component={UserCheckMessages}
         />
         <Stack.Screen name="CityStatisticsScreen" component={CityStatistics} />
+        <Stack.Screen name="CityStatsScreen" component={CityStats} />
+        <Stack.Screen name="AvgStatsScreen" component={AvgStats} />
       </Stack.Navigator>
     </NavigationContainer>
   );
